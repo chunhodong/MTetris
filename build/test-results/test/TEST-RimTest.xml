@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="RimTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2022-06-24T13:47:29" hostname="DESKTOP-9S20NUG" time="0.012">
+  <properties/>
+  <testcase name="tex()" classname="RimTest" time="0.012"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
