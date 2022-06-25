@@ -3,15 +3,21 @@ import java.awt.event.KeyListener;
 
 public class GameContainer {
 
-    public GameFrame gameFrame(){
+
+    private GameFrame gameFrame(){
         return new GameFrame(gamePanel(),keyListener());
     }
 
-    public GamePanel gamePanel(){
+    private GamePanel gamePanel(){
         return new GamePanel();
     }
 
-    public KeyListener keyListener(){
+    private KeyListener keyListener(){
         return new GameKeyHandler();
+    }
+
+    public void start(){
+        gameFrame();
+
     }
 }
