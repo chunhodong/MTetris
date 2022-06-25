@@ -1,5 +1,6 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.KeyListener;
 
 public class GameFrame extends JFrame {
 
@@ -14,12 +15,13 @@ public class GameFrame extends JFrame {
     //화면세로길이
     private int height = (int) (screen.height*0.72);
 
-    public GameFrame(){
-
+    public GameFrame(JPanel gamePanel, KeyListener keyListener){
         setLayout(null);
         setBounds(xPos,yPos,width,height);
         setResizable(false);
         setVisible(true);
+        add(gamePanel);
+        addKeyListener(keyListener);
 
     }
 }
