@@ -4,12 +4,16 @@ import java.awt.event.KeyListener;
 public class GameContainer {
 
 
+    private GamePanelOption gamePanelOption(){
+        return new GamePanelOption();
+    }
+
     private GameFrame gameFrame(){
         return new GameFrame(gamePanel(),keyListener());
     }
 
     private GamePanel gamePanel(){
-        return new GamePanel();
+        return new GamePanel(gamePanelOption());
     }
 
     private KeyListener keyListener(){
