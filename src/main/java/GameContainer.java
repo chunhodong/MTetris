@@ -17,7 +17,7 @@ public class GameContainer {
     }
 
     private KeyListener keyListener(){
-        return new GameKeyHandler();
+        return new GameKeyHandler(gamePanel());
     }
 
     public void start(){

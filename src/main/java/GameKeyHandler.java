@@ -3,6 +3,11 @@ import java.awt.event.KeyListener;
 
 public class GameKeyHandler implements KeyListener {
 
+    private GamePanel gamePanel;
+    public GameKeyHandler(GamePanel gamePanel){
+        this.gamePanel = gamePanel;
+
+    }
     @Override
     public void keyTyped(KeyEvent e) {
 
