@@ -1,23 +1,28 @@
-import javax.swing.plaf.basic.BasicTreeUI;
+
 import java.awt.event.KeyListener;
 
 public class GameContainer {
 
+    private GamePanelOption gamePanelOption;
+    private GamePanel gamePanel;
+    private GameFrame gameFrame;
+    private GameKeyHandler gameKeyHandler;
 
     private GamePanelOption gamePanelOption(){
-        return new GamePanelOption();
+        return gamePanelOption == null ? new GamePanelOption() : gamePanelOption;
     }
 
     private GameFrame gameFrame(){
-        return new GameFrame(gamePanel(),keyListener());
+        return gameFrame == null ? new GameFrame(gamePanel(),keyListener()) : gameFrame;
     }
 
     private GamePanel gamePanel(){
-        return new GamePanel(gamePanelOption());
+        return gamePanel == null ? new GamePanel(gamePanelOption()) : gamePanel;
+
     }
 
     private KeyListener keyListener(){
-        return new GameKeyHandler(gamePanel());
+        return gameKeyHandler == null ? new GameKeyHandler(gamePanel()) : null;
     }
 
     public void start(){
