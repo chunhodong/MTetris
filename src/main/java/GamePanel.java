@@ -16,6 +16,10 @@ public class GamePanel extends JPanel {
                 GameOption.displayHeight);
     }
 
+    /**
+     * 게임컴포넌트를 화면에 그림
+     * @param g 그래픽객체
+     */
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
@@ -39,7 +43,7 @@ public class GamePanel extends JPanel {
     }
 
     /**
-     * 그래픽객체가 게임화면을 그림
+     * 그래픽객체가 게임블록을 그림
      * @param g 그래픽객체
      */
     private void paintBlock(Graphics g){

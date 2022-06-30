@@ -4,15 +4,15 @@ import java.awt.event.KeyListener;
 
 public class GameFrame extends JFrame {
 
-    //x좌표
+    /*x좌표*/
     public final int xPos = 400;
-    //y좌표
+    /*y좌표*/
     public final int yPos = 100;
-    //화면크기
+    /*화면크기*/
     private Dimension screen=Toolkit.getDefaultToolkit().getScreenSize();
-    //화면가로길이
+    /*화면가로길이*/
     private int width = (int) (screen.width*0.4);
-    //화면세로길이
+    /*화면세로길이*/
     private int height = (int) (screen.height*0.72);
 
     public GameFrame(JPanel gamePanel, KeyListener keyListener){
