@@ -3,13 +3,13 @@ import java.awt.event.KeyListener;
 
 public class GameContainer {
 
-    private GamePanelOption gamePanelOption;
+    private GameOption gameOption;
     private GamePanel gamePanel;
     private GameFrame gameFrame;
     private GameKeyHandler gameKeyHandler;
 
-    private GamePanelOption gamePanelOption(){
-        return gamePanelOption == null ? new GamePanelOption() : gamePanelOption;
+    private GameOption gamePanelOption(){
+        return gameOption == null ? new GameOption() : gameOption;
     }
 
     private GameFrame gameFrame(){
@@ -17,7 +17,7 @@ public class GameContainer {
     }
 
     private GamePanel gamePanel(){
-        return gamePanel == null ? new GamePanel(gamePanelOption()) : gamePanel;
+        return gamePanel == null ? new GamePanel() : gamePanel;
 
     }
 
