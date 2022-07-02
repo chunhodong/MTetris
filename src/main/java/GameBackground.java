@@ -13,7 +13,7 @@ public class GameBackground {
      * 게임배경초기화
      */
     public void init(){
-        this.background = new int[GameOption.BOARD_WIDTH][GameOption.BOARD_HEIGHT];
+        this.background = new int[GameOption.BOARD_HEIGHT][GameOption.BOARD_WIDTH];
 
     }
 }

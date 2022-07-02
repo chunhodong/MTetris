@@ -4,23 +4,33 @@
 public class GameBlock {
 
 
-    private int [][][] blockShape;
-    private int distanceX;
-    private int distanceY;
-    private int blockShapeNumber;
+    /*블록모양세트*/
+    private int [][][] blockShapeSet;
+    /*블록타입*/
+    private int blockType;
+    /*블록번호*/
+    private int blockNumber;
+
+    private final int blockTypeSize = 7;
+
+    private int [][] blockArray;
+
+
 
     public void GameBlock(){
-        initBlockShape();
+        initBlock();
+        initBlockArray();
 
     }
 
     /**
      * 게임블록모양초기화
      */
-    public void initBlockShape(){
-        switch(blockShapeNumber){
+    public void initBlock(){
+        blockType = RandomUtils.nextInt(blockTypeSize);
+        switch(blockType){
             case 0:
-                blockShape=new int[][][]{
+                blockShapeSet=new int[][][]{
                         {
                                 {1,1,1,1},
                                 {0,0,0,0},
@@ -36,7 +46,7 @@ public class GameBlock {
                 };
                 break;
             case 1:
-                blockShape=new int[][][]{
+                blockShapeSet=new int[][][]{
                         {
                                 {0,1,1,0},
                                 {0,1,1,0},
@@ -46,7 +56,7 @@ public class GameBlock {
                 };
                 break;
             case 2:
-                blockShape=new int[][][]{
+                blockShapeSet=new int[][][]{
                         {
                                 {0,1,0,0},
                                 {1,1,1,0},
@@ -78,7 +88,7 @@ public class GameBlock {
                 };
                 break;
             case 3:
-                blockShape=new int[][][]{
+                blockShapeSet=new int[][][]{
                         {
                                 {0,0,1,0},
                                 {0,1,1,0},
@@ -94,7 +104,7 @@ public class GameBlock {
                 };
                 break;
             case 4:
-                blockShape=new int[][][]{
+                blockShapeSet=new int[][][]{
                         {
                                 {0,1,0,0},
                                 {0,1,1,0},
@@ -110,7 +120,7 @@ public class GameBlock {
                 };
                 break;
             case 5:
-                blockShape=new int[][][]{
+                blockShapeSet=new int[][][]{
                         {
                                 {1,1,1,0},
                                 {0,0,1,0},
@@ -138,7 +148,7 @@ public class GameBlock {
                 };
                 break;
             case 6:
-                blockShape=new int[][][]{
+                blockShapeSet=new int[][][]{
                         {
                                 {0,1,1,1},
                                 {0,1,0,0},
@@ -166,9 +176,22 @@ public class GameBlock {
                 };
                 break;
         }
-
+        blockNumber = RandomUtils.nextInt(blockShapeSet.length);
 
     }
 
+
+    public void initBlockArray(){
+        blockArray = new int[GameOption.BOARD_HEIGHT][GameOption.BOARD_WIDTH];
+        int[][] blockShape = blockShapeSet[blockNumber];
+
+        for(int i = 0; i < blockShape.length; i++){
+            for(int j = 0; j < blockShape.length; j++){
+                if(blockShape[i][j] == 1){
+                    blockArray[i][j] = 1;
+                }
+            }
+        }
+    }
 
 }
