@@ -15,7 +15,7 @@ public class GameFrame extends JFrame {
     /*화면세로길이*/
     private int height = (int) (screen.height*0.72);
 
-    public GameFrame(JPanel gamePanel, KeyListener keyListener){
+    public GameFrame(JPanel gamePanel,KeyListener keyListener){
         setLayout(null);
         setBounds(xPos,yPos,width,height);
         setResizable(false);

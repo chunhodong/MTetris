@@ -3,14 +3,12 @@ import java.awt.event.KeyListener;
 
 public class GameContainer {
 
-    private GameOption gameOption;
     private GamePanel gamePanel;
     private GameFrame gameFrame;
     private GameKeyHandler gameKeyHandler;
+    private GameController gameController;
 
-    private GameOption gamePanelOption(){
-        return gameOption == null ? new GameOption() : gameOption;
-    }
+
 
     private GameFrame gameFrame(){
         return gameFrame == null ? new GameFrame(gamePanel(),keyListener()) : gameFrame;
@@ -21,8 +19,12 @@ public class GameContainer {
 
     }
 
+    private GameController gameController(){
+        return gameController == null ? new GameController(gamePanel()) : gameController;
+    }
+
     private KeyListener keyListener(){
-        return gameKeyHandler == null ? new GameKeyHandler(gamePanel()) : null;
+        return gameKeyHandler == null ? new GameKeyHandler(gameController()) : null;
     }
 
     public void start(){

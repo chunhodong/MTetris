@@ -3,9 +3,9 @@ import java.awt.event.KeyListener;
 
 public class GameKeyHandler implements KeyListener {
 
-    private GamePanel gamePanel;
-    public GameKeyHandler(GamePanel gamePanel){
-        this.gamePanel = gamePanel;
+    private GameController controller;
+    public GameKeyHandler(GameController controller){
+        this.controller = controller;
 
     }
     @Override
@@ -16,10 +16,11 @@ public class GameKeyHandler implements KeyListener {
     @Override
     public void keyPressed(KeyEvent e) {
 
+
     }
 
     @Override
     public void keyReleased(KeyEvent e) {
-
+        this.controller.startGame();
     }
 }

@@ -7,6 +7,7 @@ public class GameBlock {
     private int blockShapeNumber;
 
     public void GameBlock(){
+        initBlockShape();
 
     }
 
