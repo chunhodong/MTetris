@@ -1,3 +1,6 @@
+/**
+ * 게임에 필요한 옵션값
+ */
 public class GameOption {
 
     /*게임화면 시작X좌표*/

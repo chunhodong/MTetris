@@ -14,6 +14,8 @@ public class GameController {
     public void initGame(){
         gameBackground = new GameBackground();
         gameBlock = new GameBlock();
+        this.gamePanel.setGameBackground(gameBackground);
+        this.gamePanel.setGameBlock(gameBlock);
     }
 
     public void initTimer(){

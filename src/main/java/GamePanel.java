@@ -1,6 +1,9 @@
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * 게임배경,게임블록등을 그래픽객체로 그려서 화면에출력
+ */
 public class GamePanel extends JPanel {
 
 
@@ -19,10 +22,19 @@ public class GamePanel extends JPanel {
                 GameOption.DISPLAY_HEIGHT);
     }
 
+    /**
+     * 게임배경데이터초기화
+     * @param gameBackground 게임배경
+     */
     public void setGameBackground(GameBackground gameBackground){
         this.gameBackground = gameBackground;
 
     }
+
+    /**
+     * 게임블록데이터초기화
+     * @param gameBlock 게임블록
+     */
     public void setGameBlock(GameBlock gameBlock){
         this.gameBlock = gameBlock;
 

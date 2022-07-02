@@ -4,6 +4,7 @@ import java.awt.event.KeyListener;
 public class GameKeyHandler implements KeyListener {
 
     private GameController controller;
+
     public GameKeyHandler(GameController controller){
         this.controller = controller;
 

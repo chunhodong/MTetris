@@ -1,3 +1,6 @@
+/**
+ * 게임배경데이터
+ */
 public class GameBackground {
 
     private int[][] background;

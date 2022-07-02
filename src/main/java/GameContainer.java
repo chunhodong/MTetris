@@ -1,11 +1,18 @@
 
 import java.awt.event.KeyListener;
 
+/**
+ * 게임컴포넌트들을 조립
+ */
 public class GameContainer {
 
+    /*게임판*/
     private GamePanel gamePanel;
+    /*게임프레임*/
     private GameFrame gameFrame;
+    /*게임키보드*/
     private GameKeyHandler gameKeyHandler;
+    /*게임컨트롤러*/
     private GameController gameController;
 
 

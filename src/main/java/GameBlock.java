@@ -1,3 +1,6 @@
+/**
+ * 게임블록데이터
+ */
 public class GameBlock {
 
 
