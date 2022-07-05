@@ -200,8 +200,6 @@ public class GameBlock {
     private void initBlockColor(){
         Color[] colorArray = new Color[]{Color.BLUE,Color.ORANGE,Color.PINK,Color.RED,Color.ORANGE,Color.YELLOW};
         blockColor = colorArray[new Random().nextInt(6)];
-
-        
     }
 
     /**
@@ -215,6 +213,7 @@ public class GameBlock {
             for(int j = 0; j < blockShape.length; j++){
                 if(blockShape[i][j] == 1){
                     blockArray[i][j + 4] = 1;
+                    blockColorArray[i][j + 4] = blockColor;
                 }
             }
         }
