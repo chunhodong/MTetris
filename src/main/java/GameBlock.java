@@ -22,7 +22,7 @@ public class GameBlock {
 
 
 
-    public void GameBlock(){
+    public GameBlock(){
         initBlock();
     }
 
@@ -230,6 +230,29 @@ public class GameBlock {
             }
         }
     }
+
+    /**
+     * 입력값에 해당하는 배열위치에 블록값이 존재하는지여부
+     * @param i 블록X좌표
+     * @param j 블록Y좌표
+     * @return  블록요소존재여부
+     */
+    public boolean hasBlockElement(int i,int j){
+        return this.blockElementPosition[i][j] == 1;
+    }
+
+    /**
+     * 블록색상값 응답
+     * @param i 블록X좌표
+     * @param j 블록Y좌표
+     * @return 해당위치에 블록 색상값
+     */
+    public Color getBlockColor(int i,int j){
+        
+        return this.blockColorPosition[i][j];
+    }
+    
+    
 
 
 

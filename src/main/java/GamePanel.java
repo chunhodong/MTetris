@@ -72,14 +72,18 @@ public class GamePanel extends JPanel {
      * @param g 그래픽객체
      */
     private void paintBlock(Graphics g){
+
+
+        if(this.gameBlock == null)return;
+
         for(int i=0;i<20;i++){
-            for(int j=0;j<20;j++){
-                g.setColor(Color.red);
-                g.fillRect(j* GameOption.BOX_SIZE,
-                        i* GameOption.BOX_SIZE,
-                        GameOption.BOX_SIZE, GameOption.BOX_SIZE);
-                g.setColor(Color.white);
-                g.drawRect(j* GameOption.BOX_SIZE, i* GameOption.BOX_SIZE, GameOption.BOX_SIZE, GameOption.BOX_SIZE);
+            for(int j=0;j<10;j++){
+                if(this.gameBlock.hasBlockElement(i,j)) {
+                    g.setColor(this.gameBlock.getBlockColor(i,j));
+                    g.fillRect(j * GameOption.BOX_SIZE, i * GameOption.BOX_SIZE, GameOption.BOX_SIZE, GameOption.BOX_SIZE);
+                    g.setColor(Color.white);
+                    g.drawRect(j * GameOption.BOX_SIZE, i * GameOption.BOX_SIZE, GameOption.BOX_SIZE, GameOption.BOX_SIZE);
+                }
             }
         }
     }

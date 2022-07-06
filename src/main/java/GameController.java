@@ -18,14 +18,11 @@ public class GameController {
         this.gamePanel.setGameBlock(gameBlock);
     }
 
-    public void initTimer(){
-
-    }
 
     public void startGame(){
         initGame();
-
     }
+
     
     
 }

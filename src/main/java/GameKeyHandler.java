@@ -17,11 +17,16 @@ public class GameKeyHandler implements KeyListener {
     @Override
     public void keyPressed(KeyEvent e) {
 
+        if(e.getKeyCode() == KeyEvent.VK_F1){
+            this.controller.startGame();
+
+        }
+
 
     }
 
     @Override
     public void keyReleased(KeyEvent e) {
-        this.controller.startGame();
+
     }
 }
