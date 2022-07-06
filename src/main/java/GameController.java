@@ -1,3 +1,7 @@
+import java.sql.Time;
+import java.util.Timer;
+import java.util.TimerTask;
+
 public class GameController {
     
     private GameBackground gameBackground;
@@ -16,12 +20,24 @@ public class GameController {
         gameBlock = new GameBlock();
         this.gamePanel.setGameBackground(gameBackground);
         this.gamePanel.setGameBlock(gameBlock);
+
     }
 
 
     public void startGame(){
+
+
         initGame();
+        TetrisTimer ax = new TetrisTimer(this.gamePanel);
+
+        Timer t = new Timer();
+
+        t.schedule(ax,0,2000);
+
     }
+
+
+
 
     
     

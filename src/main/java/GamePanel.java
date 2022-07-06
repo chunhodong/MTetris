@@ -45,8 +45,9 @@ public class GamePanel extends JPanel {
      * 게임컴포넌트를 화면에 그림
      * @param g 그래픽객체
      */
-    @Override
-    protected void paintComponent(Graphics g) {
+    public void paintComponent(Graphics g) {
+        System.out.println("pc");
+
         super.paintComponent(g);
         paintBackground(g);
         paintBlock(g);
@@ -73,6 +74,7 @@ public class GamePanel extends JPanel {
      */
     private void paintBlock(Graphics g){
 
+        System.out.println("gg");
 
         if(this.gameBlock == null)return;
 
