@@ -28,12 +28,17 @@ public class GameController {
 
 
         initGame();
-        TetrisTimer ax = new TetrisTimer(this.gamePanel);
+        new Timer().schedule(new TimerTask() {
+            @Override
+            public void run() {
+                repaintGame();
+            }
+        }, 0, 2000);
 
-        Timer t = new Timer();
+    }
 
-        t.schedule(ax,0,2000);
-
+    public void repaintGame(){
+        this.gamePanel.repaint();
     }
 
 

@@ -46,8 +46,6 @@ public class GamePanel extends JPanel {
      * @param g 그래픽객체
      */
     public void paintComponent(Graphics g) {
-        System.out.println("pc");
-
         super.paintComponent(g);
         paintBackground(g);
         paintBlock(g);
@@ -74,7 +72,6 @@ public class GamePanel extends JPanel {
      */
     private void paintBlock(Graphics g){
 
-        System.out.println("gg");
 
         if(this.gameBlock == null)return;
 

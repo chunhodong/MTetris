@@ -202,15 +202,17 @@ public class GameBlock {
         Color blockColor = colorArray[new Random().nextInt(6)];
         int[][] blockShape = this.blockShapeSet[this.blockNumber];
 
+
         for(int i = 0; i < blockShape.length; i++){
             for(int j = 0; j < blockShape.length; j++){
                 if(blockShape[i][j] == 1){
                     this.blockColorPosition[i][j + 3] = blockColor;
                 }
-                else
-                    this.blockColorPosition[i][j] = Color.BLACK;
             }
         }
+
+
+
 
 
     }
@@ -229,6 +231,9 @@ public class GameBlock {
                 }
             }
         }
+
+
+
     }
 
     /**
