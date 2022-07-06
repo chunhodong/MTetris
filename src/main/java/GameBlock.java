@@ -205,7 +205,7 @@ public class GameBlock {
         for(int i = 0; i < blockShape.length; i++){
             for(int j = 0; j < blockShape.length; j++){
                 if(blockShape[i][j] == 1){
-                    this.blockColorPosition[i][j + 4] = blockColor;
+                    this.blockColorPosition[i][j + 3] = blockColor;
                 }
                 else
                     this.blockColorPosition[i][j] = Color.BLACK;
@@ -225,7 +225,7 @@ public class GameBlock {
         for(int i = 0; i < blockShape.length; i++){
             for(int j = 0; j < blockShape.length; j++){
                 if(blockShape[i][j] == 1){
-                    this.blockElementPosition[i][j + 4] = 1;
+                    this.blockElementPosition[i][j + 3] = 1;
                 }
             }
         }
