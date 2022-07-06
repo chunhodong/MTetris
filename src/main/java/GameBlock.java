@@ -16,17 +16,14 @@ public class GameBlock {
     /*블록모양타입*/
     private final int blockTypeSize = 7;
     /*블록배열*/
-    private int [][] blockArray;
+    private int [][] blockElementPosition;
     
-    private Color[][] blockColorArray;
+    private Color[][] blockColorPosition;
 
-    private Color blockColor;
 
 
     public void GameBlock(){
         initBlock();
-        initBlockArray();
-
     }
 
     /**
@@ -34,7 +31,8 @@ public class GameBlock {
      */
     public void initBlock(){
         initBlockShape();
-        initBlockColor();
+        initBlockColorPosition();
+        initBlockElementPosition();
 
     }
 
@@ -197,30 +195,42 @@ public class GameBlock {
     /**
      * 게임블록색초기화
      */
-    private void initBlockColor(){
+    private void initBlockColorPosition(){
+        this.blockColorPosition = new Color[GameOption.BOARD_HEIGHT][GameOption.BOARD_WIDTH];
+
         Color[] colorArray = new Color[]{Color.BLUE,Color.ORANGE,Color.PINK,Color.RED,Color.ORANGE,Color.YELLOW};
-        blockColor = colorArray[new Random().nextInt(6)];
+        Color blockColor = colorArray[new Random().nextInt(6)];
+        int[][] blockShape = this.blockShapeSet[this.blockNumber];
+
+        for(int i = 0; i < blockShape.length; i++){
+            for(int j = 0; j < blockShape.length; j++){
+                if(blockShape[i][j] == 1){
+                    this.blockColorPosition[i][j + 4] = blockColor;
+                }
+                else
+                    this.blockColorPosition[i][j] = Color.BLACK;
+            }
+        }
+
+
     }
 
     /**
      * 블록배열초기화
      */
-    public void initBlockArray(){
-        blockArray = new int[GameOption.BOARD_HEIGHT][GameOption.BOARD_WIDTH];
-        int[][] blockShape = blockShapeSet[blockNumber];
+    public void initBlockElementPosition(){
+        this.blockElementPosition = new int[GameOption.BOARD_HEIGHT][GameOption.BOARD_WIDTH];
+        int[][] blockShape = this.blockShapeSet[this.blockNumber];
 
         for(int i = 0; i < blockShape.length; i++){
             for(int j = 0; j < blockShape.length; j++){
                 if(blockShape[i][j] == 1){
-                    blockArray[i][j + 4] = 1;
-                    blockColorArray[i][j + 4] = blockColor;
+                    this.blockElementPosition[i][j + 4] = 1;
                 }
             }
         }
     }
 
-    public void rotateBlock(){
 
-    }
 
 }
