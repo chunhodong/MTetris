@@ -19,15 +19,15 @@ public class GameKeyHandler implements KeyListener {
 
         if(e.getKeyCode() == KeyEvent.VK_F1){
             this.controller.startGame();
-
         }
 
         if(e.getKeyCode() == KeyEvent.VK_RIGHT){
-            System.out.println("rr");
-            this.controller.callToMovingBlock();
-
+            this.controller.requestMoveBlockHorizontal(GameBlock.Direction.RIGHT);
         }
 
+        if(e.getKeyCode() == KeyEvent.VK_LEFT){
+            this.controller.requestMoveBlockHorizontal(GameBlock.Direction.LEFT);
+        }
     }
 
     @Override

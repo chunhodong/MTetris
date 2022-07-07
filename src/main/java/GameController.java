@@ -1,4 +1,5 @@
-import java.sql.Time;
+import java.awt.*;
+import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -41,8 +42,12 @@ public class GameController {
         this.gamePanel.repaint();
     }
 
-    public void callToMovingBlock(){
-        this.gameBlock.moveToRight();
+    public void requestMoveBlockHorizontal(GameBlock.Direction direction){
+        ArrayList<Point> points = this.gameBlock.getMovablePosition(direction);
+        boolean isEnable = this.gameBackground.isEnableAdd(points);
+        if(isEnable)
+            this.gameBlock.moveToBlock(points);
+
     }
 
 
