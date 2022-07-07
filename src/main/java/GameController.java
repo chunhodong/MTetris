@@ -41,6 +41,10 @@ public class GameController {
         this.gamePanel.repaint();
     }
 
+    public void callToMovingBlock(){
+        this.gameBlock.moveToRight();
+    }
+
 
 
 

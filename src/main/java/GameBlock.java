@@ -1,4 +1,5 @@
 import java.awt.*;
+import java.util.ArrayList;
 import java.util.Random;
 
 /**
@@ -19,6 +20,7 @@ public class GameBlock {
     private int [][] blockElementPosition;
     
     private Color[][] blockColorPosition;
+    private Color blockColor;
 
 
 
@@ -199,14 +201,14 @@ public class GameBlock {
         this.blockColorPosition = new Color[GameOption.BOARD_HEIGHT][GameOption.BOARD_WIDTH];
 
         Color[] colorArray = new Color[]{Color.BLUE,Color.ORANGE,Color.PINK,Color.RED,Color.ORANGE,Color.YELLOW};
-        Color blockColor = colorArray[new Random().nextInt(6)];
+        this.blockColor = colorArray[new Random().nextInt(6)];
         int[][] blockShape = this.blockShapeSet[this.blockNumber];
 
 
         for(int i = 0; i < blockShape.length; i++){
             for(int j = 0; j < blockShape.length; j++){
                 if(blockShape[i][j] == 1){
-                    this.blockColorPosition[i][j + 3] = blockColor;
+                    this.blockColorPosition[i][j + 3] = this.blockColor;
                 }
             }
         }
@@ -256,7 +258,40 @@ public class GameBlock {
         
         return this.blockColorPosition[i][j];
     }
-    
+
+
+    public void moveToRight(){
+
+        ArrayList<Point> pointList = new ArrayList<Point>();
+        for(int i = 0; i < blockElementPosition.length; i++){
+            for(int j = 0; j < blockElementPosition[i].length; j++){
+                if(blockElementPosition[i][j] == 1){
+                    if(j + 1 >= blockElementPosition[i].length)return;
+                    else {
+                        Point point = new Point();
+                        point.setLocation(i,j+1);
+                        pointList.add(point);
+
+                    }
+                }
+            }
+        }
+        this.blockColorPosition = new Color[GameOption.BOARD_HEIGHT][GameOption.BOARD_WIDTH];
+        for(int i = 0; i < blockElementPosition.length; i++){
+            for(int j = 0; j < blockElementPosition[i].length; j++){
+                blockElementPosition[i][j] = 0;
+            }
+        }
+        pointList.stream().forEach(point -> {
+            this.blockElementPosition[(int)point.getX()][(int)point.getY()] = 1;
+            this.blockColorPosition[(int)point.getX()][(int)point.getY()] = this.blockColor;
+
+        });
+
+
+
+
+    }
     
 
 

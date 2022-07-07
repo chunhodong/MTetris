@@ -22,6 +22,11 @@ public class GameKeyHandler implements KeyListener {
 
         }
 
+        if(e.getKeyCode() == KeyEvent.VK_RIGHT){
+            System.out.println("rr");
+            this.controller.callToMovingBlock();
+
+        }
 
     }
 
