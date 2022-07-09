@@ -20,6 +20,11 @@ public class GameBackground {
 
     }
 
+    /**
+     * 게임판에서 블록이 추가될수있는지 체크
+     * @param blockPoints 블록위치배열
+     * @return 게임판추가여부
+     */
     public boolean isEnableAdd(ArrayList<Point> blockPoints){
         return blockPoints.stream()
                 .filter(point -> point.getY() < GameOption.BOARD_WIDTH)
