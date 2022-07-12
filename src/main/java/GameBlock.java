@@ -220,7 +220,6 @@ public class GameBlock {
         this.blockColor = colorArray[new Random().nextInt(6)];
         int[][] blockShape = this.blockShapeSet[this.blockNumber];
 
-
         for(int i = 0; i < blockShape.length; i++){
             for(int j = 0; j < blockShape.length; j++){
                 if(blockShape[i][j] == 1){
@@ -228,11 +227,6 @@ public class GameBlock {
                 }
             }
         }
-
-
-
-
-
     }
 
     /**
@@ -249,9 +243,6 @@ public class GameBlock {
                 }
             }
         }
-
-
-
     }
 
     /**
@@ -264,27 +255,46 @@ public class GameBlock {
         return this.blockElementPosition[i][j] == 1;
     }
 
+
     /**
-     * 블록색상값 응답
-     * @param i 블록X좌표
-     * @param j 블록Y좌표
-     * @return 해당위치에 블록 색상값
+     * 현재 블록색상
+     * @return 블록생상
      */
-    public Color getBlockColor(int i,int j){
-        
-        return this.blockColorPosition[i][j];
+    public Color getCurrentBlockColor(){
+        return this.blockColor;
     }
 
+    /**
+     * 현재 블록위치값 조회
+     * @return 블록위치배열
+     */
+    public ArrayList<Point> getCurrentBlockPosition(){
+        ArrayList<Point> pointList = new ArrayList<>();
+        for(int i = 0; i < blockElementPosition.length; i++){
+            for(int j = 0; j < blockElementPosition[i].length; j++){
+                if(blockElementPosition[i][j] == 1){
+                    pointList.add(new Point(i,j));
+                }
+            }
+        }
+        return pointList;
+    }
+
+
+    /**
+     * 입력방향으로 이동한 블록위치 조회
+     * @param direction 이동방향(좌,우,아래)
+     * @return 블록위치배열
+     */
     public ArrayList<Point> getMovablePosition(Direction direction){
         ArrayList<Point> pointList = new ArrayList<>();
         for(int i = 0; i < blockElementPosition.length; i++){
             for(int j = 0; j < blockElementPosition[i].length; j++){
                 if(blockElementPosition[i][j] == 1){
 
-                    Point point = direction.isHorizontal() ? new Point(i,j+direction.getDirectionValue())
+                    Point point = direction.isHorizontal()
+                            ? new Point(i,j+direction.getDirectionValue())
                             : new Point(i + direction.getDirectionValue(),j);
-
-
                     pointList.add(point);
                 }
             }
@@ -292,8 +302,11 @@ public class GameBlock {
         return pointList;
     }
 
+    /**
+     * 입력값으로 블록위치이동
+     * @param points 블록위치배열
+     */
     public void moveToBlock(ArrayList<Point> points){
-
 
         for(int i = 0; i < blockElementPosition.length; i++){
             for(int j = 0; j < blockElementPosition[i].length; j++){
@@ -307,10 +320,7 @@ public class GameBlock {
             this.blockColorPosition[(int)point.getX()][(int)point.getY()] = this.blockColor;
 
         });
-
-
-
-
+        
     }
     
 

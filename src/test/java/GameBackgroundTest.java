@@ -13,7 +13,7 @@ public class GameBackgroundTest {
     @Test
     void 게임판널검사(){
         GameBackground gameBackground = new GameBackground();
-        Assertions.assertThat(gameBackground).extracting("background").isNotNull();
+        Assertions.assertThat(gameBackground).extracting("backgroundElement").isNotNull();
 
     }
 
@@ -22,7 +22,7 @@ public class GameBackgroundTest {
 
         GameBackground gameBackground = new GameBackground();
         try {
-            Field field = gameBackground.getClass().getDeclaredField("background");
+            Field field = gameBackground.getClass().getDeclaredField("backgroundElement");
             field.setAccessible(true);
 
             int[][] value = (int[][])field.get(gameBackground);

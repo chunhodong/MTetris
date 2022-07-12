@@ -25,28 +25,29 @@ public class GameController {
     }
 
 
+    /**
+     * 게임시작
+     * 게임오브젝트초기화,게임화면그리기,타이머작동
+     */
     public void startGame(){
-
-
         initGame();
         repaintGame();
         new GameTimer().run(this);
-/*
 
-        new Timer().schedule(new TimerTask() {
-            @Override
-            public void run() {
-//                repaintGame();
-            }
-        }, 0, 2000);
-*/
 
     }
 
+    /**
+     * 게임판화면 그리기
+     */
     public void repaintGame(){
         this.gamePanel.repaint();
     }
 
+    /**
+     * 게임판 블록좌우이동 요청
+     * @param direction 이동방향
+     */
     public void requestMoveBlockHorizontal(GameBlock.Direction direction){
         ArrayList<Point> points = this.gameBlock.getMovablePosition(direction);
         boolean isEnable = this.gameBackground.isMovable(points);
@@ -56,15 +57,25 @@ public class GameController {
         }
     }
 
+    /**
+     * 게임판 블록하단이동 요청
+     * @param direction 이동방향
+     */
     public void requestMoveBlockDown(GameBlock.Direction direction){
-        ArrayList<Point> points = this.gameBlock.getMovablePosition(direction);
-        boolean isEnable = this.gameBackground.isAddible(points);
-        if(isEnable){
-
+        ArrayList<Point> movablePoints = this.gameBlock.getMovablePosition(direction);
+        if(this.gameBackground.isAddible(movablePoints)){
+            this.gameBlock.moveToBlock(movablePoints);
         }
         else{
+            ArrayList<Point> currentPoints = this.gameBlock.getCurrentBlockPosition();
+
+            Color color = this.gameBlock.getCurrentBlockColor();
+
+            this.gameBackground.addBlock(currentPoints,color);
 
         }
+        repaintGame();
+
     }
 
 

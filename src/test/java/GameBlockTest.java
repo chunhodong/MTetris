@@ -89,27 +89,6 @@ public class GameBlockTest {
     }
 
     @Test
-    void 블록컬러확인성공(){
-        try {
-            GameBlock gameBlock = new GameBlock();
-
-
-            Color[][] colors = new Color[GameOption.BOARD_HEIGHT][GameOption.BOARD_WIDTH];
-            colors[0][0] = Color.YELLOW;
-            colors[1][1] =  Color.YELLOW;;
-            colors[2][2] =  Color.YELLOW;
-            colors[3][3] =  Color.YELLOW;
-
-            Field field = gameBlock.getClass().getDeclaredField("blockColorPosition");
-            field.setAccessible(true);
-            field.set(gameBlock,colors);
-            Assertions.assertThat(gameBlock.getBlockColor(2,2)).isEqualTo(Color.YELLOW);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    @Test
     void 블록이동가능포지션성공(){
         try {
             GameBlock gameBlock = new GameBlock();

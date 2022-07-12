@@ -56,12 +56,14 @@ public class GamePanel extends JPanel {
      * @param g 그래픽객체
      */
     private void paintBackground(Graphics g){
+
         for(int i=0;i<20;i++){
             for(int j=0;j<10;j++){
-                g.setColor(Color.black);
-                g.fillRect(j* GameOption.BOX_SIZE, i* GameOption.BOX_SIZE, GameOption.BOX_SIZE, GameOption.BOX_SIZE);
+                g.setColor(this.gameBackground == null ? Color.BLACK : this.gameBackground.getColor(i,j));
+                g.fillRect(j * GameOption.BOX_SIZE, i * GameOption.BOX_SIZE, GameOption.BOX_SIZE, GameOption.BOX_SIZE);
                 g.setColor(Color.white);
-                g.drawRect(j* GameOption.BOX_SIZE, i* GameOption.BOX_SIZE, GameOption.BOX_SIZE, GameOption.BOX_SIZE);
+                g.drawRect(j * GameOption.BOX_SIZE, i * GameOption.BOX_SIZE, GameOption.BOX_SIZE, GameOption.BOX_SIZE);
+
             }
         }
     }
@@ -78,7 +80,7 @@ public class GamePanel extends JPanel {
         for(int i=0;i<20;i++){
             for(int j=0;j<10;j++){
                 if(this.gameBlock.hasBlockElement(i,j)) {
-                    g.setColor(this.gameBlock.getBlockColor(i,j));
+                    g.setColor(this.gameBlock.getCurrentBlockColor());
                     g.fillRect(j * GameOption.BOX_SIZE, i * GameOption.BOX_SIZE, GameOption.BOX_SIZE, GameOption.BOX_SIZE);
                     g.setColor(Color.white);
                     g.drawRect(j * GameOption.BOX_SIZE, i * GameOption.BOX_SIZE, GameOption.BOX_SIZE, GameOption.BOX_SIZE);
