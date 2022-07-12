@@ -29,12 +29,8 @@ public class GameController {
 
 
         initGame();
-        new Timer().schedule(new TimerTask() {
-            @Override
-            public void run() {
-                repaintGame();
-            }
-        }, 0, 2000);
+        repaintGame();
+
 
     }
 
@@ -45,9 +41,10 @@ public class GameController {
     public void requestMoveBlockHorizontal(GameBlock.Direction direction){
         ArrayList<Point> points = this.gameBlock.getMovablePosition(direction);
         boolean isEnable = this.gameBackground.isEnableAdd(points);
-        if(isEnable)
+        if(isEnable) {
             this.gameBlock.moveToBlock(points);
-
+            repaintGame();
+        }
     }
 
 

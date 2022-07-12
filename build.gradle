@@ -1,7 +1,62 @@
 plugins {
     id 'java'
+    id 'jacoco'
+
 }
 
+jacoco {
+    toolVersion = '0.8.7'
+}
+
+compileJava.options.encoding = 'UTF-8'
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}
+
+jacocoTestReport {
+    dependsOn test // 리포트가 만들어지기 전 테스트 실행되어야 한다.
+    reports {
+        html.enabled true
+    }
+
+
+
+
+}
+
+jacocoTestCoverageVerification {
+    // 이 커버리지 기준은 이 글의 맨 아래에서 다시 설명하겠습니다.
+    violationRules {
+        rule {
+            element = 'CLASS'
+
+            limit {
+                counter = 'BRANCH'
+                value = 'COVEREDRATIO'
+                minimum = 0.9
+
+            }
+            excludes = [
+                    //'*.test.*',
+                    '*.model.*',
+                    //'Q*.class'
+
+            ]
+        }
+    }
+}
+
+
+task testCoverage(type: Test) {
+    group 'verification'
+    description 'Runs the unit tests with coverage'
+
+    dependsOn(':test',
+            ':jacocoTestReport')
+
+    tasks['jacocoTestReport'].mustRunAfter(tasks['test'])
+}
 group 'org.example'
 version '1.0-SNAPSHOT'
 
@@ -12,6 +67,13 @@ repositories {
 dependencies {
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
+    testImplementation 'org.mockito:mockito-inline:3.6.0'
+
+    testImplementation group: 'org.springframework', name: 'spring-test', version: '2.5'
+
+    testImplementation 'org.junit.jupiter:junit-jupiter-params:5.2.0'
+    testImplementation "org.assertj:assertj-core:3.20.2"
+
 }
 
 test {
