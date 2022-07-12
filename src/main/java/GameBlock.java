@@ -8,15 +8,19 @@ import java.util.Random;
 public class GameBlock {
 
     public enum Direction{
-        LEFT(-1),RIGHT(1);
+        LEFT(-1),RIGHT(1),DOWN(1);
 
-        int direction;
-        Direction(int direction){
+        Integer direction;
+        Direction(Integer direction){
             this.direction = direction;
         }
 
-        public int getDirectionValue(){
+        public Integer getDirectionValue(){
             return this.direction;
+        }
+
+        public boolean isHorizontal(){
+            return this == LEFT || this == RIGHT;
         }
     }
 
@@ -277,8 +281,10 @@ public class GameBlock {
             for(int j = 0; j < blockElementPosition[i].length; j++){
                 if(blockElementPosition[i][j] == 1){
 
-                    Point point = new Point();
-                    point.setLocation(i,j+direction.getDirectionValue());
+                    Point point = direction.isHorizontal() ? new Point(i,j+direction.getDirectionValue())
+                            : new Point(i + direction.getDirectionValue(),j);
+
+
                     pointList.add(point);
                 }
             }

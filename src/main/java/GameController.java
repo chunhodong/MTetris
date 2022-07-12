@@ -1,7 +1,7 @@
 import java.awt.*;
+import java.net.PortUnreachableException;
 import java.util.ArrayList;
-import java.util.Timer;
-import java.util.TimerTask;
+
 
 public class GameController {
     
@@ -30,7 +30,16 @@ public class GameController {
 
         initGame();
         repaintGame();
+        new GameTimer().run(this);
+/*
 
+        new Timer().schedule(new TimerTask() {
+            @Override
+            public void run() {
+//                repaintGame();
+            }
+        }, 0, 2000);
+*/
 
     }
 
@@ -40,10 +49,21 @@ public class GameController {
 
     public void requestMoveBlockHorizontal(GameBlock.Direction direction){
         ArrayList<Point> points = this.gameBlock.getMovablePosition(direction);
-        boolean isEnable = this.gameBackground.isEnableAdd(points);
+        boolean isEnable = this.gameBackground.isMovable(points);
         if(isEnable) {
             this.gameBlock.moveToBlock(points);
             repaintGame();
+        }
+    }
+
+    public void requestMoveBlockDown(GameBlock.Direction direction){
+        ArrayList<Point> points = this.gameBlock.getMovablePosition(direction);
+        boolean isEnable = this.gameBackground.isAddible(points);
+        if(isEnable){
+
+        }
+        else{
+
         }
     }
 

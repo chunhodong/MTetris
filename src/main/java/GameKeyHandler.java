@@ -28,6 +28,9 @@ public class GameKeyHandler implements KeyListener {
         if(e.getKeyCode() == KeyEvent.VK_LEFT){
             this.controller.requestMoveBlockHorizontal(GameBlock.Direction.LEFT);
         }
+        if(e.getKeyCode() == KeyEvent.VK_DOWN){
+            this.controller.requestMoveBlockDown(GameBlock.Direction.DOWN);
+        }
     }
 
     @Override
