@@ -2,7 +2,6 @@
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.springframework.test.util.ReflectionTestUtils;
 
 import java.awt.*;
 import java.lang.reflect.Field;
@@ -89,7 +88,7 @@ public class GameBlockTest {
     }
 
     @Test
-    void 블록이동가능포지션성공(){
+    void 블록좌우이동가능포지션성공(){
         try {
             GameBlock gameBlock = new GameBlock();
 
@@ -108,6 +107,81 @@ public class GameBlockTest {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+
+    @Test
+    void 블록하단이동가능포지션성공(){
+        try {
+            GameBlock gameBlock = new GameBlock();
+
+            int[][] blocks = new int[GameOption.BOARD_HEIGHT][GameOption.BOARD_WIDTH];
+            blocks[0][0] = 1;
+            blocks[1][0] = 1;
+            blocks[0][1] = 1;
+            blocks[1][1] = 1;
+
+            Field field = gameBlock.getClass().getDeclaredField("blockElementPosition");
+            field.setAccessible(true);
+            field.set(gameBlock,blocks);
+
+            ArrayList<Point> points = gameBlock.getMovablePosition(GameBlock.Direction.DOWN);
+            Assertions.assertThat(points.size()).isEqualTo(4);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    void 현재블록위치조회성공(){
+        try {
+            GameBlock gameBlock = new GameBlock();
+
+            int[][] blocks = new int[GameOption.BOARD_HEIGHT][GameOption.BOARD_WIDTH];
+            blocks[0][0] = 1;
+            blocks[1][0] = 1;
+            blocks[0][1] = 1;
+            blocks[1][1] = 1;
+
+            Field field = gameBlock.getClass().getDeclaredField("blockElementPosition");
+            field.setAccessible(true);
+            field.set(gameBlock,blocks);
+
+            ArrayList<Point> points = gameBlock.getCurrentBlockPosition();
+            Assertions.assertThat(points.size()).isEqualTo(4);
+            Assertions.assertThat(points.get(0).x).isEqualTo(0);
+            Assertions.assertThat(points.get(0).y).isEqualTo(0);
+
+            Assertions.assertThat(points.get(1).x).isEqualTo(0);
+            Assertions.assertThat(points.get(1).y).isEqualTo(1);
+
+            Assertions.assertThat(points.get(2).x).isEqualTo(1);
+            Assertions.assertThat(points.get(2).y).isEqualTo(0);
+
+            Assertions.assertThat(points.get(3).x).isEqualTo(1);
+            Assertions.assertThat(points.get(3).y).isEqualTo(1);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    @Test
+    void 현재블록컬러조회성공(){
+        try {
+            GameBlock gameBlock = new GameBlock();
+
+            Field field = gameBlock.getClass().getDeclaredField("blockColor");
+            field.setAccessible(true);
+            field.set(gameBlock,Color.BLUE);
+
+            Color color = gameBlock.getCurrentBlockColor();
+            Assertions.assertThat(color).isEqualTo(Color.BLUE);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 
 
