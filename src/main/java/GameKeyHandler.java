@@ -11,7 +11,6 @@ public class GameKeyHandler implements KeyListener {
     }
     @Override
     public void keyTyped(KeyEvent e) {
-
     }
 
     @Override
@@ -37,6 +36,7 @@ public class GameKeyHandler implements KeyListener {
 
     @Override
     public void keyReleased(KeyEvent e) {
-
     }
+
+
 }

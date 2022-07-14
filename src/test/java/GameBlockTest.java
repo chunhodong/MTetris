@@ -170,6 +170,8 @@ public class GameBlockTest {
     @Test
     void 현재블록컬러조회성공(){
         try {
+
+
             GameBlock gameBlock = new GameBlock();
 
             Field field = gameBlock.getClass().getDeclaredField("blockColor");
@@ -183,6 +185,19 @@ public class GameBlockTest {
         }
 
     }
+
+    @Test
+    void 게임블록방향판별여부성공(){
+        try {
+            GameBlock.Direction direction = GameBlock.Direction.LEFT;
+            Assertions.assertThat(direction.isHorizontal()).isEqualTo(true);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
+
 
 
 }

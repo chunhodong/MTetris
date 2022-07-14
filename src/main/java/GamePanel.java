@@ -28,7 +28,6 @@ public class GamePanel extends JPanel {
      */
     public void setGameBackground(GameBackground gameBackground){
         this.gameBackground = gameBackground;
-
     }
 
     /**
