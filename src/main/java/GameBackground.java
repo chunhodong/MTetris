@@ -100,19 +100,19 @@ public class GameBackground {
             }
         }
 
+
     }
 
     /**
      * 특정라인제거
      * @param lineIdx 라인인덱스
      */
-    public void removeLine(int lineIdx){
+    public void removeLine(Integer lineIdx){
 
         for(int i = lineIdx - 1; i >= 0; i--){
             for(int j = 0; j < GameOption.BOARD_WIDTH; j++){
                 this.backgroundElement[i + 1][j] = this.backgroundElement[i][j];
                 this.backgroundColor[i + 1][j] = this.backgroundColor[i][j];
-
             }
         }
 

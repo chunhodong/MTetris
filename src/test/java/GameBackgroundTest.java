@@ -2,12 +2,19 @@
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.powermock.api.mockito.PowerMockito;
+import org.powermock.core.classloader.annotations.PrepareForTest;
 
 import java.awt.*;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.stream.IntStream;
+
+import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.internal.verification.VerificationModeFactory.times;
 
 
+@PrepareForTest(GameBackground.class)
 public class GameBackgroundTest {
 
     @DisplayName("게임판널검사")
@@ -271,6 +278,73 @@ public class GameBackgroundTest {
         }
 
     }
+
+    @Test
+    void 배경블록체크성공(){
+
+        try {
+            GameBackground gameBackground = PowerMockito.spy(new GameBackground());
+
+            int[][] backgroundElement = new int[20][10];
+            for(int i = 0; i < 10; i++){
+                backgroundElement[19][i] = 1;
+            }
+
+            Field field = gameBackground.getClass().getDeclaredField("backgroundElement");
+            field.setAccessible(true);
+            field.set(gameBackground,backgroundElement);
+
+            gameBackground.checkLines();
+
+            PowerMockito.verifyPrivate(gameBackground,times(1)).invoke("removeLine",anyInt());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    void 블록라인삭제성공(){
+
+        try {
+            GameBackground gameBackground = new GameBackground();
+            gameBackground.init();;
+
+            int[][] backgroundElement = new int[20][10];
+            Color[][] backgroundColor = new Color[20][10];
+
+            for(int i = 0; i < 10; i++){
+                backgroundElement[17][i] = i % 2 == 0 ? 1 : 0;
+                backgroundColor[17][i] = Color.RED;
+
+                backgroundElement[18][i] = 1;
+                backgroundColor[18][i] = Color.BLUE;
+
+            }
+
+
+            Field field1 = gameBackground.getClass().getDeclaredField("backgroundElement");
+            field1.setAccessible(true);
+            field1.set(gameBackground,backgroundElement);
+
+
+            Field field2 = gameBackground.getClass().getDeclaredField("backgroundColor");
+            field2.setAccessible(true);
+            field2.set(gameBackground,backgroundColor);
+
+
+            gameBackground.removeLine(18);
+
+            for(int i = 0; i < 10; i++){
+                Assertions.assertThat(backgroundElement[18][i]).isEqualTo(i % 2 == 0 ? 1 : 0);
+
+            }
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 
 
 }
