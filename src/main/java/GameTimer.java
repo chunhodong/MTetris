@@ -15,9 +15,9 @@ public class GameTimer extends Timer {
         schedule(new TimerTask() {
             @Override
             public void run() {
-                gameController.repaintGame();
+                gameController.requestMoveBlockDown(GameBlock.Direction.DOWN);
             }
-        },0, 2000);
+        },1000, 1000);
 
     }
 }

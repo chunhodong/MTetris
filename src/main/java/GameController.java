@@ -72,6 +72,8 @@ public class GameController {
             Color color = this.gameBlock.getCurrentBlockColor();
 
             this.gameBackground.addBlock(currentPoints,color);
+            this.gameBlock = new GameBlock();
+            this.gamePanel.setGameBlock(this.gameBlock);
 
         }
         repaintGame();
