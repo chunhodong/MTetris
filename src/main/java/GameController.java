@@ -1,5 +1,4 @@
 import java.awt.*;
-import java.net.PortUnreachableException;
 import java.util.ArrayList;
 
 
@@ -72,6 +71,7 @@ public class GameController {
             Color color = this.gameBlock.getCurrentBlockColor();
 
             this.gameBackground.addBlock(currentPoints,color);
+            this.gameBackground.checkLines();
             this.gameBlock = new GameBlock();
             this.gamePanel.setGameBlock(this.gameBlock);
 

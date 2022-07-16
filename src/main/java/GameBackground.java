@@ -1,5 +1,6 @@
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.stream.IntStream;
 
 /**
  * 게임배경데이터
@@ -76,5 +77,50 @@ public class GameBackground {
      */
     public Color getColor(int i,int j){
         return this.backgroundColor[i][j];
+    }
+
+
+    /**
+     * 게임배경에서 제거할라인확인
+     */
+    public void checkLines() {
+
+        for(int i = GameOption.BOARD_HEIGHT - 1; i > 0; i--){
+            int checkCount = 0;
+
+            for(int j = 0; j < GameOption.BOARD_WIDTH; j++){
+                if(this.backgroundElement[i][j] == 1){
+                    checkCount++;
+                }
+
+            }
+            if(checkCount == GameOption.BOARD_WIDTH){
+                removeLine(i);
+                i++;
+            }
+        }
+
+    }
+
+    /**
+     * 특정라인제거
+     * @param lineIdx 라인인덱스
+     */
+    public void removeLine(int lineIdx){
+
+        for(int i = lineIdx - 1; i >= 0; i--){
+            for(int j = 0; j < GameOption.BOARD_WIDTH; j++){
+                this.backgroundElement[i + 1][j] = this.backgroundElement[i][j];
+                this.backgroundColor[i + 1][j] = this.backgroundColor[i][j];
+
+            }
+        }
+
+        IntStream.range(1,GameOption.BOARD_WIDTH)
+                .forEach(value -> {
+                    this.backgroundElement[0][value - 1] = 0;
+                    this.backgroundColor[0][value - 1] = Color.BLACK;
+                });
+
     }
 }
