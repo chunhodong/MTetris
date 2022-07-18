@@ -81,8 +81,12 @@ public class GameController {
     }
 
 
-
-
-    
-    
+    public void requestMoveBlockUp(GameBlock.Direction direction) {
+        ArrayList<Point> points = this.gameBlock.getRotatablePosition();
+        boolean isEnable = this.gameBackground.isRotatable(points);
+        if(isEnable) {
+            this.gameBlock.rotateBlock(points);
+            repaintGame();
+        }
+    }
 }

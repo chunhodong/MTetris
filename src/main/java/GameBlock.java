@@ -7,8 +7,16 @@ import java.util.Random;
  */
 public class GameBlock {
 
+    public ArrayList<Point> getRotatablePosition() {
+        return null;
+    }
+
+    public void rotateBlock(ArrayList<Point> points) {
+
+    }
+
     public enum Direction{
-        LEFT(-1),RIGHT(1),DOWN(1);
+        LEFT(-1),RIGHT(1),DOWN(1),UP(-1);
 
         Integer direction;
         Direction(Integer direction){

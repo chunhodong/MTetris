@@ -123,4 +123,8 @@ public class GameBackground {
                 });
 
     }
+
+    public boolean isRotatable(ArrayList<Point> points) {
+        return false;
+    }
 }
