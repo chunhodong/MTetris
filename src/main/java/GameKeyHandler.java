@@ -18,9 +18,17 @@ public class GameKeyHandler implements KeyListener {
 
 
 
+
         if(e.getKeyCode() == KeyEvent.VK_F1){
             this.controller.startGame();
         }
+        if(e.getKeyCode() == KeyEvent.VK_F2){
+            this.controller.turnPause();
+        }
+
+        if(this.controller.getStatus() == GameController.Status.STOP)return;
+
+
 
         if(e.getKeyCode() == KeyEvent.VK_RIGHT){
             this.controller.requestMoveBlockHorizontal(GameBlock.Direction.RIGHT);

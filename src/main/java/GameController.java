@@ -1,5 +1,6 @@
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Timer;
 
 
 public class GameController {
@@ -7,6 +8,14 @@ public class GameController {
     private GameBackground gameBackground;
     private GameBlock gameBlock;
     private GamePanel gamePanel;
+    private GameTimer gameTimer;
+
+    private Status status;
+
+    public enum Status{
+        RUNNING,STOP
+    }
+
 
     public GameController(GamePanel gamePanel){
         this.gamePanel = gamePanel;
@@ -20,6 +29,7 @@ public class GameController {
         gameBlock = new GameBlock();
         this.gamePanel.setGameBackground(gameBackground);
         this.gamePanel.setGameBlock(gameBlock);
+        this.gameTimer = new GameTimer();
 
     }
 
@@ -31,7 +41,23 @@ public class GameController {
     public void startGame(){
         initGame();
         repaintGame();
-        new GameTimer().run(this);
+        this.status = Status.RUNNING;
+        this.gameTimer.run(this,new Timer());
+
+    }
+
+
+    public void turnPause() {
+
+        if(this.status == Status.RUNNING){
+            this.gameTimer.stop();
+            this.status = Status.STOP;
+        }
+
+        else if(this.status == Status.STOP){
+            this.gameTimer.resume(this,new Timer());
+            this.status = Status.RUNNING;
+        }
 
 
     }
@@ -83,10 +109,15 @@ public class GameController {
 
     public void requestMoveBlockUp(GameBlock.Direction direction) {
         ArrayList<Point> points = this.gameBlock.getRotatablePosition();
-        boolean isEnable = this.gameBackground.isRotatable(points);
+     /*   boolean isEnable = this.gameBackground.isRotatable(points);
         if(isEnable) {
             this.gameBlock.rotateBlock(points);
             repaintGame();
-        }
+        }*/
     }
+
+    public Status getStatus(){
+        return this.status;
+    }
+
 }

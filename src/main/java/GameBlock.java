@@ -7,14 +7,6 @@ import java.util.Random;
  */
 public class GameBlock {
 
-    public ArrayList<Point> getRotatablePosition() {
-        return null;
-    }
-
-    public void rotateBlock(ArrayList<Point> points) {
-
-    }
-
     public enum Direction{
         LEFT(-1),RIGHT(1),DOWN(1),UP(-1);
 
@@ -47,6 +39,8 @@ public class GameBlock {
     private Color[][] blockColorPosition;
     private Color blockColor;
 
+    private int distanceX;
+    private int distanceY;
 
 
     public GameBlock(){
@@ -136,8 +130,8 @@ public class GameBlock {
                                 {0,0,0,0}
                         },
                         {
-                                {0,1,1,0},
-                                {0,0,1,1},
+                                {1,1,0,0},
+                                {0,1,1,1},
                                 {0,0,0,0},
                                 {0,0,0,0}
                         }
@@ -168,14 +162,14 @@ public class GameBlock {
                                 {0,0,0,0}
                         },
                         {
-                                {0,1,1,0},
-                                {0,1,0,0},
-                                {0,1,0,0},
+                                {1,1,0,0},
+                                {1,0,0,0},
+                                {1,0,0,0},
                                 {0,0,0,0}
                         },
                         {
-                                {0,1,0,0},
-                                {0,1,1,1},
+                                {1,0,0,0},
+                                {1,1,1,0},
                                 {0,0,0,0},
                                 {0,0,0,0}
                         },
@@ -330,7 +324,24 @@ public class GameBlock {
         });
         
     }
-    
+
+
+    public ArrayList<Point> getRotatablePosition() {
+     /*   System.out.println("current Position : "+this.blockNumber);
+
+        System.out.println("next Position : "+ ( this.blockNumber + 1 ) % this.blockShapeSet.length);
+
+        this.blockNumber = ( this.blockNumber + 1 ) % this.blockShapeSet.length;
+        return null;*/
+
+        return null;
+    }
+
+    public void rotateBlock(ArrayList<Point> points) {
+        return;
+    }
+
+
 
 
 
