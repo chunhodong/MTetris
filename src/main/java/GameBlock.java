@@ -1,5 +1,6 @@
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Random;
 
 /**
@@ -8,7 +9,7 @@ import java.util.Random;
 public class GameBlock {
 
     public enum Direction{
-        LEFT(-1),RIGHT(1),DOWN(1),UP(-1);
+        LEFT(-1),RIGHT(1),DOWN(2);
 
         Integer direction;
         Direction(Integer direction){
@@ -37,11 +38,15 @@ public class GameBlock {
     private int [][] blockElementPosition;
     
     private Color[][] blockColorPosition;
+
     private Color blockColor;
 
-    private int distanceX;
-    private int distanceY;
+    /*초기X위치*/
+    private int initMaxX;
+    /*초기Y위치*/
+    private int initMaxY;
 
+    private int offsetY = 4;
 
     public GameBlock(){
         initBlock();
@@ -113,9 +118,9 @@ public class GameBlock {
 
                         },
                         {
-                                {0,1,0,0},
-                                {0,1,1,0},
-                                {0,1,0,0},
+                                {1,0,0,0},
+                                {1,1,0,0},
+                                {1,0,0,0},
                                 {0,0,0,0}
 
                         }
@@ -124,14 +129,14 @@ public class GameBlock {
             case 3:
                 blockShapeSet=new int[][][]{
                         {
-                                {0,0,1,0},
-                                {0,1,1,0},
                                 {0,1,0,0},
+                                {1,1,0,0},
+                                {1,0,0,0},
                                 {0,0,0,0}
                         },
                         {
                                 {1,1,0,0},
-                                {0,1,1,1},
+                                {0,1,1,0},
                                 {0,0,0,0},
                                 {0,0,0,0}
                         }
@@ -140,9 +145,9 @@ public class GameBlock {
             case 4:
                 blockShapeSet=new int[][][]{
                         {
+                                {1,0,0,0},
+                                {1,1,0,0},
                                 {0,1,0,0},
-                                {0,1,1,0},
-                                {0,0,1,0},
                                 {0,0,0,0}
                         },
                         {
@@ -162,9 +167,9 @@ public class GameBlock {
                                 {0,0,0,0}
                         },
                         {
-                                {1,1,0,0},
-                                {1,0,0,0},
-                                {1,0,0,0},
+                                {0,1,1,0},
+                                {0,1,0,0},
+                                {0,1,0,0},
                                 {0,0,0,0}
                         },
                         {
@@ -174,9 +179,9 @@ public class GameBlock {
                                 {0,0,0,0}
                         },
                         {
-                                {0,0,1,0},
-                                {0,0,1,0},
-                                {0,1,1,0},
+                                {0,1,0,0},
+                                {0,1,0,0},
+                                {1,1,0,0},
                                 {0,0,0,0}
                         }
                 };
@@ -184,8 +189,8 @@ public class GameBlock {
             case 6:
                 blockShapeSet=new int[][][]{
                         {
-                                {0,1,1,1},
-                                {0,1,0,0},
+                                {1,1,1,0},
+                                {1,0,0,0},
                                 {0,0,0,0},
                                 {0,0,0,0}
                         },
@@ -202,9 +207,9 @@ public class GameBlock {
                                 {0,0,0,0}
                         },
                         {
-                                {0,1,1,0},
-                                {0,0,1,0},
-                                {0,0,1,0},
+                                {1,1,0,0},
+                                {0,1,0,0},
+                                {0,1,0,0},
                                 {0,0,0,0}
                         }
                 };
@@ -225,7 +230,7 @@ public class GameBlock {
         for(int i = 0; i < blockShape.length; i++){
             for(int j = 0; j < blockShape.length; j++){
                 if(blockShape[i][j] == 1){
-                    this.blockColorPosition[i][j + 3] = this.blockColor;
+                    this.blockColorPosition[i][j + offsetY] = this.blockColor;
                 }
             }
         }
@@ -238,13 +243,20 @@ public class GameBlock {
         this.blockElementPosition = new int[GameOption.BOARD_HEIGHT][GameOption.BOARD_WIDTH];
         int[][] blockShape = this.blockShapeSet[this.blockNumber];
 
+
         for(int i = 0; i < blockShape.length; i++){
             for(int j = 0; j < blockShape.length; j++){
                 if(blockShape[i][j] == 1){
-                    this.blockElementPosition[i][j + 3] = 1;
+                    this.blockElementPosition[i][j + offsetY] = 1;
+                    this.initMaxX = Math.max(this.initMaxX,i);
+                    this.initMaxY = Math.max(this.initMaxY,j + offsetY);
                 }
             }
         }
+
+
+
+
     }
 
     /**
@@ -325,20 +337,62 @@ public class GameBlock {
         
     }
 
-
+    /**
+     * 회전시 이동좌표 구하기
+     * @return 회전시 이동좌표
+     */
     public ArrayList<Point> getRotatablePosition() {
-     /*   System.out.println("current Position : "+this.blockNumber);
+        int rotateBlockNumber = ( this.blockNumber + 1 ) % this.blockShapeSet.length;
+        int currentMaxX = 0;
+        int currentMaxY = 0;
+        for(int i = 0; i < blockElementPosition.length; i++){
+            for(int j = 0; j < blockElementPosition[i].length; j++){
+                if(this.blockElementPosition[i][j] == 1){
+                    currentMaxX = Math.max(currentMaxX,i);
+                    currentMaxY = Math.max(currentMaxY,j);
 
-        System.out.println("next Position : "+ ( this.blockNumber + 1 ) % this.blockShapeSet.length);
+                }
+            }
+        }
 
-        this.blockNumber = ( this.blockNumber + 1 ) % this.blockShapeSet.length;
-        return null;*/
+        int distanceX = currentMaxX - initMaxX;
+        int distanceY = currentMaxY - initMaxY;
 
-        return null;
+        int[][] blockShape = this.blockShapeSet[rotateBlockNumber];
+        ArrayList<Point> points  = new ArrayList<>();
+        for(int i = 0; i < blockShape.length; i++){
+            for(int j = 0; j < blockShape.length; j++){
+                if(blockShape[i][j] == 1){
+                    points.add(new Point(i + distanceX,j + offsetY + distanceY));
+                }
+            }
+        }
+        return points;
     }
 
+    /**
+     * 기존블록 회전시키키
+     * @param points 회전된 블록위치 배열
+     */
     public void rotateBlock(ArrayList<Point> points) {
-        return;
+        this.blockNumber = ( this.blockNumber + 1 ) % this.blockShapeSet.length;
+
+        int[][] blockShape = this.blockShapeSet[this.blockNumber];
+        this.initMaxX = 0;
+        this.initMaxY = 0;
+
+        for(int i = 0; i < blockShape.length; i++){
+            for(int j = 0; j < blockShape.length; j++){
+                if(blockShape[i][j] == 1){
+                    this.initMaxX = Math.max(this.initMaxX,i);
+                    this.initMaxY = Math.max(this.initMaxY,j + offsetY);
+                }
+            }
+        }
+
+
+        moveToBlock(points);
+
     }
 
 

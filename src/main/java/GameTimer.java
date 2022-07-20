@@ -8,8 +8,8 @@ public class GameTimer {
     private Timer timer;
 
     public void run(GameController gameController,Timer timer){
+        stop();
         this.timer = timer;
-
         this.timer.schedule(new TimerTask() {
             @Override
             public void run() {
@@ -20,7 +20,8 @@ public class GameTimer {
     }
 
     public void stop() {
-        this.timer.cancel();;
+        if(this.timer != null)
+            this.timer.cancel();
 
     }
 

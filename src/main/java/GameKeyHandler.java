@@ -28,8 +28,6 @@ public class GameKeyHandler implements KeyListener {
 
         if(this.controller.getStatus() == GameController.Status.STOP)return;
 
-
-
         if(e.getKeyCode() == KeyEvent.VK_RIGHT){
             this.controller.requestMoveBlockHorizontal(GameBlock.Direction.RIGHT);
         }
@@ -41,7 +39,7 @@ public class GameKeyHandler implements KeyListener {
             this.controller.requestMoveBlockDown(GameBlock.Direction.DOWN);
         }
         if(e.getKeyCode() == KeyEvent.VK_UP){
-            this.controller.requestMoveBlockUp(GameBlock.Direction.UP);
+            this.controller.requestMoveBlockUp();
         }
 
     }

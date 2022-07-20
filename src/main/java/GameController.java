@@ -12,6 +12,7 @@ public class GameController {
 
     private Status status;
 
+
     public enum Status{
         RUNNING,STOP
     }
@@ -47,6 +48,9 @@ public class GameController {
     }
 
 
+    /**
+     * 게임정지여부수정
+     */
     public void turnPause() {
 
         if(this.status == Status.RUNNING){
@@ -107,15 +111,24 @@ public class GameController {
     }
 
 
-    public void requestMoveBlockUp(GameBlock.Direction direction) {
+    /**
+     * 게임판 블록회전 요청
+     */
+    public void requestMoveBlockUp() {
         ArrayList<Point> points = this.gameBlock.getRotatablePosition();
-     /*   boolean isEnable = this.gameBackground.isRotatable(points);
+        boolean isEnable = this.gameBackground.isMovable(points);
         if(isEnable) {
             this.gameBlock.rotateBlock(points);
             repaintGame();
-        }*/
+        }
+
+
     }
 
+    /**
+     * 현재 게임상태 조회
+     * @return 게임상태값
+     */
     public Status getStatus(){
         return this.status;
     }
