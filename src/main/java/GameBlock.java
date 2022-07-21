@@ -9,7 +9,7 @@ import java.util.Random;
 public class GameBlock {
 
     public enum Direction{
-        LEFT(-1),RIGHT(1),DOWN(2);
+        LEFT(-1),RIGHT(1),DOWN(1);
 
         Integer direction;
         Direction(Integer direction){
@@ -46,6 +46,7 @@ public class GameBlock {
     /*초기Y위치*/
     private int initMaxY;
 
+    /*처음블록배치시 게임화면에서 오른쪽으로 이동할 거리*/
     private int offsetY = 4;
 
     public GameBlock(){
@@ -305,6 +306,7 @@ public class GameBlock {
         for(int i = 0; i < blockElementPosition.length; i++){
             for(int j = 0; j < blockElementPosition[i].length; j++){
                 if(blockElementPosition[i][j] == 1){
+                    System.out.println();
 
                     Point point = direction.isHorizontal()
                             ? new Point(i,j+direction.getDirectionValue())

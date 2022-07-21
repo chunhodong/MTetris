@@ -65,7 +65,32 @@ public class GameKeyHandlerTest {
         gameKeyHandler.keyPressed(event);
         verify(gameController,times(1)).startGame();
 
+
     }
+
+    @Test
+    void 게임정지동작성공(){
+        KeyEvent event = new KeyEvent(
+                new TestComponent(),12,1,1,KeyEvent.VK_DOWN,'k'
+        );
+        event.setKeyCode(KeyEvent.VK_F2);
+        gameKeyHandler.keyPressed(event);
+        verify(gameController,times(1)).turnPause();
+
+    }
+
+    @Test
+    void 게임블록회전성공(){
+        KeyEvent event = new KeyEvent(
+                new TestComponent(),12,1,1,KeyEvent.VK_DOWN,'k'
+        );
+        event.setKeyCode(KeyEvent.VK_UP);
+        gameKeyHandler.keyPressed(event);
+        verify(gameController,times(1)).requestMoveBlockUp();
+
+    }
+
+
 
     class TestComponent extends Component{
 

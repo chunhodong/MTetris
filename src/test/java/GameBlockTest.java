@@ -6,6 +6,9 @@ import org.junit.jupiter.api.Test;
 import java.awt.*;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.Collections;
+
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 
 public class GameBlockTest {
@@ -194,6 +197,73 @@ public class GameBlockTest {
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+    }
+
+    @Test
+    void 블록회전좌표조회성공(){
+
+        GameBlock gameBlock = new GameBlock();
+        gameBlock.initBlock();;
+
+        ArrayList<Point> points = gameBlock.getRotatablePosition();
+        assertThat(points.size()).isEqualTo(4);
+    }
+
+
+    @Test
+    void 블록회전성공(){
+
+        try {
+
+            GameBlock gameBlock = new GameBlock();
+            gameBlock.initBlock();
+            Field field1 = gameBlock.getClass().getDeclaredField("blockShapeSet");
+            field1.setAccessible(true);
+            int [][][] blockShapeSet=new int[][][]{
+                    {
+                            {1,1,1,1},
+                            {0,0,0,0},
+                            {0,0,0,0},
+                            {0,0,0,0}
+                    },
+                    {
+                            {0,1,0,0},
+                            {0,1,0,0},
+                            {0,1,0,0},
+                            {0,1,0,0},
+                    }
+            };
+            field1.set(gameBlock,blockShapeSet);
+
+            Field field2 = gameBlock.getClass().getDeclaredField("blockNumber");
+            field2.setAccessible(true);
+            field2.set(gameBlock,0);
+
+            ArrayList<Point> list = new ArrayList<>();
+            gameBlock.rotateBlock(list);
+
+            Field field3 = gameBlock.getClass().getDeclaredField("initMaxX");
+            field3.setAccessible(true);
+
+            Field field4 = gameBlock.getClass().getDeclaredField("initMaxY");
+            field4.setAccessible(true);
+
+            int valueX = (int)field3.get(gameBlock);
+            int valueY = (int)field4.get(gameBlock);
+            assertThat(valueX).isEqualTo(3);
+            assertThat(valueY).isEqualTo(5);
+
+
+
+        }
+        catch (NoSuchFieldException e)
+        {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
+
 
     }
 
