@@ -42,6 +42,11 @@ public class GameKeyHandler implements KeyListener {
             this.controller.requestMoveBlockUp();
         }
 
+        if(e.getKeyCode() == KeyEvent.VK_SPACE){
+            this.controller.requestMoveBlockBottom();
+        }
+
+
     }
 
     @Override

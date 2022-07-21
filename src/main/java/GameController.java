@@ -13,6 +13,7 @@ public class GameController {
     private Status status;
 
 
+
     public enum Status{
         RUNNING,STOP
     }
@@ -121,8 +122,14 @@ public class GameController {
             this.gameBlock.rotateBlock(points);
             repaintGame();
         }
+    }
 
 
+    /**
+     * 게임판 블록바닥이동 요청
+     */
+    public void requestMoveBlockBottom() {
+        
     }
 
     /**

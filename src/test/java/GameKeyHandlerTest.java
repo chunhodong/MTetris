@@ -5,10 +5,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.awt.*;
-import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
-
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
@@ -87,6 +84,17 @@ public class GameKeyHandlerTest {
         event.setKeyCode(KeyEvent.VK_UP);
         gameKeyHandler.keyPressed(event);
         verify(gameController,times(1)).requestMoveBlockUp();
+
+    }
+
+    @Test
+    void 게임블록바닥이동성공(){
+        KeyEvent event = new KeyEvent(
+                new TestComponent(),12,1,1,KeyEvent.VK_DOWN,'k'
+        );
+        event.setKeyCode(KeyEvent.VK_SPACE);
+        gameKeyHandler.keyPressed(event);
+        verify(gameController,times(1)).requestMoveBlockBottom();
 
     }
 
