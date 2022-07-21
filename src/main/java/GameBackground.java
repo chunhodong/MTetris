@@ -1,5 +1,7 @@
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 /**
@@ -124,5 +126,43 @@ public class GameBackground {
 
     }
 
-  
+
+    /**
+     * 현재블록위치에서 블록바닥위치값 조회
+     * @param points 현재블록위치
+     * @return 블록바닥위치
+     */
+    public List<Point> getBottomPoints(ArrayList<Point> points) {
+        for(int i = 1; i < GameOption.BOARD_HEIGHT; i++){
+            int addX = i;
+            List<Point> movePoints = points.stream()
+                    .map(point -> new Point((int) (point.getX() + addX), (int) point.getY()))
+                    .collect(Collectors.toList());
+
+            long bottonCount = movePoints
+                    .stream()
+                    .filter(point -> point.getX() == GameOption.BOARD_HEIGHT).count();
+
+            if(bottonCount > 0){
+                List<Point> newPoints = points.stream()
+                        .map(point -> new Point((int) (point.getX() + addX - 1), (int) point.getY()))
+                        .collect(Collectors.toList());
+                return newPoints;
+
+
+            }
+
+            long adjacentCount = movePoints.stream().filter(point -> this.backgroundElement[(int) point.getX()][(int) point.getY()] == 1).count();
+            if(adjacentCount > 0){
+                List<Point> newPoints = points.stream()
+                        .map(point -> new Point((int) (point.getX() + addX - 1), (int) point.getY()))
+                        .collect(Collectors.toList());
+                return newPoints;
+
+
+            }
+        }
+
+        return new ArrayList<>();
+    }
 }

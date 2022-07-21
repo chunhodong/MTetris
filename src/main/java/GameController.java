@@ -1,5 +1,6 @@
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Timer;
 
 
@@ -129,7 +130,12 @@ public class GameController {
      * 게임판 블록바닥이동 요청
      */
     public void requestMoveBlockBottom() {
-        
+        ArrayList<Point> points = this.gameBlock.getCurrentBlockPosition();
+        List<Point> bottomPoints = this.gameBackground.getBottomPoints(points);
+        if(bottomPoints.size() == 4) {
+            this.gameBlock.moveToBlock(points);
+            repaintGame();
+        }
     }
 
     /**
