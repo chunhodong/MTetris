@@ -132,7 +132,7 @@ public class GameBackground {
      * @param points 현재블록위치
      * @return 블록바닥위치
      */
-    public List<Point> getBottomPoints(ArrayList<Point> points) {
+    public ArrayList<Point> getBottomPoints(ArrayList<Point> points) {
         for(int i = 1; i < GameOption.BOARD_HEIGHT; i++){
             int addX = i;
             List<Point> movePoints = points.stream()
@@ -147,7 +147,7 @@ public class GameBackground {
                 List<Point> newPoints = points.stream()
                         .map(point -> new Point((int) (point.getX() + addX - 1), (int) point.getY()))
                         .collect(Collectors.toList());
-                return newPoints;
+                return new ArrayList<>(newPoints);
 
 
             }
@@ -157,7 +157,7 @@ public class GameBackground {
                 List<Point> newPoints = points.stream()
                         .map(point -> new Point((int) (point.getX() + addX - 1), (int) point.getY()))
                         .collect(Collectors.toList());
-                return newPoints;
+                return new ArrayList<>(newPoints);
 
 
             }

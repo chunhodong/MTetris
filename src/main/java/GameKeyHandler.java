@@ -43,6 +43,7 @@ public class GameKeyHandler implements KeyListener {
         }
 
         if(e.getKeyCode() == KeyEvent.VK_SPACE){
+            System.out.println("gggg");
             this.controller.requestMoveBlockBottom();
         }
 

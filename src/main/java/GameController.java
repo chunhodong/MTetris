@@ -131,11 +131,15 @@ public class GameController {
      */
     public void requestMoveBlockBottom() {
         ArrayList<Point> points = this.gameBlock.getCurrentBlockPosition();
-        List<Point> bottomPoints = this.gameBackground.getBottomPoints(points);
-        if(bottomPoints.size() == 4) {
-            this.gameBlock.moveToBlock(points);
-            repaintGame();
-        }
+        Color color = this.gameBlock.getCurrentBlockColor();
+
+        ArrayList<Point> bottomPoints = this.gameBackground.getBottomPoints(points);
+        this.gameBackground.addBlock(bottomPoints,color);
+        this.gameBackground.checkLines();
+        this.gameBlock = new GameBlock();
+        this.gamePanel.setGameBlock(this.gameBlock);
+        repaintGame();
+
     }
 
     /**
