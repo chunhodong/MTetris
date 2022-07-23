@@ -17,7 +17,7 @@ public class GameBlockTest {
     @Test
     void 블록이동성공(){
         GameBlock gameBlock = new GameBlock();
-        gameBlock.initBlock();
+        gameBlock.initCurrentBlock();
         ArrayList<Point> points = new ArrayList<>();
         points.add(new Point(1,2));
         points.add(new Point(2,2));
@@ -202,7 +202,7 @@ public class GameBlockTest {
     void 블록회전좌표조회성공(){
 
         GameBlock gameBlock = new GameBlock();
-        gameBlock.initBlock();;
+        gameBlock.initCurrentBlock();
 
         ArrayList<Point> points = gameBlock.getRotatablePosition();
         assertThat(points.size()).isEqualTo(4);
@@ -215,7 +215,7 @@ public class GameBlockTest {
         try {
 
             GameBlock gameBlock = new GameBlock();
-            gameBlock.initBlock();
+            gameBlock.initCurrentBlock();
             Field field1 = gameBlock.getClass().getDeclaredField("blockShapeSet");
             field1.setAccessible(true);
             int [][][] blockShapeSet=new int[][][]{

@@ -10,7 +10,7 @@ public class GameOption {
     public static final int Y_POSITION = 10;
 
     /*게임화면 시작넓이*/
-    public static final int DISPLAY_WIDTH = 250;
+    public static final int DISPLAY_WIDTH = 500;
 
     /*게임화면 높이*/
     public static final int DISPLAY_HEIGHT = 500;
@@ -23,6 +23,8 @@ public class GameOption {
 
     /*게임판 높이*/
     public static final int BOARD_HEIGHT = 20;
+
+
 
 
 

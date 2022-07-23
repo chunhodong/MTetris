@@ -291,7 +291,7 @@ public class GameBackgroundTest {
             field.setAccessible(true);
             field.set(gameBackground,backgroundElement);
 
-            gameBackground.checkLines();
+            gameBackground.clearLines();
 
             PowerMockito.verifyPrivate(gameBackground,times(1)).invoke("removeLine",anyInt());
         } catch (Exception e) {

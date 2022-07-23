@@ -85,7 +85,7 @@ public class GameBackground {
     /**
      * 게임배경에서 제거할라인확인
      */
-    public void checkLines() {
+    public void clearLines() {
 
         for(int i = GameOption.BOARD_HEIGHT - 1; i > 0; i--){
             int checkCount = 0;

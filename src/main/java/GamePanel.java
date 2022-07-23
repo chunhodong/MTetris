@@ -47,7 +47,9 @@ public class GamePanel extends JPanel {
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         paintBackground(g);
-        paintBlock(g);
+        paintCurrentBlock(g);
+        paintNextBlock(g);
+
     }
 
     /**
@@ -56,8 +58,8 @@ public class GamePanel extends JPanel {
      */
     private void paintBackground(Graphics g){
 
-        for(int i=0;i<20;i++){
-            for(int j=0;j<10;j++){
+        for(int i=0;i<GameOption.BOARD_HEIGHT;i++){
+            for(int j=0;j<GameOption.BOARD_WIDTH;j++){
                 g.setColor(this.gameBackground == null ? Color.BLACK : this.gameBackground.getColor(i,j));
                 g.fillRect(j * GameOption.BOX_SIZE, i * GameOption.BOX_SIZE, GameOption.BOX_SIZE, GameOption.BOX_SIZE);
                 g.setColor(Color.white);
@@ -68,16 +70,16 @@ public class GamePanel extends JPanel {
     }
 
     /**
-     * 그래픽객체가 게임블록을 그림
+     * 그래픽객체가 현재게임블록을 그림
      * @param g 그래픽객체
      */
-    private void paintBlock(Graphics g){
+    private void paintCurrentBlock(Graphics g){
 
 
         if(this.gameBlock == null)return;
 
-        for(int i=0;i<20;i++){
-            for(int j=0;j<10;j++){
+        for(int i=0;i<GameOption.BOARD_HEIGHT;i++){
+            for(int j=0;j<GameOption.BOARD_WIDTH;j++){
                 if(this.gameBlock.hasBlockElement(i,j)) {
                     g.setColor(this.gameBlock.getCurrentBlockColor());
                     g.fillRect(j * GameOption.BOX_SIZE, i * GameOption.BOX_SIZE, GameOption.BOX_SIZE, GameOption.BOX_SIZE);
@@ -88,4 +90,22 @@ public class GamePanel extends JPanel {
         }
     }
 
+
+    /**
+     * 그래픽객체가 다음게임블록을 그림
+     * @param g 그래픽객체
+     */
+    private void paintNextBlock(Graphics g){
+
+        for(int i=0;i< ( GameOption.BOARD_HEIGHT / 5 );i++){
+            for(int j=0;j< ( GameOption.BOARD_HEIGHT / 5 );j++){
+                g.setColor(Color.BLACK);
+                g.fillRect(j * GameOption.BOX_SIZE + 265, i * GameOption.BOX_SIZE, GameOption.BOX_SIZE, GameOption.BOX_SIZE);
+                g.setColor(Color.WHITE);
+                g.drawRect(j * GameOption.BOX_SIZE + 265, i * GameOption.BOX_SIZE, GameOption.BOX_SIZE, GameOption.BOX_SIZE);
+
+            }
+        }
+
+    }
 }

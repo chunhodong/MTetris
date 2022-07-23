@@ -102,10 +102,8 @@ public class GameController {
             Color color = this.gameBlock.getCurrentBlockColor();
 
             this.gameBackground.addBlock(currentPoints,color);
-            this.gameBackground.checkLines();
-            this.gameBlock = new GameBlock();
-            this.gamePanel.setGameBlock(this.gameBlock);
-
+            this.gameBackground.clearLines();
+            this.gameBlock.requestNewBlock();
         }
         repaintGame();
 
@@ -134,9 +132,8 @@ public class GameController {
 
         ArrayList<Point> bottomPoints = this.gameBackground.getBottomPoints(points);
         this.gameBackground.addBlock(bottomPoints,color);
-        this.gameBackground.checkLines();
-        this.gameBlock = new GameBlock();
-        this.gamePanel.setGameBlock(this.gameBlock);
+        this.gameBackground.clearLines();
+        this.gameBlock.requestNewBlock();
         repaintGame();
 
     }

@@ -45,11 +45,18 @@ public class GameBlock {
     /*블록컬러배열*/
     private Color[][] blockColorPosition;
     /*현재블록컬러*/
-    private Color blockColor;
+    private Color currentBlockColor;
     /*초기X위치*/
     private int initMaxX;
     /*초기Y위치*/
     private int initMaxY;
+
+    /*다음블록컬러*/
+    private Color nextBlockColor;
+
+    /*가능한블록컬러배열*/
+    private Color[] candidateBlockColors = new Color[]{Color.BLUE,Color.ORANGE,Color.PINK,Color.RED,Color.ORANGE,Color.YELLOW};
+
 
     /*처음블록배치시 게임화면에서 오른쪽으로 이동할 거리*/
     private int offsetY = 4;
@@ -66,6 +73,7 @@ public class GameBlock {
     public void initCurrentBlock(){
         this.currentBlockShapeSet = createBlockShape();
         this.currentBlockNumber = RandomUtils.nextInt(currentBlockShapeSet.length);
+        this.currentBlockColor = candidateBlockColors[ RandomUtils.nextInt(candidateBlockColors.length)];
 
         initBlockColorPosition();
         initBlockElementPosition();
@@ -78,6 +86,7 @@ public class GameBlock {
     public void initNextBlock(){
         this.nextBlockShapeSet = createBlockShape();
         this.nextBlockNumber = RandomUtils.nextInt(nextBlockShapeSet.length);
+        this.nextBlockColor = candidateBlockColors[ RandomUtils.nextInt(candidateBlockColors.length)];
 
     }
 
@@ -236,7 +245,6 @@ public class GameBlock {
                 break;
         }
         return blockShapeSet;
-        //blockNumber = RandomUtils.nextInt(blockShapeSet.length);
 
     }
 
@@ -245,14 +253,12 @@ public class GameBlock {
      */
     private void initBlockColorPosition(){
         this.blockColorPosition = new Color[GameOption.BOARD_HEIGHT][GameOption.BOARD_WIDTH];
-        Color[] colorArray = new Color[]{Color.BLUE,Color.ORANGE,Color.PINK,Color.RED,Color.ORANGE,Color.YELLOW};
-        this.blockColor = colorArray[new Random().nextInt(6)];
         int[][] blockShape = this.currentBlockShapeSet[this.currentBlockNumber];
 
         for(int i = 0; i < blockShape.length; i++){
             for(int j = 0; j < blockShape.length; j++){
                 if(blockShape[i][j] == 1){
-                    this.blockColorPosition[i][j + offsetY] = this.blockColor;
+                    this.blockColorPosition[i][j + offsetY] = this.currentBlockColor;
                 }
             }
         }
@@ -297,7 +303,7 @@ public class GameBlock {
      * @return 블록생상
      */
     public Color getCurrentBlockColor(){
-        return this.blockColor;
+        return this.currentBlockColor;
     }
 
     /**
@@ -339,11 +345,7 @@ public class GameBlock {
         return pointList;
     }
 
-    /**
-     * 입력값으로 블록위치이동
-     * @param points 블록위치배열
-     */
-    public void moveToBlock(ArrayList<Point> points){
+    private void clearCurrentBlocks(){
 
         for(int i = 0; i < blockElementPosition.length; i++){
             for(int j = 0; j < blockElementPosition[i].length; j++){
@@ -352,9 +354,17 @@ public class GameBlock {
 
             }
         }
+    }
+
+    /**
+     * 입력값으로 블록위치이동
+     * @param points 블록위치배열
+     */
+    public void moveToBlock(ArrayList<Point> points){
+        clearCurrentBlocks();
         points.stream().forEach(point -> {
             this.blockElementPosition[(int)point.getX()][(int)point.getY()] = 1;
-            this.blockColorPosition[(int)point.getX()][(int)point.getY()] = this.blockColor;
+            this.blockColorPosition[(int)point.getX()][(int)point.getY()] = this.currentBlockColor;
 
         });
         
@@ -417,6 +427,47 @@ public class GameBlock {
         moveToBlock(points);
 
     }
+
+    /**
+     * 다음블록을 현재블록으로 교체
+     */
+    public void requestNewBlock(){
+        clearCurrentBlocks();
+        this.initMaxY = 0;
+        this.initMaxX = 0;
+        this.currentBlockShapeSet = this.nextBlockShapeSet;
+        this.currentBlockNumber = this.nextBlockNumber;
+        this.currentBlockColor = this.nextBlockColor;
+        initBlockColorPosition();
+        initBlockElementPosition();
+        initNextBlock();
+
+    }
+
+
+    /**
+     * 다음 블록위치값 조회
+     * @return 다음블록위치배열
+     */
+    public ArrayList<Point> getNextBlockPosition(){
+        ArrayList<Point> pointList = new ArrayList<>();
+        int[][] block = nextBlockShapeSet[nextBlockNumber];
+        for(int i = 0; i < block.length; i++){
+            for(int j = 0; j < block[i].length; j++){
+                if(block[i][j] == 1){
+                    pointList.add(new Point(i,j));
+                }
+            }
+        }
+
+        return pointList;
+    }
+
+    public Color getNextBlockColor(){
+        return nextBlockColor;
+
+    }
+
 
 
 
