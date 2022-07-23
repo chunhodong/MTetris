@@ -293,8 +293,18 @@ public class GameBlock {
      * @param j 블록Y좌표
      * @return  블록요소존재여부
      */
-    public boolean hasBlockElement(int i,int j){
+    public boolean hasCurrentBlockElement(int i,int j){
         return this.blockElementPosition[i][j] == 1;
+    }
+
+    /**
+     * 입력값에 해당하는 배열위치에 블록값이 존재하는지여부
+     * @param i 블록X좌표
+     * @param j 블록Y좌표
+     * @return  블록요소존재여부
+     */
+    public boolean hasNextBlockElement(int i,int j){
+        return this.nextBlockShapeSet[this.nextBlockNumber][i][j] == 1;
     }
 
 

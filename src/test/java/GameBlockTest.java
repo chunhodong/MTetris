@@ -61,7 +61,7 @@ public class GameBlockTest {
             Field field = gameBlock.getClass().getDeclaredField("blockElementPosition");
             field.setAccessible(true);
             field.set(gameBlock,blocks);
-            Assertions.assertThat(gameBlock.hasBlockElement(0,0)).isEqualTo(true);
+            Assertions.assertThat(gameBlock.hasCurrentBlockElement(0,0)).isEqualTo(true);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -82,7 +82,7 @@ public class GameBlockTest {
             Field field = gameBlock.getClass().getDeclaredField("blockElementPosition");
             field.setAccessible(true);
             field.set(gameBlock,blocks);
-            Assertions.assertThat(gameBlock.hasBlockElement(0,2)).isEqualTo(false);
+            Assertions.assertThat(gameBlock.hasCurrentBlockElement(0,2)).isEqualTo(false);
         } catch (Exception e) {
             e.printStackTrace();
         }

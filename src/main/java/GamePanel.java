@@ -80,7 +80,7 @@ public class GamePanel extends JPanel {
 
         for(int i=0;i<GameOption.BOARD_HEIGHT;i++){
             for(int j=0;j<GameOption.BOARD_WIDTH;j++){
-                if(this.gameBlock.hasBlockElement(i,j)) {
+                if(this.gameBlock.hasCurrentBlockElement(i,j)) {
                     g.setColor(this.gameBlock.getCurrentBlockColor());
                     g.fillRect(j * GameOption.BOX_SIZE, i * GameOption.BOX_SIZE, GameOption.BOX_SIZE, GameOption.BOX_SIZE);
                     g.setColor(Color.white);
@@ -99,11 +99,15 @@ public class GamePanel extends JPanel {
 
         for(int i=0;i< ( GameOption.BOARD_HEIGHT / 5 );i++){
             for(int j=0;j< ( GameOption.BOARD_HEIGHT / 5 );j++){
-                g.setColor(Color.BLACK);
+                if(this.gameBlock == null || !this.gameBlock.hasNextBlockElement(i,j)){
+                    g.setColor(Color.BLACK);
+                }
+                else{
+                    g.setColor(this.gameBlock.getNextBlockColor());
+                }
                 g.fillRect(j * GameOption.BOX_SIZE + 265, i * GameOption.BOX_SIZE, GameOption.BOX_SIZE, GameOption.BOX_SIZE);
-                g.setColor(Color.WHITE);
+                //g.setColor(Color.white);
                 g.drawRect(j * GameOption.BOX_SIZE + 265, i * GameOption.BOX_SIZE, GameOption.BOX_SIZE, GameOption.BOX_SIZE);
-
             }
         }
 

@@ -68,7 +68,7 @@ public class GamePanelTest {
             field1.setAccessible(true);
 
             GameBlock value = (GameBlock)field1.get(gamePanel);
-            assertThat(value.hasBlockElement(1,1)).isEqualTo(true);
+            assertThat(value.hasCurrentBlockElement(1,1)).isEqualTo(true);
         } catch (NoSuchFieldException e) {
             e.printStackTrace();
         } catch (IllegalAccessException e) {
@@ -104,7 +104,7 @@ public class GamePanelTest {
             field1.setAccessible(true);
 
             GameBlock value = (GameBlock)field1.get(gamePanel);
-            assertThat(value.hasBlockElement(1,1)).isEqualTo(true);
+            assertThat(value.hasCurrentBlockElement(1,1)).isEqualTo(true);
         } catch (NoSuchFieldException e) {
             e.printStackTrace();
         } catch (IllegalAccessException e) {
