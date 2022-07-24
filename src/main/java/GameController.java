@@ -15,7 +15,7 @@ public class GameController {
 
 
     public enum Status{
-        RUNNING,STOP
+        RUNNING,STOP,END
     }
 
 
@@ -87,28 +87,6 @@ public class GameController {
         }
     }
 
-    /**
-     * 게임판 블록하단이동 요청
-     * @param direction 이동방향
-     */
-    public void requestMoveBlockDown(GameBlock.Direction direction){
-        ArrayList<Point> movablePoints = this.gameBlock.getMovablePosition(direction);
-        if(this.gameBackground.isAddible(movablePoints)){
-            this.gameBlock.moveToBlock(movablePoints);
-        }
-        else{
-            ArrayList<Point> currentPoints = this.gameBlock.getCurrentBlockPosition();
-
-            Color color = this.gameBlock.getCurrentBlockColor();
-
-            this.gameBackground.addBlock(currentPoints,color);
-            this.gameBackground.clearLines();
-            this.gameBlock.requestNewBlock();
-        }
-        repaintGame();
-
-    }
-
 
     /**
      * 게임판 블록회전 요청
@@ -122,19 +100,54 @@ public class GameController {
         }
     }
 
+    /**
+     * 게임판 블록하단이동 요청
+     * @param direction 이동방향
+     */
+    public void requestMoveBlockDown(GameBlock.Direction direction){
+        ArrayList<Point> movablePoints = this.gameBlock.getMovablePosition(direction);
+        if(this.gameBackground.isAddible(movablePoints)){
+            this.gameBlock.moveToBlock(movablePoints);
+        }
+        else {
+            ArrayList<Point> currentPoints = this.gameBlock.getCurrentBlockPosition();
+            Color color = this.gameBlock.getCurrentBlockColor();
+            this.gameBackground.addBlock(currentPoints, color);
+            this.gameBackground.clearLines();
+            this.gameBlock.requestNewBlock();
+            checkGameStatus(currentPoints);
+        }
+        repaintGame();
+
+
+
+    }
+
+    public void checkGameStatus(ArrayList<Point> currentPoints){
+        if(this.gameBackground.isEnd(currentPoints)){
+            this.status = Status.STOP;
+            this.gameTimer.stop();
+        }
+
+    }
+
 
     /**
      * 게임판 블록바닥이동 요청
      */
     public void requestMoveBlockBottom() {
-        ArrayList<Point> points = this.gameBlock.getCurrentBlockPosition();
+        ArrayList<Point> currentBlockPosition = this.gameBlock.getCurrentBlockPosition();
         Color color = this.gameBlock.getCurrentBlockColor();
 
-        ArrayList<Point> bottomPoints = this.gameBackground.getBottomPoints(points);
+        ArrayList<Point> bottomPoints = this.gameBackground.getBottomPoints(currentBlockPosition);
         this.gameBackground.addBlock(bottomPoints,color);
         this.gameBackground.clearLines();
         this.gameBlock.requestNewBlock();
+        checkGameStatus(currentBlockPosition);
+
         repaintGame();
+
+
 
     }
 

@@ -31,11 +31,13 @@ public class GameKeyHandler implements KeyListener {
         if(e.getKeyCode() == KeyEvent.VK_LEFT){
             this.controller.requestMoveBlockHorizontal(GameBlock.Direction.LEFT);
         }
-        if(e.getKeyCode() == KeyEvent.VK_DOWN){
-            this.controller.requestMoveBlockDown(GameBlock.Direction.DOWN);
-        }
+
         if(e.getKeyCode() == KeyEvent.VK_UP){
             this.controller.requestMoveBlockUp();
+        }
+
+        if(e.getKeyCode() == KeyEvent.VK_DOWN){
+            this.controller.requestMoveBlockDown(GameBlock.Direction.DOWN);
         }
 
         if(e.getKeyCode() == KeyEvent.VK_SPACE){

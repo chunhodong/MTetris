@@ -165,4 +165,11 @@ public class GameBackground {
 
         return new ArrayList<>();
     }
+
+    public boolean isEnd( ArrayList<Point> currentPoints ) {
+        return currentPoints.stream().filter(point -> this.backgroundElement[(int) point.getX()][(int) point.getY()] == 1)
+                .count() > 0;
+
+
+    }
 }
