@@ -11,9 +11,9 @@ public class GameFrame extends JFrame {
     /*화면크기*/
     private Dimension screen=Toolkit.getDefaultToolkit().getScreenSize();
     /*화면가로길이*/
-    private int width = (int) (screen.width*0.4);
+    private int width = (int) (screen.width*0.25);
     /*화면세로길이*/
-    private int height = (int) (screen.height*0.72);
+    private int height = (int) (screen.height*0.57);
 
     public GameFrame(JPanel gamePanel,KeyListener keyListener){
         setLayout(null);
