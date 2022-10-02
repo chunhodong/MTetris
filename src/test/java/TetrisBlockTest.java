@@ -1,6 +1,6 @@
 
-import model.GameBlock;
-import model.GameOption;
+import model.TetrisBlock;
+import model.TetrisOption;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -11,29 +11,29 @@ import java.util.ArrayList;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 
-public class GameBlockTest {
+public class TetrisBlockTest {
 
 
 
     @DisplayName("블록이동성공")
     @Test
     void 블록이동성공(){
-        GameBlock gameBlock = new GameBlock();
-        gameBlock.initCurrentBlock();
+        TetrisBlock tetrisBlock = new TetrisBlock();
+        tetrisBlock.initCurrentBlock();
         ArrayList<Point> points = new ArrayList<>();
         points.add(new Point(1,2));
         points.add(new Point(2,2));
         points.add(new Point(2,3));
         points.add(new Point(3,2));
 
-        gameBlock.moveToBlock(points);
+        tetrisBlock.moveToBlock(points);
 
         try {
-            Field field = gameBlock.getClass().getDeclaredField("blockElementPosition");
+            Field field = tetrisBlock.getClass().getDeclaredField("blockElementPosition");
 
             field.setAccessible(true);
 
-            int[][] value = (int[][])field.get(gameBlock);
+            int[][] value = (int[][])field.get(tetrisBlock);
             Assertions.assertThat(value[1][2]).isEqualTo(1);
             Assertions.assertThat(value[2][2]).isEqualTo(1);
             Assertions.assertThat(value[2][3]).isEqualTo(1);
@@ -52,18 +52,18 @@ public class GameBlockTest {
     void 블록요소확인성공(){
 
         try {
-            GameBlock gameBlock = new GameBlock();
+            TetrisBlock tetrisBlock = new TetrisBlock();
 
-            int[][] blocks = new int[GameOption.BOARD_HEIGHT][GameOption.BOARD_WIDTH];
+            int[][] blocks = new int[TetrisOption.BOARD_HEIGHT][TetrisOption.BOARD_WIDTH];
             blocks[0][0] = 1;
             blocks[1][1] = 1;
             blocks[2][2] = 1;
             blocks[3][3] = 1;
 
-            Field field = gameBlock.getClass().getDeclaredField("blockElementPosition");
+            Field field = tetrisBlock.getClass().getDeclaredField("blockElementPosition");
             field.setAccessible(true);
-            field.set(gameBlock,blocks);
-            Assertions.assertThat(gameBlock.hasCurrentBlockElement(0,0)).isEqualTo(true);
+            field.set(tetrisBlock,blocks);
+            Assertions.assertThat(tetrisBlock.hasCurrentBlockElement(0,0)).isEqualTo(true);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -73,18 +73,18 @@ public class GameBlockTest {
     void 블록요소확인실패(){
 
         try {
-            GameBlock gameBlock = new GameBlock();
+            TetrisBlock tetrisBlock = new TetrisBlock();
 
-            int[][] blocks = new int[GameOption.BOARD_HEIGHT][GameOption.BOARD_WIDTH];
+            int[][] blocks = new int[TetrisOption.BOARD_HEIGHT][TetrisOption.BOARD_WIDTH];
             blocks[0][0] = 1;
             blocks[1][1] = 1;
             blocks[2][2] = 1;
             blocks[3][3] = 1;
 
-            Field field = gameBlock.getClass().getDeclaredField("blockElementPosition");
+            Field field = tetrisBlock.getClass().getDeclaredField("blockElementPosition");
             field.setAccessible(true);
-            field.set(gameBlock,blocks);
-            Assertions.assertThat(gameBlock.hasCurrentBlockElement(0,2)).isEqualTo(false);
+            field.set(tetrisBlock,blocks);
+            Assertions.assertThat(tetrisBlock.hasCurrentBlockElement(0,2)).isEqualTo(false);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -93,19 +93,19 @@ public class GameBlockTest {
     @Test
     void 블록좌우이동가능포지션성공(){
         try {
-            GameBlock gameBlock = new GameBlock();
+            TetrisBlock tetrisBlock = new TetrisBlock();
 
-            int[][] blocks = new int[GameOption.BOARD_HEIGHT][GameOption.BOARD_WIDTH];
+            int[][] blocks = new int[TetrisOption.BOARD_HEIGHT][TetrisOption.BOARD_WIDTH];
             blocks[0][0] = 1;
             blocks[1][0] = 1;
             blocks[0][1] = 1;
             blocks[1][1] = 1;
 
-            Field field = gameBlock.getClass().getDeclaredField("blockElementPosition");
+            Field field = tetrisBlock.getClass().getDeclaredField("blockElementPosition");
             field.setAccessible(true);
-            field.set(gameBlock,blocks);
+            field.set(tetrisBlock,blocks);
 
-            ArrayList<Point> points = gameBlock.getMovablePosition(GameBlock.Direction.RIGHT);
+            ArrayList<Point> points = tetrisBlock.getMovablePosition(TetrisBlock.Direction.RIGHT);
             Assertions.assertThat(points.size()).isEqualTo(4);
         } catch (Exception e) {
             e.printStackTrace();
@@ -116,19 +116,19 @@ public class GameBlockTest {
     @Test
     void 블록하단이동가능포지션성공(){
         try {
-            GameBlock gameBlock = new GameBlock();
+            TetrisBlock tetrisBlock = new TetrisBlock();
 
-            int[][] blocks = new int[GameOption.BOARD_HEIGHT][GameOption.BOARD_WIDTH];
+            int[][] blocks = new int[TetrisOption.BOARD_HEIGHT][TetrisOption.BOARD_WIDTH];
             blocks[0][0] = 1;
             blocks[1][0] = 1;
             blocks[0][1] = 1;
             blocks[1][1] = 1;
 
-            Field field = gameBlock.getClass().getDeclaredField("blockElementPosition");
+            Field field = tetrisBlock.getClass().getDeclaredField("blockElementPosition");
             field.setAccessible(true);
-            field.set(gameBlock,blocks);
+            field.set(tetrisBlock,blocks);
 
-            ArrayList<Point> points = gameBlock.getMovablePosition(GameBlock.Direction.DOWN);
+            ArrayList<Point> points = tetrisBlock.getMovablePosition(TetrisBlock.Direction.DOWN);
             Assertions.assertThat(points.size()).isEqualTo(4);
         } catch (Exception e) {
             e.printStackTrace();
@@ -138,19 +138,19 @@ public class GameBlockTest {
     @Test
     void 현재블록위치조회성공(){
         try {
-            GameBlock gameBlock = new GameBlock();
+            TetrisBlock tetrisBlock = new TetrisBlock();
 
-            int[][] blocks = new int[GameOption.BOARD_HEIGHT][GameOption.BOARD_WIDTH];
+            int[][] blocks = new int[TetrisOption.BOARD_HEIGHT][TetrisOption.BOARD_WIDTH];
             blocks[0][0] = 1;
             blocks[1][0] = 1;
             blocks[0][1] = 1;
             blocks[1][1] = 1;
 
-            Field field = gameBlock.getClass().getDeclaredField("blockElementPosition");
+            Field field = tetrisBlock.getClass().getDeclaredField("blockElementPosition");
             field.setAccessible(true);
-            field.set(gameBlock,blocks);
+            field.set(tetrisBlock,blocks);
 
-            ArrayList<Point> points = gameBlock.getCurrentBlockPosition();
+            ArrayList<Point> points = tetrisBlock.getCurrentBlockPosition();
             Assertions.assertThat(points.size()).isEqualTo(4);
             Assertions.assertThat(points.get(0).x).isEqualTo(0);
             Assertions.assertThat(points.get(0).y).isEqualTo(0);
@@ -175,13 +175,13 @@ public class GameBlockTest {
         try {
 
 
-            GameBlock gameBlock = new GameBlock();
+            TetrisBlock tetrisBlock = new TetrisBlock();
 
-            Field field = gameBlock.getClass().getDeclaredField("blockColor");
+            Field field = tetrisBlock.getClass().getDeclaredField("blockColor");
             field.setAccessible(true);
-            field.set(gameBlock,Color.BLUE);
+            field.set(tetrisBlock,Color.BLUE);
 
-            Color color = gameBlock.getCurrentBlockColor();
+            Color color = tetrisBlock.getCurrentBlockColor();
             Assertions.assertThat(color).isEqualTo(Color.BLUE);
         } catch (Exception e) {
             e.printStackTrace();
@@ -192,7 +192,7 @@ public class GameBlockTest {
     @Test
     void 게임블록방향판별여부성공(){
         try {
-            GameBlock.Direction direction = GameBlock.Direction.LEFT;
+            TetrisBlock.Direction direction = TetrisBlock.Direction.LEFT;
             Assertions.assertThat(direction.isHorizontal()).isEqualTo(true);
         } catch (Exception e) {
             e.printStackTrace();
@@ -203,10 +203,10 @@ public class GameBlockTest {
     @Test
     void 블록회전좌표조회성공(){
 
-        GameBlock gameBlock = new GameBlock();
-        gameBlock.initCurrentBlock();
+        TetrisBlock tetrisBlock = new TetrisBlock();
+        tetrisBlock.initCurrentBlock();
 
-        ArrayList<Point> points = gameBlock.getRotatablePosition();
+        ArrayList<Point> points = tetrisBlock.getRotatablePosition();
         assertThat(points.size()).isEqualTo(4);
     }
 
@@ -216,9 +216,9 @@ public class GameBlockTest {
 
         try {
 
-            GameBlock gameBlock = new GameBlock();
-            gameBlock.initCurrentBlock();
-            Field field1 = gameBlock.getClass().getDeclaredField("blockShapeSet");
+            TetrisBlock tetrisBlock = new TetrisBlock();
+            tetrisBlock.initCurrentBlock();
+            Field field1 = tetrisBlock.getClass().getDeclaredField("blockShapeSet");
             field1.setAccessible(true);
             int [][][] blockShapeSet=new int[][][]{
                     {
@@ -234,23 +234,23 @@ public class GameBlockTest {
                             {0,1,0,0},
                     }
             };
-            field1.set(gameBlock,blockShapeSet);
+            field1.set(tetrisBlock,blockShapeSet);
 
-            Field field2 = gameBlock.getClass().getDeclaredField("blockNumber");
+            Field field2 = tetrisBlock.getClass().getDeclaredField("blockNumber");
             field2.setAccessible(true);
-            field2.set(gameBlock,0);
+            field2.set(tetrisBlock,0);
 
             ArrayList<Point> list = new ArrayList<>();
-            gameBlock.rotateBlock(list);
+            tetrisBlock.rotateBlock(list);
 
-            Field field3 = gameBlock.getClass().getDeclaredField("initMaxX");
+            Field field3 = tetrisBlock.getClass().getDeclaredField("initMaxX");
             field3.setAccessible(true);
 
-            Field field4 = gameBlock.getClass().getDeclaredField("initMaxY");
+            Field field4 = tetrisBlock.getClass().getDeclaredField("initMaxY");
             field4.setAccessible(true);
 
-            int valueX = (int)field3.get(gameBlock);
-            int valueY = (int)field4.get(gameBlock);
+            int valueX = (int)field3.get(tetrisBlock);
+            int valueY = (int)field4.get(tetrisBlock);
             assertThat(valueX).isEqualTo(3);
             assertThat(valueY).isEqualTo(5);
 

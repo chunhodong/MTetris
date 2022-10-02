@@ -4,7 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyListener;
 
-public class GameFrame extends JFrame {
+public class TetrisFrame extends JFrame {
 
     /*x좌표*/
     public final int xPos = 400;
@@ -17,7 +17,7 @@ public class GameFrame extends JFrame {
     /*화면세로길이*/
     private int height = (int) (screen.height*0.57);
 
-    public GameFrame(JPanel gamePanel,KeyListener keyListener){
+    public TetrisFrame(JPanel gamePanel, KeyListener keyListener){
         setLayout(null);
         setBounds(xPos,yPos,width,height);
         setResizable(false);

@@ -9,12 +9,12 @@ import java.util.stream.IntStream;
 /**
  * 게임배경데이터
  */
-public class GameBackground {
+public class TetrisBackground {
 
     private int[][] backgroundElement;
     private Color[][] backgroundColor;
 
-    public GameBackground(){
+    public TetrisBackground(){
         init();
     }
 
@@ -22,8 +22,8 @@ public class GameBackground {
      * 게임배경초기화
      */
     public void init(){
-        this.backgroundElement = new int[GameOption.BOARD_HEIGHT][GameOption.BOARD_WIDTH];
-        this.backgroundColor = new Color[GameOption.BOARD_HEIGHT][GameOption.BOARD_WIDTH];
+        this.backgroundElement = new int[TetrisOption.BOARD_HEIGHT][TetrisOption.BOARD_WIDTH];
+        this.backgroundColor = new Color[TetrisOption.BOARD_HEIGHT][TetrisOption.BOARD_WIDTH];
         for(int i = 0; i < this.backgroundColor.length; i++){
             for(int j = 0; j < this.backgroundColor[i].length; j++){
                 this.backgroundColor[i][j] = Color.BLACK;
@@ -38,7 +38,7 @@ public class GameBackground {
      */
     public boolean isMovable(ArrayList<Point> blockPoints){
         return blockPoints.stream()
-                .filter(point -> point.getY() < GameOption.BOARD_WIDTH)
+                .filter(point -> point.getY() < TetrisOption.BOARD_WIDTH)
                 .filter(point -> point.getY() >= 0)
                 .filter(point -> this.backgroundElement[(int)point.getX()][(int)point.getY()] == 0)
                 .count() == 4;
@@ -53,7 +53,7 @@ public class GameBackground {
     public boolean isAddible(ArrayList<Point> blockPoints){
         return blockPoints.stream()
 
-                .filter(point -> point.getX() < GameOption.BOARD_HEIGHT)
+                .filter(point -> point.getX() < TetrisOption.BOARD_HEIGHT)
                 .filter(point -> this.backgroundElement[(int)point.getX()][(int)point.getY()] == 0)
                 .count() == 4;
 
@@ -89,16 +89,16 @@ public class GameBackground {
      */
     public void clearLines() {
 
-        for(int i = GameOption.BOARD_HEIGHT - 1; i > 0; i--){
+        for(int i = TetrisOption.BOARD_HEIGHT - 1; i > 0; i--){
             int checkCount = 0;
 
-            for(int j = 0; j < GameOption.BOARD_WIDTH; j++){
+            for(int j = 0; j < TetrisOption.BOARD_WIDTH; j++){
                 if(this.backgroundElement[i][j] == 1){
                     checkCount++;
                 }
 
             }
-            if(checkCount == GameOption.BOARD_WIDTH){
+            if(checkCount == TetrisOption.BOARD_WIDTH){
                 removeLine(i);
                 i++;
             }
@@ -114,13 +114,13 @@ public class GameBackground {
     public void removeLine(Integer lineIdx){
 
         for(int i = lineIdx - 1; i >= 0; i--){
-            for(int j = 0; j < GameOption.BOARD_WIDTH; j++){
+            for(int j = 0; j < TetrisOption.BOARD_WIDTH; j++){
                 this.backgroundElement[i + 1][j] = this.backgroundElement[i][j];
                 this.backgroundColor[i + 1][j] = this.backgroundColor[i][j];
             }
         }
 
-        IntStream.range(1, GameOption.BOARD_WIDTH)
+        IntStream.range(1, TetrisOption.BOARD_WIDTH)
                 .forEach(value -> {
                     this.backgroundElement[0][value - 1] = 0;
                     this.backgroundColor[0][value - 1] = Color.BLACK;
@@ -135,7 +135,7 @@ public class GameBackground {
      * @return 블록바닥위치
      */
     public ArrayList<Point> getBottomPoints(ArrayList<Point> points) {
-        for(int i = 1; i < GameOption.BOARD_HEIGHT; i++){
+        for(int i = 1; i < TetrisOption.BOARD_HEIGHT; i++){
             int addX = i;
             List<Point> movePoints = points.stream()
                     .map(point -> new Point((int) (point.getX() + addX), (int) point.getY()))
@@ -143,7 +143,7 @@ public class GameBackground {
 
             long bottonCount = movePoints
                     .stream()
-                    .filter(point -> point.getX() == GameOption.BOARD_HEIGHT).count();
+                    .filter(point -> point.getX() == TetrisOption.BOARD_HEIGHT).count();
 
             if(bottonCount > 0){
                 List<Point> newPoints = points.stream()

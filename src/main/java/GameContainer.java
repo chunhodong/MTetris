@@ -1,6 +1,6 @@
-import controller.GameController;
-import io.GameKeyHandler;
-import view.GameFrame;
+import controller.TetrisController;
+import io.TetrisKeyboard;
+import view.TetrisFrame;
 import view.TetrisPanel;
 
 /**
@@ -13,15 +13,15 @@ public class GameContainer {
     private TetrisPanel tetrisPanel = new TetrisPanel();
 
     /*게임컨트롤러*/
-    private GameController gameController = new GameController(tetrisPanel);
+    private TetrisController tetrisController = new TetrisController(tetrisPanel);
 
     /*게임키보드*/
-    private GameKeyHandler gameKeyHandler = new GameKeyHandler(gameController);
+    private TetrisKeyboard tetrisKeyboard = new TetrisKeyboard(tetrisController);
 
     public void start(){
         //테트리스 팩토리에서 객체만든다음에
         //조립
         //start
-        new GameFrame(tetrisPanel,gameKeyHandler);
+        new TetrisFrame(tetrisPanel, tetrisKeyboard);
     }
 }

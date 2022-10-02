@@ -4,13 +4,11 @@ import utils.RandomUtils;
 
 import java.awt.*;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Random;
 
 /**
  * 게임블록데이터
  */
-public class GameBlock {
+public class TetrisBlock {
 
     public enum Direction{
         LEFT(-1),RIGHT(1),DOWN(1);
@@ -65,7 +63,7 @@ public class GameBlock {
     /*처음블록배치시 게임화면에서 오른쪽으로 이동할 거리*/
     private int offsetY = 4;
 
-    public GameBlock(){
+    public TetrisBlock(){
         initCurrentBlock();
         initNextBlock();
         
@@ -256,7 +254,7 @@ public class GameBlock {
      * 게임블록색초기화
      */
     private void initBlockColorPosition(){
-        this.blockColorPosition = new Color[GameOption.BOARD_HEIGHT][GameOption.BOARD_WIDTH];
+        this.blockColorPosition = new Color[TetrisOption.BOARD_HEIGHT][TetrisOption.BOARD_WIDTH];
         int[][] blockShape = this.currentBlockShapeSet[this.currentBlockNumber];
 
         for(int i = 0; i < blockShape.length; i++){
@@ -272,7 +270,7 @@ public class GameBlock {
      * 블록배열초기화
      */
     public void initBlockElementPosition(){
-        this.blockElementPosition = new int[GameOption.BOARD_HEIGHT][GameOption.BOARD_WIDTH];
+        this.blockElementPosition = new int[TetrisOption.BOARD_HEIGHT][TetrisOption.BOARD_WIDTH];
         int[][] blockShape = this.currentBlockShapeSet[this.currentBlockNumber];
 
 

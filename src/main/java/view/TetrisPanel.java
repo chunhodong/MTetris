@@ -1,8 +1,8 @@
 package view;
 
-import model.GameBackground;
-import model.GameBlock;
-import model.GameOption;
+import model.TetrisBackground;
+import model.TetrisBlock;
+import model.TetrisOption;
 
 import javax.swing.*;
 import java.awt.*;
@@ -14,34 +14,34 @@ public class TetrisPanel extends JPanel {
 
 
 
-    private GameBackground gameBackground;
-    private GameBlock gameBlock;
+    private TetrisBackground tetrisBackground;
+    private TetrisBlock tetrisBlock;
 
     /**
      * 게임화면 위치/크기 초기화
      */
     public TetrisPanel(){
         setLayout(null);
-        setBounds(GameOption.X_POSITION,
-                GameOption.Y_POSITION,
-                GameOption.DISPLAY_WIDTH,
-                GameOption.DISPLAY_HEIGHT);
+        setBounds(TetrisOption.X_POSITION,
+                TetrisOption.Y_POSITION,
+                TetrisOption.DISPLAY_WIDTH,
+                TetrisOption.DISPLAY_HEIGHT);
     }
 
     /**
      * 게임배경데이터초기화
-     * @param gameBackground 게임배경
+     * @param tetrisBackground 게임배경
      */
-    public void setGameBackground(GameBackground gameBackground){
-        this.gameBackground = gameBackground;
+    public void setGameBackground(TetrisBackground tetrisBackground){
+        this.tetrisBackground = tetrisBackground;
     }
 
     /**
      * 게임블록데이터초기화
-     * @param gameBlock 게임블록
+     * @param tetrisBlock 게임블록
      */
-    public void setGameBlock(GameBlock gameBlock){
-        this.gameBlock = gameBlock;
+    public void setGameBlock(TetrisBlock tetrisBlock){
+        this.tetrisBlock = tetrisBlock;
 
     }
 
@@ -64,12 +64,12 @@ public class TetrisPanel extends JPanel {
      */
     private void paintBackground(Graphics g){
 
-        for(int i = 0; i< GameOption.BOARD_HEIGHT; i++){
-            for(int j = 0; j< GameOption.BOARD_WIDTH; j++){
-                g.setColor(this.gameBackground == null ? Color.BLACK : this.gameBackground.getColor(i,j));
-                g.fillRect(j * GameOption.BOX_SIZE, i * GameOption.BOX_SIZE, GameOption.BOX_SIZE, GameOption.BOX_SIZE);
+        for(int i = 0; i< TetrisOption.BOARD_HEIGHT; i++){
+            for(int j = 0; j< TetrisOption.BOARD_WIDTH; j++){
+                g.setColor(this.tetrisBackground == null ? Color.BLACK : this.tetrisBackground.getColor(i,j));
+                g.fillRect(j * TetrisOption.BOX_SIZE, i * TetrisOption.BOX_SIZE, TetrisOption.BOX_SIZE, TetrisOption.BOX_SIZE);
                 g.setColor(Color.white);
-                g.drawRect(j * GameOption.BOX_SIZE, i * GameOption.BOX_SIZE, GameOption.BOX_SIZE, GameOption.BOX_SIZE);
+                g.drawRect(j * TetrisOption.BOX_SIZE, i * TetrisOption.BOX_SIZE, TetrisOption.BOX_SIZE, TetrisOption.BOX_SIZE);
 
             }
         }
@@ -82,15 +82,15 @@ public class TetrisPanel extends JPanel {
     private void paintCurrentBlock(Graphics g){
 
 
-        if(this.gameBlock == null)return;
+        if(this.tetrisBlock == null)return;
 
-        for(int i = 0; i< GameOption.BOARD_HEIGHT; i++){
-            for(int j = 0; j< GameOption.BOARD_WIDTH; j++){
-                if(this.gameBlock.hasCurrentBlockElement(i,j)) {
-                    g.setColor(this.gameBlock.getCurrentBlockColor());
-                    g.fillRect(j * GameOption.BOX_SIZE, i * GameOption.BOX_SIZE, GameOption.BOX_SIZE, GameOption.BOX_SIZE);
+        for(int i = 0; i< TetrisOption.BOARD_HEIGHT; i++){
+            for(int j = 0; j< TetrisOption.BOARD_WIDTH; j++){
+                if(this.tetrisBlock.hasCurrentBlockElement(i,j)) {
+                    g.setColor(this.tetrisBlock.getCurrentBlockColor());
+                    g.fillRect(j * TetrisOption.BOX_SIZE, i * TetrisOption.BOX_SIZE, TetrisOption.BOX_SIZE, TetrisOption.BOX_SIZE);
                     g.setColor(Color.white);
-                    g.drawRect(j * GameOption.BOX_SIZE, i * GameOption.BOX_SIZE, GameOption.BOX_SIZE, GameOption.BOX_SIZE);
+                    g.drawRect(j * TetrisOption.BOX_SIZE, i * TetrisOption.BOX_SIZE, TetrisOption.BOX_SIZE, TetrisOption.BOX_SIZE);
                 }
             }
         }
@@ -103,17 +103,17 @@ public class TetrisPanel extends JPanel {
      */
     private void paintNextBlock(Graphics g){
 
-        for(int i = 0; i< ( GameOption.BOARD_HEIGHT / 5 ); i++){
-            for(int j = 0; j< ( GameOption.BOARD_HEIGHT / 5 ); j++){
-                if(this.gameBlock == null || !this.gameBlock.hasNextBlockElement(i,j)){
+        for(int i = 0; i< ( TetrisOption.BOARD_HEIGHT / 5 ); i++){
+            for(int j = 0; j< ( TetrisOption.BOARD_HEIGHT / 5 ); j++){
+                if(this.tetrisBlock == null || !this.tetrisBlock.hasNextBlockElement(i,j)){
                     g.setColor(Color.BLACK);
                 }
                 else{
-                    g.setColor(this.gameBlock.getNextBlockColor());
+                    g.setColor(this.tetrisBlock.getNextBlockColor());
                 }
-                g.fillRect(j * GameOption.BOX_SIZE + 265, i * GameOption.BOX_SIZE, GameOption.BOX_SIZE, GameOption.BOX_SIZE);
+                g.fillRect(j * TetrisOption.BOX_SIZE + 265, i * TetrisOption.BOX_SIZE, TetrisOption.BOX_SIZE, TetrisOption.BOX_SIZE);
                 //g.setColor(Color.white);
-                g.drawRect(j * GameOption.BOX_SIZE + 265, i * GameOption.BOX_SIZE, GameOption.BOX_SIZE, GameOption.BOX_SIZE);
+                g.drawRect(j * TetrisOption.BOX_SIZE + 265, i * TetrisOption.BOX_SIZE, TetrisOption.BOX_SIZE, TetrisOption.BOX_SIZE);
             }
         }
 

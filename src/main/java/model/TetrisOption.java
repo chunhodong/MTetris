@@ -3,7 +3,7 @@ package model;
 /**
  * 게임에 필요한 옵션값
  */
-public class GameOption {
+public class TetrisOption {
 
     /*게임화면 시작X좌표*/
     public static final int X_POSITION = 10;

@@ -1,16 +1,16 @@
 package io;
 
-import controller.GameController;
-import model.GameBlock;
+import controller.TetrisController;
+import model.TetrisBlock;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
-public class GameKeyHandler implements KeyListener {
+public class TetrisKeyboard implements KeyListener {
 
-    private GameController controller;
+    private TetrisController controller;
 
-    public GameKeyHandler(GameController controller){
+    public TetrisKeyboard(TetrisController controller){
         this.controller = controller;
     }
 
@@ -27,14 +27,14 @@ public class GameKeyHandler implements KeyListener {
             this.controller.turnPause();
         }
 
-        if(this.controller.getStatus() == GameController.Status.STOP)return;
+        if(this.controller.getStatus() == TetrisController.Status.STOP)return;
 
         if(e.getKeyCode() == KeyEvent.VK_RIGHT){
-            this.controller.requestMoveBlockHorizontal(GameBlock.Direction.RIGHT);
+            this.controller.requestMoveBlockHorizontal(TetrisBlock.Direction.RIGHT);
         }
 
         if(e.getKeyCode() == KeyEvent.VK_LEFT){
-            this.controller.requestMoveBlockHorizontal(GameBlock.Direction.LEFT);
+            this.controller.requestMoveBlockHorizontal(TetrisBlock.Direction.LEFT);
         }
 
         if(e.getKeyCode() == KeyEvent.VK_UP){
@@ -42,7 +42,7 @@ public class GameKeyHandler implements KeyListener {
         }
 
         if(e.getKeyCode() == KeyEvent.VK_DOWN){
-            this.controller.requestMoveBlockDown(GameBlock.Direction.DOWN);
+            this.controller.requestMoveBlockDown(TetrisBlock.Direction.DOWN);
         }
 
         if(e.getKeyCode() == KeyEvent.VK_SPACE){

@@ -1,6 +1,6 @@
-import controller.GameController;
-import io.GameKeyHandler;
-import model.GameBlock;
+import controller.TetrisController;
+import io.TetrisKeyboard;
+import model.TetrisBlock;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -13,13 +13,13 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
 @ExtendWith(MockitoExtension.class)
-public class GameKeyHandlerTest {
+public class TetrisKeyboardTest {
 
     @InjectMocks
-    private GameKeyHandler gameKeyHandler;
+    private TetrisKeyboard tetrisKeyboard;
 
     @Mock
-    private GameController gameController;
+    private TetrisController tetrisController;
 
     @Test
     void 방향오른쪽이동성공(){
@@ -27,8 +27,8 @@ public class GameKeyHandlerTest {
          new TestComponent(),12,1,1,KeyEvent.VK_DOWN,'k'
         );
         event.setKeyCode(KeyEvent.VK_RIGHT);
-        gameKeyHandler.keyPressed(event);
-        verify(gameController,times(1)).requestMoveBlockHorizontal(GameBlock.Direction.RIGHT);
+        tetrisKeyboard.keyPressed(event);
+        verify(tetrisController,times(1)).requestMoveBlockHorizontal(TetrisBlock.Direction.RIGHT);
 
     }
 
@@ -38,10 +38,10 @@ public class GameKeyHandlerTest {
                 new TestComponent(),12,1,1,KeyEvent.VK_DOWN,'k'
         );
         event.setKeyCode(KeyEvent.VK_LEFT);
-        gameKeyHandler.keyPressed(event);
-        gameKeyHandler.keyReleased(event);
-        gameKeyHandler.keyTyped(event);
-        verify(gameController,times(1)).requestMoveBlockHorizontal(GameBlock.Direction.LEFT);
+        tetrisKeyboard.keyPressed(event);
+        tetrisKeyboard.keyReleased(event);
+        tetrisKeyboard.keyTyped(event);
+        verify(tetrisController,times(1)).requestMoveBlockHorizontal(TetrisBlock.Direction.LEFT);
 
     }
 
@@ -51,8 +51,8 @@ public class GameKeyHandlerTest {
                 new TestComponent(),12,1,1,KeyEvent.VK_DOWN,'k'
         );
         event.setKeyCode(KeyEvent.VK_DOWN);
-        gameKeyHandler.keyPressed(event);
-        verify(gameController,times(1)).requestMoveBlockDown(GameBlock.Direction.DOWN);
+        tetrisKeyboard.keyPressed(event);
+        verify(tetrisController,times(1)).requestMoveBlockDown(TetrisBlock.Direction.DOWN);
 
     }
 
@@ -62,8 +62,8 @@ public class GameKeyHandlerTest {
                 new TestComponent(),12,1,1,KeyEvent.VK_DOWN,'k'
         );
         event.setKeyCode(KeyEvent.VK_F1);
-        gameKeyHandler.keyPressed(event);
-        verify(gameController,times(1)).startGame();
+        tetrisKeyboard.keyPressed(event);
+        verify(tetrisController,times(1)).startGame();
 
 
     }
@@ -74,8 +74,8 @@ public class GameKeyHandlerTest {
                 new TestComponent(),12,1,1,KeyEvent.VK_DOWN,'k'
         );
         event.setKeyCode(KeyEvent.VK_F2);
-        gameKeyHandler.keyPressed(event);
-        verify(gameController,times(1)).turnPause();
+        tetrisKeyboard.keyPressed(event);
+        verify(tetrisController,times(1)).turnPause();
 
     }
 
@@ -85,8 +85,8 @@ public class GameKeyHandlerTest {
                 new TestComponent(),12,1,1,KeyEvent.VK_DOWN,'k'
         );
         event.setKeyCode(KeyEvent.VK_UP);
-        gameKeyHandler.keyPressed(event);
-        verify(gameController,times(1)).requestMoveBlockUp();
+        tetrisKeyboard.keyPressed(event);
+        verify(tetrisController,times(1)).requestMoveBlockUp();
 
     }
 
@@ -96,8 +96,8 @@ public class GameKeyHandlerTest {
                 new TestComponent(),12,1,1,KeyEvent.VK_DOWN,'k'
         );
         event.setKeyCode(KeyEvent.VK_SPACE);
-        gameKeyHandler.keyPressed(event);
-        verify(gameController,times(1)).requestMoveBlockBottom();
+        tetrisKeyboard.keyPressed(event);
+        verify(tetrisController,times(1)).requestMoveBlockBottom();
 
     }
 
