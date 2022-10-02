@@ -59,7 +59,7 @@ public class GameController {
             this.status = Status.STOP;
         }
 
-        else if(this.status == Status.STOP){
+        if(this.status == Status.STOP){
             this.gameTimer.resume(this,new Timer());
             this.status = Status.RUNNING;
         }
