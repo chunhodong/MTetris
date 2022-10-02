@@ -10,7 +10,7 @@ import java.awt.*;
 /**
  * 게임배경,게임블록등을 그래픽객체로 그려서 화면에출력
  */
-public class TetrisPanel extends JPanel {
+public class TetrisView extends JPanel {
 
 
 
@@ -20,7 +20,7 @@ public class TetrisPanel extends JPanel {
     /**
      * 게임화면 위치/크기 초기화
      */
-    public TetrisPanel(){
+    public TetrisView(){
         setLayout(null);
         setBounds(TetrisOption.X_POSITION,
                 TetrisOption.Y_POSITION,
@@ -34,6 +34,7 @@ public class TetrisPanel extends JPanel {
      */
     public void setGameBackground(TetrisBackground tetrisBackground){
         this.tetrisBackground = tetrisBackground;
+
     }
 
     /**
@@ -87,6 +88,7 @@ public class TetrisPanel extends JPanel {
         for(int i = 0; i< TetrisOption.BOARD_HEIGHT; i++){
             for(int j = 0; j< TetrisOption.BOARD_WIDTH; j++){
                 if(this.tetrisBlock.hasCurrentBlockElement(i,j)) {
+
                     g.setColor(this.tetrisBlock.getCurrentBlockColor());
                     g.fillRect(j * TetrisOption.BOX_SIZE, i * TetrisOption.BOX_SIZE, TetrisOption.BOX_SIZE, TetrisOption.BOX_SIZE);
                     g.setColor(Color.white);
@@ -102,6 +104,8 @@ public class TetrisPanel extends JPanel {
      * @param g 그래픽객체
      */
     private void paintNextBlock(Graphics g){
+
+
 
         for(int i = 0; i< ( TetrisOption.BOARD_HEIGHT / 5 ); i++){
             for(int j = 0; j< ( TetrisOption.BOARD_HEIGHT / 5 ); j++){

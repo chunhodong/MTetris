@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.junit.jupiter.MockitoExtension;
-import view.TetrisPanel;
+import view.TetrisView;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import java.awt.*;
@@ -13,10 +13,10 @@ import java.lang.reflect.Field;
 import java.util.ArrayList;
 
 @ExtendWith(MockitoExtension.class)
-public class TetrisPanelTest {
+public class TetrisViewTest {
 
     @InjectMocks
-    private TetrisPanel tetrisPanel;
+    private TetrisView tetrisView;
 
 
     @Test
@@ -34,11 +34,11 @@ public class TetrisPanelTest {
             TetrisBackground gb = new TetrisBackground();
             gb.init();
             gb.addBlock(points,Color.BLUE);
-            tetrisPanel.setGameBackground(gb);
-            Field field = tetrisPanel.getClass().getDeclaredField("gameBackground");
+            tetrisView.setGameBackground(gb);
+            Field field = tetrisView.getClass().getDeclaredField("gameBackground");
             field.setAccessible(true);
 
-            TetrisBackground value = (TetrisBackground)field.get(tetrisPanel);
+            TetrisBackground value = (TetrisBackground)field.get(tetrisView);
             assertThat(value.getColor(4,2)).isEqualTo(Color.BLUE);
         } catch (NoSuchFieldException e) {
             e.printStackTrace();
@@ -66,13 +66,13 @@ public class TetrisPanelTest {
             field.set(tetrisBlock,blocks);
 
 
-            tetrisPanel.setGameBlock(tetrisBlock);
+            tetrisView.setGameBlock(tetrisBlock);
 
 
-            Field field1 = tetrisPanel.getClass().getDeclaredField("gameBlock");
+            Field field1 = tetrisView.getClass().getDeclaredField("gameBlock");
             field1.setAccessible(true);
 
-            TetrisBlock value = (TetrisBlock)field1.get(tetrisPanel);
+            TetrisBlock value = (TetrisBlock)field1.get(tetrisView);
             assertThat(value.hasCurrentBlockElement(1,1)).isEqualTo(true);
         } catch (NoSuchFieldException e) {
             e.printStackTrace();
@@ -102,13 +102,13 @@ public class TetrisPanelTest {
             field.set(tetrisBlock,blocks);
 
 
-            tetrisPanel.setGameBlock(tetrisBlock);
+            tetrisView.setGameBlock(tetrisBlock);
 
 
-            Field field1 = tetrisPanel.getClass().getDeclaredField("gameBlock");
+            Field field1 = tetrisView.getClass().getDeclaredField("gameBlock");
             field1.setAccessible(true);
 
-            TetrisBlock value = (TetrisBlock)field1.get(tetrisPanel);
+            TetrisBlock value = (TetrisBlock)field1.get(tetrisView);
             assertThat(value.hasCurrentBlockElement(1,1)).isEqualTo(true);
         } catch (NoSuchFieldException e) {
             e.printStackTrace();

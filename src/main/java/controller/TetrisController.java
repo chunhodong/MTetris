@@ -3,7 +3,7 @@ package controller;
 import model.TetrisBackground;
 import model.TetrisBlock;
 import model.TetrisTimer;
-import view.TetrisPanel;
+import view.TetrisView;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -12,9 +12,9 @@ import java.util.Timer;
 
 public class TetrisController {
     
-    private TetrisBackground tetrisBackground;
+    private TetrisBackground background;
     private TetrisBlock tetrisBlock;
-    private TetrisPanel tetrisPanel;
+    private TetrisView tetrisView;
     private TetrisTimer tetrisTimer;
 
     private Status status;
@@ -26,18 +26,57 @@ public class TetrisController {
     }
 
 
-    public TetrisController(TetrisPanel tetrisPanel){
-        this.tetrisPanel = tetrisPanel;
+    private TetrisController(TetrisControllerBuilder builder){
+        this.background = builder.background;
+        this.tetrisBlock = builder.block;
+        this.tetrisView = builder.panel;
+        this.tetrisTimer = builder.timer;
+    }
+
+
+    public static TetrisControllerBuilder builder(){
+
+        return new TetrisControllerBuilder();
+    }
+
+    public static class TetrisControllerBuilder{
+        private TetrisBackground background;
+        private TetrisBlock block;
+        private TetrisView panel;
+        private TetrisTimer timer;
+
+
+        public TetrisControllerBuilder background(TetrisBackground background){
+            this.background = background;
+            return this;
+        }
+        public TetrisControllerBuilder block(TetrisBlock block){
+            this.block = block;
+            return this;
+        }
+
+        public TetrisControllerBuilder panel(TetrisView panel){
+            this.panel = panel;
+            return this;
+        }
+        public TetrisControllerBuilder timer(TetrisTimer timer){
+            this.timer = timer;
+            return this;
+        }
+        public TetrisController build(){
+
+            return new TetrisController(this);
+        }
     }
 
     /**
      * 게임화면,게임블록 초기화
      */
     public void initGame(){
-        tetrisBackground = new TetrisBackground();
+        background = new TetrisBackground();
         tetrisBlock = new TetrisBlock();
-        this.tetrisPanel.setGameBackground(tetrisBackground);
-        this.tetrisPanel.setGameBlock(tetrisBlock);
+        this.tetrisView.setGameBackground(background);
+        this.tetrisView.setGameBlock(tetrisBlock);
         this.tetrisTimer = new TetrisTimer();
 
     }
@@ -78,7 +117,7 @@ public class TetrisController {
      * 게임판화면 그리기
      */
     public void repaintGame(){
-        this.tetrisPanel.repaint();
+        this.tetrisView.repaint();
     }
 
     /**
@@ -87,7 +126,7 @@ public class TetrisController {
      */
     public void requestMoveBlockHorizontal(TetrisBlock.Direction direction){
         ArrayList<Point> points = this.tetrisBlock.getMovablePosition(direction);
-        boolean isEnable = this.tetrisBackground.isMovable(points);
+        boolean isEnable = this.background.isMovable(points);
         if(isEnable) {
             this.tetrisBlock.moveToBlock(points);
             repaintGame();
@@ -100,7 +139,7 @@ public class TetrisController {
      */
     public void requestMoveBlockUp() {
         ArrayList<Point> points = this.tetrisBlock.getRotatablePosition();
-        boolean isEnable = this.tetrisBackground.isMovable(points);
+        boolean isEnable = this.background.isMovable(points);
         if(isEnable) {
             this.tetrisBlock.rotateBlock(points);
             repaintGame();
@@ -113,14 +152,14 @@ public class TetrisController {
      */
     public void requestMoveBlockDown(TetrisBlock.Direction direction){
         ArrayList<Point> movablePoints = this.tetrisBlock.getMovablePosition(direction);
-        if(this.tetrisBackground.isAddible(movablePoints)){
+        if(this.background.isAddible(movablePoints)){
             this.tetrisBlock.moveToBlock(movablePoints);
         }
         else {
             ArrayList<Point> currentPoints = this.tetrisBlock.getCurrentBlockPosition();
             Color color = this.tetrisBlock.getCurrentBlockColor();
-            this.tetrisBackground.addBlock(currentPoints, color);
-            this.tetrisBackground.clearLines();
+            this.background.addBlock(currentPoints, color);
+            this.background.clearLines();
             this.tetrisBlock.requestNewBlock();
             checkGameStatus(currentPoints);
         }
@@ -131,7 +170,7 @@ public class TetrisController {
     }
 
     public void checkGameStatus(ArrayList<Point> currentPoints){
-        if(this.tetrisBackground.isEnd(currentPoints)){
+        if(this.background.isEnd(currentPoints)){
             this.status = Status.STOP;
             this.tetrisTimer.stop();
         }
@@ -146,9 +185,9 @@ public class TetrisController {
         ArrayList<Point> currentBlockPosition = this.tetrisBlock.getCurrentBlockPosition();
         Color color = this.tetrisBlock.getCurrentBlockColor();
 
-        ArrayList<Point> bottomPoints = this.tetrisBackground.getBottomPoints(currentBlockPosition);
-        this.tetrisBackground.addBlock(bottomPoints,color);
-        this.tetrisBackground.clearLines();
+        ArrayList<Point> bottomPoints = this.background.getBottomPoints(currentBlockPosition);
+        this.background.addBlock(bottomPoints,color);
+        this.background.clearLines();
         this.tetrisBlock.requestNewBlock();
         checkGameStatus(currentBlockPosition);
 
