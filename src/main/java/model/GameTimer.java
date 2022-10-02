@@ -1,4 +1,8 @@
-import java.util.Date;
+package model;
+
+import controller.GameController;
+import model.GameBlock;
+
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -7,7 +11,7 @@ public class GameTimer {
 
     private Timer timer;
 
-    public void run(GameController gameController,Timer timer){
+    public void run(GameController gameController, Timer timer){
         stop();
         this.timer = timer;
         this.timer.schedule(new TimerTask() {

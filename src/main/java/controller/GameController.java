@@ -1,3 +1,10 @@
+package controller;
+
+import model.GameBackground;
+import model.GameBlock;
+import model.GameTimer;
+import view.TetrisPanel;
+
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.Timer;
@@ -7,7 +14,7 @@ public class GameController {
     
     private GameBackground gameBackground;
     private GameBlock gameBlock;
-    private GamePanel gamePanel;
+    private TetrisPanel tetrisPanel;
     private GameTimer gameTimer;
 
     private Status status;
@@ -19,8 +26,8 @@ public class GameController {
     }
 
 
-    public GameController(GamePanel gamePanel){
-        this.gamePanel = gamePanel;
+    public GameController(TetrisPanel tetrisPanel){
+        this.tetrisPanel = tetrisPanel;
     }
 
     /**
@@ -29,8 +36,8 @@ public class GameController {
     public void initGame(){
         gameBackground = new GameBackground();
         gameBlock = new GameBlock();
-        this.gamePanel.setGameBackground(gameBackground);
-        this.gamePanel.setGameBlock(gameBlock);
+        this.tetrisPanel.setGameBackground(gameBackground);
+        this.tetrisPanel.setGameBlock(gameBlock);
         this.gameTimer = new GameTimer();
 
     }
@@ -71,7 +78,7 @@ public class GameController {
      * 게임판화면 그리기
      */
     public void repaintGame(){
-        this.gamePanel.repaint();
+        this.tetrisPanel.repaint();
     }
 
     /**

@@ -1,3 +1,5 @@
+package model;
+
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -118,7 +120,7 @@ public class GameBackground {
             }
         }
 
-        IntStream.range(1,GameOption.BOARD_WIDTH)
+        IntStream.range(1, GameOption.BOARD_WIDTH)
                 .forEach(value -> {
                     this.backgroundElement[0][value - 1] = 0;
                     this.backgroundColor[0][value - 1] = Color.BLACK;

@@ -1,10 +1,16 @@
+package view;
+
+import model.GameBackground;
+import model.GameBlock;
+import model.GameOption;
+
 import javax.swing.*;
 import java.awt.*;
 
 /**
  * 게임배경,게임블록등을 그래픽객체로 그려서 화면에출력
  */
-public class GamePanel extends JPanel {
+public class TetrisPanel extends JPanel {
 
 
 
@@ -14,7 +20,7 @@ public class GamePanel extends JPanel {
     /**
      * 게임화면 위치/크기 초기화
      */
-    public GamePanel(){
+    public TetrisPanel(){
         setLayout(null);
         setBounds(GameOption.X_POSITION,
                 GameOption.Y_POSITION,
@@ -58,8 +64,8 @@ public class GamePanel extends JPanel {
      */
     private void paintBackground(Graphics g){
 
-        for(int i=0;i<GameOption.BOARD_HEIGHT;i++){
-            for(int j=0;j<GameOption.BOARD_WIDTH;j++){
+        for(int i = 0; i< GameOption.BOARD_HEIGHT; i++){
+            for(int j = 0; j< GameOption.BOARD_WIDTH; j++){
                 g.setColor(this.gameBackground == null ? Color.BLACK : this.gameBackground.getColor(i,j));
                 g.fillRect(j * GameOption.BOX_SIZE, i * GameOption.BOX_SIZE, GameOption.BOX_SIZE, GameOption.BOX_SIZE);
                 g.setColor(Color.white);
@@ -78,8 +84,8 @@ public class GamePanel extends JPanel {
 
         if(this.gameBlock == null)return;
 
-        for(int i=0;i<GameOption.BOARD_HEIGHT;i++){
-            for(int j=0;j<GameOption.BOARD_WIDTH;j++){
+        for(int i = 0; i< GameOption.BOARD_HEIGHT; i++){
+            for(int j = 0; j< GameOption.BOARD_WIDTH; j++){
                 if(this.gameBlock.hasCurrentBlockElement(i,j)) {
                     g.setColor(this.gameBlock.getCurrentBlockColor());
                     g.fillRect(j * GameOption.BOX_SIZE, i * GameOption.BOX_SIZE, GameOption.BOX_SIZE, GameOption.BOX_SIZE);
@@ -97,8 +103,8 @@ public class GamePanel extends JPanel {
      */
     private void paintNextBlock(Graphics g){
 
-        for(int i=0;i< ( GameOption.BOARD_HEIGHT / 5 );i++){
-            for(int j=0;j< ( GameOption.BOARD_HEIGHT / 5 );j++){
+        for(int i = 0; i< ( GameOption.BOARD_HEIGHT / 5 ); i++){
+            for(int j = 0; j< ( GameOption.BOARD_HEIGHT / 5 ); j++){
                 if(this.gameBlock == null || !this.gameBlock.hasNextBlockElement(i,j)){
                     g.setColor(Color.BLACK);
                 }

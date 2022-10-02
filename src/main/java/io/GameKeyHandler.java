@@ -1,3 +1,8 @@
+package io;
+
+import controller.GameController;
+import model.GameBlock;
+
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
