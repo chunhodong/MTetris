@@ -12,8 +12,8 @@ import java.util.stream.IntStream;
  */
 public class TetrisBackground {
 
-    private int[][] backgroundElement;
-    private Color[][] backgroundColor;
+    private int[][] positionMap;
+    private Color[][] colorMap;
 
     public TetrisBackground(){
 
@@ -23,9 +23,9 @@ public class TetrisBackground {
      * 게임배경초기화
      */
     public void init(){
-        this.backgroundElement = new int[TetrisOption.BOARD_HEIGHT][TetrisOption.BOARD_WIDTH];
-        this.backgroundColor = new Color[TetrisOption.BOARD_HEIGHT][TetrisOption.BOARD_WIDTH];
-        for (Color[] colors : this.backgroundColor) {
+        this.positionMap = new int[TetrisOption.BOARD_HEIGHT][TetrisOption.BOARD_WIDTH];
+        this.colorMap = new Color[TetrisOption.BOARD_HEIGHT][TetrisOption.BOARD_WIDTH];
+        for (Color[] colors : this.colorMap) {
             Arrays.fill(colors, Color.BLACK);
         }
     }
@@ -39,7 +39,7 @@ public class TetrisBackground {
         return blockPoints.stream()
                 .filter(point -> point.getY() < TetrisOption.BOARD_WIDTH)
                 .filter(point -> point.getY() >= 0)
-                .filter(point -> this.backgroundElement[(int)point.getX()][(int)point.getY()] == 0)
+                .filter(point -> this.positionMap[(int)point.getX()][(int)point.getY()] == 0)
                 .count() == 4;
 
     }
@@ -53,9 +53,15 @@ public class TetrisBackground {
         return blockPoints.stream()
 
                 .filter(point -> point.getX() < TetrisOption.BOARD_HEIGHT)
-                .filter(point -> this.backgroundElement[(int)point.getX()][(int)point.getY()] == 0)
+                .filter(point -> this.positionMap[(int)point.getX()][(int)point.getY()] == 0)
                 .count() == 4;
 
+    }
+
+
+
+    public boolean isEnd( List<Point> currentPoints ) {
+        return currentPoints.stream().anyMatch(point -> this.positionMap[(int) point.getX()][(int) point.getY()] == 1);
     }
 
     /**
@@ -65,8 +71,8 @@ public class TetrisBackground {
      */
     public void addBlock(List<Point> blockPoints, Color color) {
         blockPoints.forEach(point -> {
-                    this.backgroundElement[(int)point.getX()][(int)point.getY()] = 1;
-                    this.backgroundColor[(int)point.getX()][(int)point.getY()] = color;
+                    this.positionMap[(int)point.getX()][(int)point.getY()] = 1;
+                    this.colorMap[(int)point.getX()][(int)point.getY()] = color;
                 });
 
         clearLines();
@@ -74,8 +80,8 @@ public class TetrisBackground {
     }
 
 
-    public Color[][] getBackgroundColor(){
-        return this.backgroundColor;
+    public Color[][] getColorMap(){
+        return this.colorMap;
     }
     /**
      * 게임배경에서 제거할라인확인
@@ -86,7 +92,7 @@ public class TetrisBackground {
             int checkCount = 0;
 
             for(int j = 0; j < TetrisOption.BOARD_WIDTH; j++){
-                if(this.backgroundElement[i][j] == 1){
+                if(this.positionMap[i][j] == 1){
                     checkCount++;
                 }
 
@@ -108,15 +114,15 @@ public class TetrisBackground {
 
         for(int i = lineIdx - 1; i >= 0; i--){
             for(int j = 0; j < TetrisOption.BOARD_WIDTH; j++){
-                this.backgroundElement[i + 1][j] = this.backgroundElement[i][j];
-                this.backgroundColor[i + 1][j] = this.backgroundColor[i][j];
+                this.positionMap[i + 1][j] = this.positionMap[i][j];
+                this.colorMap[i + 1][j] = this.colorMap[i][j];
             }
         }
 
         IntStream.range(1, TetrisOption.BOARD_WIDTH)
                 .forEach(value -> {
-                    this.backgroundElement[0][value - 1] = 0;
-                    this.backgroundColor[0][value - 1] = Color.BLACK;
+                    this.positionMap[0][value - 1] = 0;
+                    this.colorMap[0][value - 1] = Color.BLACK;
                 });
 
     }
@@ -145,7 +151,7 @@ public class TetrisBackground {
 
             }
 
-            long adjacentCount = movePoints.stream().filter(point -> this.backgroundElement[(int) point.getX()][(int) point.getY()] == 1).count();
+            long adjacentCount = movePoints.stream().filter(point -> this.positionMap[(int) point.getX()][(int) point.getY()] == 1).count();
             if(adjacentCount > 0){
                 return points.stream()
                         .map(point -> new Point((int) (point.getX() + addX - 1), (int) point.getY())).collect(Collectors.toList());
@@ -157,9 +163,4 @@ public class TetrisBackground {
         return new ArrayList<>();
     }
 
-    public boolean isEnd( List<Point> currentPoints ) {
-        return currentPoints.stream().anyMatch(point -> this.backgroundElement[(int) point.getX()][(int) point.getY()] == 1);
-
-
-    }
 }

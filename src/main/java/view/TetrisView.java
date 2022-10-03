@@ -19,7 +19,6 @@ public class TetrisView extends JPanel {
     private Color[][] nextBlock;
 
 
-
     /**
      * 게임화면 위치/크기 초기화
      */
@@ -30,7 +29,6 @@ public class TetrisView extends JPanel {
                 TetrisOption.DISPLAY_WIDTH,
                 TetrisOption.DISPLAY_HEIGHT);
     }
-
 
 
     /**
@@ -77,12 +75,12 @@ public class TetrisView extends JPanel {
 
         for (int i = 0; i < TetrisOption.BOARD_HEIGHT; i++) {
             for (int j = 0; j < TetrisOption.BOARD_WIDTH; j++) {
-
-                g.setColor(this.currentBlock[i][j]);
-                g.fillRect(j * TetrisOption.BOX_SIZE, i * TetrisOption.BOX_SIZE, TetrisOption.BOX_SIZE, TetrisOption.BOX_SIZE);
-                g.setColor(Color.white);
-                g.drawRect(j * TetrisOption.BOX_SIZE, i * TetrisOption.BOX_SIZE, TetrisOption.BOX_SIZE, TetrisOption.BOX_SIZE);
-
+                if (currentBlock[i][j] != null) {
+                    g.setColor(this.currentBlock[i][j]);
+                    g.fillRect(j * TetrisOption.BOX_SIZE, i * TetrisOption.BOX_SIZE, TetrisOption.BOX_SIZE, TetrisOption.BOX_SIZE);
+                    g.setColor(Color.white);
+                    g.drawRect(j * TetrisOption.BOX_SIZE, i * TetrisOption.BOX_SIZE, TetrisOption.BOX_SIZE, TetrisOption.BOX_SIZE);
+                }
             }
         }
     }
@@ -99,14 +97,14 @@ public class TetrisView extends JPanel {
 
         for (int i = 0; i < (TetrisOption.BOARD_HEIGHT / 5); i++) {
             for (int j = 0; j < (TetrisOption.BOARD_HEIGHT / 5); j++) {
-                g.setColor(this.nextBlock[i][j]);
+                g.setColor(this.nextBlock[i][j] == null ? Color.BLACK : this.nextBlock[i][j]);
                 g.fillRect(j * TetrisOption.BOX_SIZE + 265, i * TetrisOption.BOX_SIZE, TetrisOption.BOX_SIZE, TetrisOption.BOX_SIZE);
                 g.drawRect(j * TetrisOption.BOX_SIZE + 265, i * TetrisOption.BOX_SIZE, TetrisOption.BOX_SIZE, TetrisOption.BOX_SIZE);
+
             }
         }
 
     }
-
 
 
     public void updateBackground(Color[][] background) {
@@ -119,6 +117,6 @@ public class TetrisView extends JPanel {
     }
 
     public void updateNextBlock(Color[][] nextBlock) {
-        this.nextBlock  = nextBlock;
+        this.nextBlock = nextBlock;
     }
 }

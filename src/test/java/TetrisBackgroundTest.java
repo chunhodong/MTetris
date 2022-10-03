@@ -268,7 +268,7 @@ public class TetrisBackgroundTest {
             field.set(tetrisBackground,backgroundColor);
 
 
-            Color color = tetrisBackground.getBackgroundColor()[0][1];
+            Color color = tetrisBackground.getColorMap()[0][1];
             Assertions.assertThat(color).isEqualTo(Color.YELLOW);
         } catch (NoSuchFieldException e) {
             e.printStackTrace();

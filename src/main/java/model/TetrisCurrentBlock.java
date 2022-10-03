@@ -27,7 +27,6 @@ public class TetrisCurrentBlock extends TetrisBlock{
             return this == LEFT || this == RIGHT;
         }
     }
-    /*블록컬러배열*/
 
     /*초기X위치*/
     private int initMaxX;

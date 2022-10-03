@@ -25,6 +25,7 @@ public class TetrisController {
     private TetrisController(TetrisControllerBuilder builder) {
         this.background = builder.background;
         this.currentBlock = builder.currentBlock;
+        this.nextBlock = builder.nextBlock;
         this.tetrisView = builder.panel;
         this.tetrisTimer = builder.timer;
     }
@@ -148,9 +149,9 @@ public class TetrisController {
         this.background.addBlock(currentPoints, color);
         this.currentBlock.change(this.nextBlock);
         this.nextBlock.init();
-        switchStop(currentPoints);
+        switchStop(this.currentBlock.getCurrentPoints());
 
-        this.tetrisView.updateBackground(this.background.getBackgroundColor());
+        this.tetrisView.updateBackground(this.background.getColorMap());
         this.tetrisView.updateCurrentBlock(this.currentBlock.getColorMap());
         this.tetrisView.updateNextBlock(this.nextBlock.getColorMap());
         this.tetrisView.repaint();
@@ -163,7 +164,7 @@ public class TetrisController {
         this.nextBlock.init();
         this.background.init();
 
-        this.tetrisView.updateBackground(this.background.getBackgroundColor());
+        this.tetrisView.updateBackground(this.background.getColorMap());
         this.tetrisView.updateCurrentBlock(this.currentBlock.getColorMap());
         this.tetrisView.updateNextBlock(this.nextBlock.getColorMap());
         this.tetrisView.repaint();
@@ -178,7 +179,7 @@ public class TetrisController {
      */
     public void switchStart() {
 
-        this.tetrisView.repaint();
+        requestCreateBlocks();
         this.status = Status.RUNNING;
         this.tetrisTimer = new TetrisTimer();
         this.tetrisTimer.run(this, new Timer());
