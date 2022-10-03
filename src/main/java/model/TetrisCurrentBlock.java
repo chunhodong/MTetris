@@ -78,11 +78,12 @@ public class TetrisCurrentBlock extends TetrisBlock{
             for(int j = 0; j < blockShape.length; j++){
                 if(blockShape[i][j] == 1){
                     this.positionMap[i][j + OFFSET_Y] = 1;
-                    this.initMaxX = Math.max(this.initMaxX,i);
-                    this.initMaxY = Math.max(this.initMaxY,j + OFFSET_Y);
                 }
             }
         }
+
+        this.initMaxX = getMaxPositinX(this.positionMap);
+        this.initMaxY = getMaxPositinY(this.positionMap);
 
     }
 
@@ -126,24 +127,40 @@ public class TetrisCurrentBlock extends TetrisBlock{
         return pointList;
     }
 
+    public int getMaxPositinX(int[][] map){
+
+        int x = 0;
+        for(int i = 0; i < map.length; i++){
+            for(int j = 0; j < map[i].length; j++){
+                if(map[i][j] == 1){
+                    x = Math.max(x,i);
+                }
+            }
+        }
+        return x;
+
+
+    }
+    public int getMaxPositinY(int[][] map){
+        int y = 0;
+        for(int i = 0; i < map.length; i++){
+            for(int j = 0; j < map[i].length; j++){
+                if(map[i][j] == 1){
+                    y = Math.max(y,j);
+                }
+            }
+        }
+        return y;
+    }
+
     /**
      * 회전시 이동좌표 구하기
      * @return 회전시 이동좌표
      */
     public ArrayList<Point> getRotatablePoints() {
         int rotateBlockNumber = ( this.number + 1 ) % this.shapeSet.length;
-        int currentMaxX = 0;
-        int currentMaxY = 0;
-        for(int i = 0; i < positionMap.length; i++){
-            for(int j = 0; j < positionMap[i].length; j++){
-                if(this.positionMap[i][j] == 1){
-                    currentMaxX = Math.max(currentMaxX,i);
-                    currentMaxY = Math.max(currentMaxY,j);
-
-                }
-            }
-        }
-
+        int currentMaxX = getMaxPositinX(this.positionMap);
+        int currentMaxY = getMaxPositinY(this.positionMap);
         int distanceX = currentMaxX - initMaxX;
         int distanceY = currentMaxY - initMaxY;
 
@@ -170,8 +187,6 @@ public class TetrisCurrentBlock extends TetrisBlock{
         }
     }
 
-
-
     /**
      * 입력값으로 블록위치이동
      * @param points 블록위치배열
@@ -194,19 +209,8 @@ public class TetrisCurrentBlock extends TetrisBlock{
         this.number = ( this.number + 1 ) % this.shapeSet.length;
 
         int[][] blockShape = this.shapeSet[this.number];
-        this.initMaxX = 0;
-        this.initMaxY = 0;
-
-        for(int i = 0; i < blockShape.length; i++){
-            for(int j = 0; j < blockShape.length; j++){
-                if(blockShape[i][j] == 1){
-                    this.initMaxX = Math.max(this.initMaxX,i);
-                    this.initMaxY = Math.max(this.initMaxY,j + OFFSET_Y);
-                }
-            }
-        }
-
-
+        this.initMaxX = getMaxPositinX(blockShape);
+        this.initMaxY = getMaxPositinY(blockShape) + OFFSET_Y;
         move(points);
 
     }
