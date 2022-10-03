@@ -279,29 +279,6 @@ public class TetrisBackgroundTest {
     }
 
     @Test
-    void 배경블록체크성공(){
-
-        try {
-            TetrisBackground tetrisBackground = PowerMockito.spy(new TetrisBackground());
-
-            int[][] backgroundElement = new int[20][10];
-            for(int i = 0; i < 10; i++){
-                backgroundElement[19][i] = 1;
-            }
-
-            Field field = tetrisBackground.getClass().getDeclaredField("backgroundElement");
-            field.setAccessible(true);
-            field.set(tetrisBackground,backgroundElement);
-
-            tetrisBackground.clearLines();
-
-            PowerMockito.verifyPrivate(tetrisBackground,times(1)).invoke("removeLine",anyInt());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    @Test
     void 블록라인삭제성공(){
 
         try {

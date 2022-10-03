@@ -10,6 +10,13 @@ import java.util.ArrayList;
  */
 public class TetrisBlock {
     protected int [][][] blockShapeSet;
+
+    protected Color[][] blockColorPosition;
+
+
+    /*블록위치배열*/
+    protected int [][] blockElementPosition;
+
     /*블록번호*/
     protected int blockNumber;
 
@@ -27,11 +34,9 @@ public class TetrisBlock {
     }
 
     private int[][][] createBlockShape(){
-        int blockType = RandomUtils.nextInt(BLOCK_TYPE_SIZE);
-        int[][][] blockShapeSet = null;
-        switch(blockType){
+        switch(RandomUtils.nextInt(BLOCK_TYPE_SIZE)){
             case 0:
-                blockShapeSet=new int[][][]{
+                return new int[][][]{
                         {
                                 {1,1,1,1},
                                 {0,0,0,0},
@@ -45,9 +50,8 @@ public class TetrisBlock {
                                 {0,1,0,0},
                         }
                 };
-                break;
             case 1:
-                blockShapeSet=new int[][][]{
+                return new int[][][]{
                         {
                                 {0,1,1,0},
                                 {0,1,1,0},
@@ -55,9 +59,8 @@ public class TetrisBlock {
                                 {0,0,0,0}
                         }
                 };
-                break;
             case 2:
-                blockShapeSet=new int[][][]{
+                return new int[][][]{
                         {
                                 {0,1,0,0},
                                 {1,1,1,0},
@@ -87,9 +90,8 @@ public class TetrisBlock {
 
                         }
                 };
-                break;
             case 3:
-                blockShapeSet=new int[][][]{
+                return new int[][][]{
                         {
                                 {0,1,0,0},
                                 {1,1,0,0},
@@ -103,9 +105,8 @@ public class TetrisBlock {
                                 {0,0,0,0}
                         }
                 };
-                break;
             case 4:
-                blockShapeSet=new int[][][]{
+                return new int[][][]{
                         {
                                 {1,0,0,0},
                                 {1,1,0,0},
@@ -119,9 +120,8 @@ public class TetrisBlock {
                                 {0,0,0,0}
                         }
                 };
-                break;
             case 5:
-                blockShapeSet=new int[][][]{
+                return new int[][][]{
                         {
                                 {1,1,1,0},
                                 {0,0,1,0},
@@ -147,9 +147,8 @@ public class TetrisBlock {
                                 {0,0,0,0}
                         }
                 };
-                break;
             case 6:
-                blockShapeSet=new int[][][]{
+                return new int[][][]{
                         {
                                 {1,1,1,0},
                                 {1,0,0,0},
@@ -175,12 +174,15 @@ public class TetrisBlock {
                                 {0,0,0,0}
                         }
                 };
-                break;
         }
-        return blockShapeSet;
+        throw new IllegalArgumentException();
 
     }
 
+
+    public Color[][] getBlockColorMap() {
+        return blockColorPosition;
+    }
 
 
 }

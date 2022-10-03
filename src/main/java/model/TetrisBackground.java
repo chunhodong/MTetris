@@ -50,7 +50,7 @@ public class TetrisBackground {
      * @param blockPoints 블록위치배열
      * @return 블록하단이동여부
      */
-    public boolean isAddible(ArrayList<Point> blockPoints){
+    public boolean isAddible(List<Point> blockPoints){
         return blockPoints.stream()
 
                 .filter(point -> point.getX() < TetrisOption.BOARD_HEIGHT)
@@ -64,30 +64,25 @@ public class TetrisBackground {
      * @param blockPoints 블록위치배열
      * @param color 블록컬러
      */
-    public void addBlock(ArrayList<Point> blockPoints, Color color) {
+    public void addBlock(List<Point> blockPoints, Color color) {
         blockPoints.stream()
                 .forEach(point -> {
                     this.backgroundElement[(int)point.getX()][(int)point.getY()] = 1;
                     this.backgroundColor[(int)point.getX()][(int)point.getY()] = color;
                 });
 
-    }
+        clearLines();
 
-    /**
-     * 입력위치에 해당하는 배경컬러조회
-     * @param i X좌표
-     * @param j Y좌표
-     * @return 배경컬러
-     */
-    public Color getColor(int i,int j){
-        return this.backgroundColor[i][j];
     }
 
 
+    public Color[][] getBackgroundColor(){
+        return this.backgroundColor;
+    }
     /**
      * 게임배경에서 제거할라인확인
      */
-    public void clearLines() {
+    private void clearLines() {
 
         for(int i = TetrisOption.BOARD_HEIGHT - 1; i > 0; i--){
             int checkCount = 0;
@@ -134,7 +129,7 @@ public class TetrisBackground {
      * @param points 현재블록위치
      * @return 블록바닥위치
      */
-    public ArrayList<Point> getBottomPoints(ArrayList<Point> points) {
+    public List<Point> getBottomPoints(List<Point> points) {
         for(int i = 1; i < TetrisOption.BOARD_HEIGHT; i++){
             int addX = i;
             List<Point> movePoints = points.stream()
@@ -168,7 +163,7 @@ public class TetrisBackground {
         return new ArrayList<>();
     }
 
-    public boolean isEnd( ArrayList<Point> currentPoints ) {
+    public boolean isEnd( List<Point> currentPoints ) {
         return currentPoints.stream().filter(point -> this.backgroundElement[(int) point.getX()][(int) point.getY()] == 1)
                 .count() > 0;
 
