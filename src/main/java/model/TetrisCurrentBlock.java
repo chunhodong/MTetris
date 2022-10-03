@@ -82,8 +82,8 @@ public class TetrisCurrentBlock extends TetrisBlock{
             }
         }
 
-        this.initMaxX = getMaxPositinX(this.positionMap);
-        this.initMaxY = getMaxPositinY(this.positionMap);
+        this.initMaxX = getEdgeXPosition(this.positionMap);
+        this.initMaxY = getEdgeYPosition(this.positionMap);
 
     }
 
@@ -127,7 +127,7 @@ public class TetrisCurrentBlock extends TetrisBlock{
         return pointList;
     }
 
-    public int getMaxPositinX(int[][] map){
+    private int getEdgeXPosition(int[][] map){
 
         int x = 0;
         for(int i = 0; i < map.length; i++){
@@ -141,7 +141,7 @@ public class TetrisCurrentBlock extends TetrisBlock{
 
 
     }
-    public int getMaxPositinY(int[][] map){
+    private int getEdgeYPosition(int[][] map){
         int y = 0;
         for(int i = 0; i < map.length; i++){
             for(int j = 0; j < map[i].length; j++){
@@ -159,8 +159,8 @@ public class TetrisCurrentBlock extends TetrisBlock{
      */
     public ArrayList<Point> getRotatablePoints() {
         int rotateBlockNumber = ( this.number + 1 ) % this.shapeSet.length;
-        int currentMaxX = getMaxPositinX(this.positionMap);
-        int currentMaxY = getMaxPositinY(this.positionMap);
+        int currentMaxX = getEdgeXPosition(this.positionMap);
+        int currentMaxY = getEdgeYPosition(this.positionMap);
         int distanceX = currentMaxX - initMaxX;
         int distanceY = currentMaxY - initMaxY;
 
@@ -209,8 +209,8 @@ public class TetrisCurrentBlock extends TetrisBlock{
         this.number = ( this.number + 1 ) % this.shapeSet.length;
 
         int[][] blockShape = this.shapeSet[this.number];
-        this.initMaxX = getMaxPositinX(blockShape);
-        this.initMaxY = getMaxPositinY(blockShape) + OFFSET_Y;
+        this.initMaxX = getEdgeXPosition(blockShape);
+        this.initMaxY = getEdgeYPosition(blockShape) + OFFSET_Y;
         move(points);
 
     }
