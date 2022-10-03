@@ -29,10 +29,10 @@ public class TetrisCurrentBlock extends TetrisBlock{
     }
 
     /*초기X위치*/
-    private int initMaxX;
+    private int initEdgeX;
 
     /*초기Y위치*/
-    private int initMaxY;
+    private int initEdgeY;
 
     /*처음블록배치시 게임화면에서 오른쪽으로 이동할 거리*/
     private static final int OFFSET_Y = 4;
@@ -82,8 +82,8 @@ public class TetrisCurrentBlock extends TetrisBlock{
             }
         }
 
-        this.initMaxX = getEdgeXPosition(this.positionMap);
-        this.initMaxY = getEdgeYPosition(this.positionMap);
+        this.initEdgeX = getEdgeXPosition(this.positionMap);
+        this.initEdgeY = getEdgeYPosition(this.positionMap);
 
     }
 
@@ -159,10 +159,10 @@ public class TetrisCurrentBlock extends TetrisBlock{
      */
     public ArrayList<Point> getRotatablePoints() {
         int rotateBlockNumber = ( this.number + 1 ) % this.shapeSet.length;
-        int currentMaxX = getEdgeXPosition(this.positionMap);
-        int currentMaxY = getEdgeYPosition(this.positionMap);
-        int distanceX = currentMaxX - initMaxX;
-        int distanceY = currentMaxY - initMaxY;
+        int currentEdgeX = getEdgeXPosition(this.positionMap);
+        int currentEdgeY = getEdgeYPosition(this.positionMap);
+        int distanceX = currentEdgeX - initEdgeX;
+        int distanceY = currentEdgeY - initEdgeY;
 
         int[][] blockShape = this.shapeSet[rotateBlockNumber];
         ArrayList<Point> points  = new ArrayList<>();
@@ -209,8 +209,8 @@ public class TetrisCurrentBlock extends TetrisBlock{
         this.number = ( this.number + 1 ) % this.shapeSet.length;
 
         int[][] blockShape = this.shapeSet[this.number];
-        this.initMaxX = getEdgeXPosition(blockShape);
-        this.initMaxY = getEdgeYPosition(blockShape) + OFFSET_Y;
+        this.initEdgeX = getEdgeXPosition(blockShape);
+        this.initEdgeY = getEdgeYPosition(blockShape) + OFFSET_Y;
         move(points);
 
     }
@@ -220,8 +220,8 @@ public class TetrisCurrentBlock extends TetrisBlock{
      */
     public void change(TetrisNextBlock nextBlock){
         clear();
-        this.initMaxY = 0;
-        this.initMaxX = 0;
+        this.initEdgeY = 0;
+        this.initEdgeX = 0;
         this.shapeSet = nextBlock.shapeSet;
         this.number = nextBlock.number;
         this.color = nextBlock.color;
