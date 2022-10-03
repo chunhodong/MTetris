@@ -2,6 +2,7 @@ package view;
 
 import model.TetrisBackground;
 import model.TetrisBlock;
+import model.TetrisCurrentBlock;
 import model.TetrisOption;
 
 import javax.swing.*;
@@ -15,7 +16,12 @@ public class TetrisView extends JPanel {
 
 
     private TetrisBackground tetrisBackground;
-    private TetrisBlock tetrisBlock;
+    private TetrisCurrentBlock tetrisBlock;
+
+    private Color[][] currentBlockColors;
+
+    private Color[][] nextBlockColors;
+
 
     /**
      * 게임화면 위치/크기 초기화
@@ -41,7 +47,7 @@ public class TetrisView extends JPanel {
      * 게임블록데이터초기화
      * @param tetrisBlock 게임블록
      */
-    public void setGameBlock(TetrisBlock tetrisBlock){
+    public void setGameBlock(TetrisCurrentBlock tetrisBlock){
         this.tetrisBlock = tetrisBlock;
 
     }

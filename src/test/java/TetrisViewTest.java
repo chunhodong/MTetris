@@ -1,5 +1,6 @@
 import model.TetrisBackground;
 import model.TetrisBlock;
+import model.TetrisCurrentBlock;
 import model.TetrisOption;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -54,7 +55,7 @@ public class TetrisViewTest {
         try {
 
 
-            TetrisBlock tetrisBlock = new TetrisBlock();
+            TetrisCurrentBlock tetrisBlock = new TetrisCurrentBlock();
             int[][] blocks = new int[TetrisOption.BOARD_HEIGHT][TetrisOption.BOARD_WIDTH];
             blocks[0][0] = 1;
             blocks[1][1] = 1;
@@ -72,7 +73,7 @@ public class TetrisViewTest {
             Field field1 = tetrisView.getClass().getDeclaredField("gameBlock");
             field1.setAccessible(true);
 
-            TetrisBlock value = (TetrisBlock)field1.get(tetrisView);
+            TetrisCurrentBlock value = (TetrisCurrentBlock)field1.get(tetrisView);
             assertThat(value.hasCurrentBlockElement(1,1)).isEqualTo(true);
         } catch (NoSuchFieldException e) {
             e.printStackTrace();
@@ -90,7 +91,7 @@ public class TetrisViewTest {
 
         try {
 
-            TetrisBlock tetrisBlock = new TetrisBlock();
+            TetrisCurrentBlock tetrisBlock = new TetrisCurrentBlock();
             int[][] blocks = new int[TetrisOption.BOARD_HEIGHT][TetrisOption.BOARD_WIDTH];
             blocks[0][0] = 1;
             blocks[1][1] = 1;
@@ -108,7 +109,7 @@ public class TetrisViewTest {
             Field field1 = tetrisView.getClass().getDeclaredField("gameBlock");
             field1.setAccessible(true);
 
-            TetrisBlock value = (TetrisBlock)field1.get(tetrisView);
+            TetrisCurrentBlock value = (TetrisCurrentBlock)field1.get(tetrisView);
             assertThat(value.hasCurrentBlockElement(1,1)).isEqualTo(true);
         } catch (NoSuchFieldException e) {
             e.printStackTrace();

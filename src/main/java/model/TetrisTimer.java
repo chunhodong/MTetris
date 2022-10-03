@@ -16,7 +16,7 @@ public class TetrisTimer {
         this.timer.schedule(new TimerTask() {
             @Override
             public void run() {
-                tetrisController.requestMoveBlockDown(TetrisBlock.Direction.DOWN);
+                tetrisController.requestMoveBlockDown(TetrisCurrentBlock.Direction.DOWN);
             }
         },1000, 1000);
 
@@ -34,7 +34,7 @@ public class TetrisTimer {
         this.timer.schedule(new TimerTask() {
             @Override
             public void run() {
-                tetrisController.requestMoveBlockDown(TetrisBlock.Direction.DOWN);
+                tetrisController.requestMoveBlockDown(TetrisCurrentBlock.Direction.DOWN);
             }
         }, 0,1000);
     }

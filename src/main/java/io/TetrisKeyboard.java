@@ -2,6 +2,7 @@ package io;
 
 import controller.TetrisController;
 import model.TetrisBlock;
+import model.TetrisCurrentBlock;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -30,11 +31,11 @@ public class TetrisKeyboard implements KeyListener {
         if(this.controller.getStatus() == TetrisController.Status.STOP)return;
 
         if(e.getKeyCode() == KeyEvent.VK_RIGHT){
-            this.controller.requestMoveBlockHorizontal(TetrisBlock.Direction.RIGHT);
+            this.controller.requestMoveBlockHorizontal(TetrisCurrentBlock.Direction.RIGHT);
         }
 
         if(e.getKeyCode() == KeyEvent.VK_LEFT){
-            this.controller.requestMoveBlockHorizontal(TetrisBlock.Direction.LEFT);
+            this.controller.requestMoveBlockHorizontal(TetrisCurrentBlock.Direction.LEFT);
         }
 
         if(e.getKeyCode() == KeyEvent.VK_UP){
@@ -42,7 +43,7 @@ public class TetrisKeyboard implements KeyListener {
         }
 
         if(e.getKeyCode() == KeyEvent.VK_DOWN){
-            this.controller.requestMoveBlockDown(TetrisBlock.Direction.DOWN);
+            this.controller.requestMoveBlockDown(TetrisCurrentBlock.Direction.DOWN);
         }
 
         if(e.getKeyCode() == KeyEvent.VK_SPACE){

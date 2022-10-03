@@ -1,6 +1,7 @@
 import controller.TetrisController;
 import io.TetrisKeyboard;
 import model.TetrisBlock;
+import model.TetrisCurrentBlock;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -28,7 +29,7 @@ public class TetrisKeyboardTest {
         );
         event.setKeyCode(KeyEvent.VK_RIGHT);
         tetrisKeyboard.keyPressed(event);
-        verify(tetrisController,times(1)).requestMoveBlockHorizontal(TetrisBlock.Direction.RIGHT);
+        verify(tetrisController,times(1)).requestMoveBlockHorizontal(TetrisCurrentBlock.Direction.RIGHT);
 
     }
 
@@ -41,7 +42,7 @@ public class TetrisKeyboardTest {
         tetrisKeyboard.keyPressed(event);
         tetrisKeyboard.keyReleased(event);
         tetrisKeyboard.keyTyped(event);
-        verify(tetrisController,times(1)).requestMoveBlockHorizontal(TetrisBlock.Direction.LEFT);
+        verify(tetrisController,times(1)).requestMoveBlockHorizontal(TetrisCurrentBlock.Direction.LEFT);
 
     }
 
@@ -52,7 +53,7 @@ public class TetrisKeyboardTest {
         );
         event.setKeyCode(KeyEvent.VK_DOWN);
         tetrisKeyboard.keyPressed(event);
-        verify(tetrisController,times(1)).requestMoveBlockDown(TetrisBlock.Direction.DOWN);
+        verify(tetrisController,times(1)).requestMoveBlockDown(TetrisCurrentBlock.Direction.DOWN);
 
     }
 

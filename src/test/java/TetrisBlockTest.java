@@ -1,5 +1,6 @@
 
 import model.TetrisBlock;
+import model.TetrisCurrentBlock;
 import model.TetrisOption;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
@@ -18,8 +19,8 @@ public class TetrisBlockTest {
     @DisplayName("블록이동성공")
     @Test
     void 블록이동성공(){
-        TetrisBlock tetrisBlock = new TetrisBlock();
-        tetrisBlock.initCurrentBlock();
+        TetrisCurrentBlock tetrisBlock = new TetrisCurrentBlock();
+        tetrisBlock.initBlock();
         ArrayList<Point> points = new ArrayList<>();
         points.add(new Point(1,2));
         points.add(new Point(2,2));
@@ -52,7 +53,7 @@ public class TetrisBlockTest {
     void 블록요소확인성공(){
 
         try {
-            TetrisBlock tetrisBlock = new TetrisBlock();
+            TetrisCurrentBlock tetrisBlock = new TetrisCurrentBlock();
 
             int[][] blocks = new int[TetrisOption.BOARD_HEIGHT][TetrisOption.BOARD_WIDTH];
             blocks[0][0] = 1;
@@ -73,7 +74,7 @@ public class TetrisBlockTest {
     void 블록요소확인실패(){
 
         try {
-            TetrisBlock tetrisBlock = new TetrisBlock();
+            TetrisCurrentBlock tetrisBlock = new TetrisCurrentBlock();
 
             int[][] blocks = new int[TetrisOption.BOARD_HEIGHT][TetrisOption.BOARD_WIDTH];
             blocks[0][0] = 1;
@@ -93,7 +94,7 @@ public class TetrisBlockTest {
     @Test
     void 블록좌우이동가능포지션성공(){
         try {
-            TetrisBlock tetrisBlock = new TetrisBlock();
+            TetrisCurrentBlock tetrisBlock = new TetrisCurrentBlock();
 
             int[][] blocks = new int[TetrisOption.BOARD_HEIGHT][TetrisOption.BOARD_WIDTH];
             blocks[0][0] = 1;
@@ -105,7 +106,7 @@ public class TetrisBlockTest {
             field.setAccessible(true);
             field.set(tetrisBlock,blocks);
 
-            ArrayList<Point> points = tetrisBlock.getMovablePosition(TetrisBlock.Direction.RIGHT);
+            ArrayList<Point> points = tetrisBlock.getMovablePosition(TetrisCurrentBlock.Direction.RIGHT);
             Assertions.assertThat(points.size()).isEqualTo(4);
         } catch (Exception e) {
             e.printStackTrace();
@@ -116,7 +117,7 @@ public class TetrisBlockTest {
     @Test
     void 블록하단이동가능포지션성공(){
         try {
-            TetrisBlock tetrisBlock = new TetrisBlock();
+            TetrisCurrentBlock tetrisBlock = new TetrisCurrentBlock();
 
             int[][] blocks = new int[TetrisOption.BOARD_HEIGHT][TetrisOption.BOARD_WIDTH];
             blocks[0][0] = 1;
@@ -128,7 +129,7 @@ public class TetrisBlockTest {
             field.setAccessible(true);
             field.set(tetrisBlock,blocks);
 
-            ArrayList<Point> points = tetrisBlock.getMovablePosition(TetrisBlock.Direction.DOWN);
+            ArrayList<Point> points = tetrisBlock.getMovablePosition(TetrisCurrentBlock.Direction.DOWN);
             Assertions.assertThat(points.size()).isEqualTo(4);
         } catch (Exception e) {
             e.printStackTrace();
@@ -138,7 +139,7 @@ public class TetrisBlockTest {
     @Test
     void 현재블록위치조회성공(){
         try {
-            TetrisBlock tetrisBlock = new TetrisBlock();
+            TetrisCurrentBlock tetrisBlock = new TetrisCurrentBlock();
 
             int[][] blocks = new int[TetrisOption.BOARD_HEIGHT][TetrisOption.BOARD_WIDTH];
             blocks[0][0] = 1;
@@ -175,7 +176,7 @@ public class TetrisBlockTest {
         try {
 
 
-            TetrisBlock tetrisBlock = new TetrisBlock();
+            TetrisCurrentBlock tetrisBlock = new TetrisCurrentBlock();
 
             Field field = tetrisBlock.getClass().getDeclaredField("blockColor");
             field.setAccessible(true);
@@ -192,7 +193,7 @@ public class TetrisBlockTest {
     @Test
     void 게임블록방향판별여부성공(){
         try {
-            TetrisBlock.Direction direction = TetrisBlock.Direction.LEFT;
+            TetrisCurrentBlock.Direction direction = TetrisCurrentBlock.Direction.LEFT;
             Assertions.assertThat(direction.isHorizontal()).isEqualTo(true);
         } catch (Exception e) {
             e.printStackTrace();
@@ -203,8 +204,8 @@ public class TetrisBlockTest {
     @Test
     void 블록회전좌표조회성공(){
 
-        TetrisBlock tetrisBlock = new TetrisBlock();
-        tetrisBlock.initCurrentBlock();
+        TetrisCurrentBlock tetrisBlock = new TetrisCurrentBlock();
+        tetrisBlock.initBlock();
 
         ArrayList<Point> points = tetrisBlock.getRotatablePosition();
         assertThat(points.size()).isEqualTo(4);
@@ -216,8 +217,8 @@ public class TetrisBlockTest {
 
         try {
 
-            TetrisBlock tetrisBlock = new TetrisBlock();
-            tetrisBlock.initCurrentBlock();
+            TetrisCurrentBlock tetrisBlock = new TetrisCurrentBlock();
+            tetrisBlock.initBlock();
             Field field1 = tetrisBlock.getClass().getDeclaredField("blockShapeSet");
             field1.setAccessible(true);
             int [][][] blockShapeSet=new int[][][]{

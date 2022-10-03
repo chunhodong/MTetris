@@ -1,8 +1,6 @@
 import controller.TetrisController;
 import io.TetrisKeyboard;
-import model.TetrisBackground;
-import model.TetrisBlock;
-import model.TetrisTimer;
+import model.*;
 import view.TetrisFrame;
 import view.TetrisView;
 
@@ -21,7 +19,8 @@ public class GameContainer {
         TetrisController controller = TetrisController
                 .builder()
                 .background(new TetrisBackground())
-                .block(new TetrisBlock())
+                .currentBlock(new TetrisCurrentBlock())
+                .nextBlock(new TetrisNextBlock())
                 .panel(view)
                 .timer(new TetrisTimer())
                 .build();

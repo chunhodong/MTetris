@@ -1,4 +1,4 @@
 package model;
 
-public class TetrisNextBlock {
+public class TetrisNextBlock extends TetrisBlock{
 }
