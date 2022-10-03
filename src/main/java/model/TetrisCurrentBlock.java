@@ -45,23 +45,23 @@ public class TetrisCurrentBlock extends TetrisBlock{
 
 
     @Override
-    public void initBlock() {
-        super.initBlock();
-        initBlockColorPosition();
-        initBlockElementPosition();
+    public void init() {
+        super.init();
+        initColor();
+        initPosition();
     }
 
     /**
      * 게임블록색초기화
      */
-    private void initBlockColorPosition(){
-        this.blockColorPosition = new Color[BOARD_HEIGHT][BOARD_WIDTH];
-        int[][] blockShape = this.blockShapeSet[this.blockNumber];
+    private void initColor(){
+        this.colorMap = new Color[BOARD_HEIGHT][BOARD_WIDTH];
+        int[][] blockShape = this.shapeSet[this.number];
 
         for(int i = 0; i < blockShape.length; i++){
             for(int j = 0; j < blockShape.length; j++){
                 if(blockShape[i][j] == 1){
-                    this.blockColorPosition[i][j + OFFSET_Y] = this.blockColor;
+                    this.colorMap[i][j + OFFSET_Y] = this.color;
                 }
             }
         }
@@ -70,15 +70,15 @@ public class TetrisCurrentBlock extends TetrisBlock{
     /**
      * 블록배열초기화
      */
-    public void initBlockElementPosition(){
-        this.blockElementPosition = new int[BOARD_HEIGHT][BOARD_WIDTH];
-        int[][] blockShape = this.blockShapeSet[this.blockNumber];
+    private void initPosition(){
+        this.positionMap = new int[BOARD_HEIGHT][BOARD_WIDTH];
+        int[][] blockShape = this.shapeSet[this.number];
 
 
         for(int i = 0; i < blockShape.length; i++){
             for(int j = 0; j < blockShape.length; j++){
                 if(blockShape[i][j] == 1){
-                    this.blockElementPosition[i][j + OFFSET_Y] = 1;
+                    this.positionMap[i][j + OFFSET_Y] = 1;
                     this.initMaxX = Math.max(this.initMaxX,i);
                     this.initMaxY = Math.max(this.initMaxY,j + OFFSET_Y);
                 }
@@ -92,11 +92,11 @@ public class TetrisCurrentBlock extends TetrisBlock{
      * 현재 블록위치값 조회
      * @return 블록위치배열
      */
-    public List<Point> getCurrentBlockPosition(){
+    public List<Point> getCurrentPoints(){
         List<Point> pointList = new ArrayList<>();
-        for(int i = 0; i < blockElementPosition.length; i++){
-            for(int j = 0; j < blockElementPosition[i].length; j++){
-                if(blockElementPosition[i][j] == 1){
+        for(int i = 0; i < positionMap.length; i++){
+            for(int j = 0; j < positionMap[i].length; j++){
+                if(positionMap[i][j] == 1){
                     pointList.add(new Point(i,j));
                 }
             }
@@ -110,11 +110,11 @@ public class TetrisCurrentBlock extends TetrisBlock{
      * @param direction 이동방향(좌,우,아래)
      * @return 블록위치배열
      */
-    public ArrayList<Point> getMovablePosition(Direction direction){
+    public ArrayList<Point> getMovablePoints(Direction direction){
         ArrayList<Point> pointList = new ArrayList<>();
-        for(int i = 0; i < blockElementPosition.length; i++){
-            for(int j = 0; j < blockElementPosition[i].length; j++){
-                if(blockElementPosition[i][j] == 1){
+        for(int i = 0; i < positionMap.length; i++){
+            for(int j = 0; j < positionMap[i].length; j++){
+                if(positionMap[i][j] == 1){
                     System.out.println();
 
                     Point point = direction.isHorizontal()
@@ -127,44 +127,17 @@ public class TetrisCurrentBlock extends TetrisBlock{
         return pointList;
     }
 
-    private void clearCurrentBlocks(){
-
-        for(int i = 0; i < blockElementPosition.length; i++){
-            for(int j = 0; j < blockElementPosition[i].length; j++){
-                this.blockElementPosition[i][j] = 0;
-                this.blockColorPosition[i][j] = null;
-
-            }
-        }
-    }
-
-
-
-    /**
-     * 입력값으로 블록위치이동
-     * @param points 블록위치배열
-     */
-    public void moveBlock(List<Point> points){
-        clearCurrentBlocks();
-        points.stream().forEach(point -> {
-            this.blockElementPosition[(int)point.getX()][(int)point.getY()] = 1;
-            this.blockColorPosition[(int)point.getX()][(int)point.getY()] = this.blockColor;
-
-        });
-
-    }
-
     /**
      * 회전시 이동좌표 구하기
      * @return 회전시 이동좌표
      */
-    public ArrayList<Point> getRotatablePosition() {
-        int rotateBlockNumber = ( this.blockNumber + 1 ) % this.blockShapeSet.length;
+    public ArrayList<Point> getRotatablePoints() {
+        int rotateBlockNumber = ( this.number + 1 ) % this.shapeSet.length;
         int currentMaxX = 0;
         int currentMaxY = 0;
-        for(int i = 0; i < blockElementPosition.length; i++){
-            for(int j = 0; j < blockElementPosition[i].length; j++){
-                if(this.blockElementPosition[i][j] == 1){
+        for(int i = 0; i < positionMap.length; i++){
+            for(int j = 0; j < positionMap[i].length; j++){
+                if(this.positionMap[i][j] == 1){
                     currentMaxX = Math.max(currentMaxX,i);
                     currentMaxY = Math.max(currentMaxY,j);
 
@@ -175,7 +148,7 @@ public class TetrisCurrentBlock extends TetrisBlock{
         int distanceX = currentMaxX - initMaxX;
         int distanceY = currentMaxY - initMaxY;
 
-        int[][] blockShape = this.blockShapeSet[rotateBlockNumber];
+        int[][] blockShape = this.shapeSet[rotateBlockNumber];
         ArrayList<Point> points  = new ArrayList<>();
         for(int i = 0; i < blockShape.length; i++){
             for(int j = 0; j < blockShape.length; j++){
@@ -187,14 +160,41 @@ public class TetrisCurrentBlock extends TetrisBlock{
         return points;
     }
 
+    private void clear(){
+
+        for(int i = 0; i < positionMap.length; i++){
+            for(int j = 0; j < positionMap[i].length; j++){
+                this.positionMap[i][j] = 0;
+                this.colorMap[i][j] = null;
+
+            }
+        }
+    }
+
+
+
+    /**
+     * 입력값으로 블록위치이동
+     * @param points 블록위치배열
+     */
+    public void move(List<Point> points){
+        clear();
+        points.stream().forEach(point -> {
+            this.positionMap[(int)point.getX()][(int)point.getY()] = 1;
+            this.colorMap[(int)point.getX()][(int)point.getY()] = this.color;
+
+        });
+
+    }
+
     /**
      * 기존블록 회전시키키
      * @param points 회전된 블록위치 배열
      */
-    public void rotateBlock(ArrayList<Point> points) {
-        this.blockNumber = ( this.blockNumber + 1 ) % this.blockShapeSet.length;
+    public void rotate(ArrayList<Point> points) {
+        this.number = ( this.number + 1 ) % this.shapeSet.length;
 
-        int[][] blockShape = this.blockShapeSet[this.blockNumber];
+        int[][] blockShape = this.shapeSet[this.number];
         this.initMaxX = 0;
         this.initMaxY = 0;
 
@@ -208,25 +208,22 @@ public class TetrisCurrentBlock extends TetrisBlock{
         }
 
 
-        moveBlock(points);
+        move(points);
 
     }
 
     /**
      * 다음블록을 현재블록으로 교체
      */
-    public void requestNewBlock(TetrisNextBlock nextBlock){
-        clearCurrentBlocks();
+    public void change(TetrisNextBlock nextBlock){
+        clear();
         this.initMaxY = 0;
         this.initMaxX = 0;
-        this.blockShapeSet = nextBlock.blockShapeSet;
-        this.blockNumber = nextBlock.blockNumber;
-        this.blockColor = nextBlock.blockColor;
-        initBlockColorPosition();
-        initBlockElementPosition();
-        //initNextBlock();
-
-
+        this.shapeSet = nextBlock.shapeSet;
+        this.number = nextBlock.number;
+        this.color = nextBlock.color;
+        initColor();
+        initPosition();
     }
 
 
@@ -234,8 +231,8 @@ public class TetrisCurrentBlock extends TetrisBlock{
      * 현재 블록색상
      * @return 블록생상
      */
-    public Color getCurrentBlockColor(){
-        return this.blockColor;
+    public Color getColor(){
+        return this.color;
     }
 
 }

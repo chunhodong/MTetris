@@ -1,7 +1,6 @@
 package io;
 
 import controller.TetrisController;
-import model.TetrisBlock;
 import model.TetrisCurrentBlock;
 
 import java.awt.event.KeyEvent;
@@ -22,10 +21,10 @@ public class TetrisKeyboard implements KeyListener {
     @Override
     public void keyPressed(KeyEvent e) {
         if(e.getKeyCode() == KeyEvent.VK_F1){
-            this.controller.startGame();
+            this.controller.switchStart();
         }
         if(e.getKeyCode() == KeyEvent.VK_F2){
-            this.controller.turnPause();
+            this.controller.switchPause();
         }
 
         if(this.controller.getStatus() == TetrisController.Status.STOP)return;

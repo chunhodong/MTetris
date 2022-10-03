@@ -9,31 +9,31 @@ import java.util.ArrayList;
  * 게임블록데이터
  */
 public class TetrisBlock {
-    protected int [][][] blockShapeSet;
+    protected int [][][] shapeSet;
 
-    protected Color[][] blockColorPosition;
+    protected Color[][] colorMap;
 
 
     /*블록위치배열*/
-    protected int [][] blockElementPosition;
+    protected int [][] positionMap;
 
     /*블록번호*/
-    protected int blockNumber;
+    protected int number;
 
-    protected Color blockColor;
+    protected Color color;
 
 
     private static final int BLOCK_TYPE_SIZE = 7;
     private static final Color[] BLOCK_COLOR_TYPES = new Color[]{Color.BLUE,Color.ORANGE,Color.PINK,Color.RED,Color.ORANGE,Color.YELLOW};
 
-    public void initBlock(){
-        this.blockShapeSet = createBlockShape();
-        this.blockNumber = RandomUtils.nextInt(blockShapeSet.length);
-        this.blockColor = BLOCK_COLOR_TYPES[ RandomUtils.nextInt(BLOCK_COLOR_TYPES.length)];
+    public void init(){
+        this.shapeSet = createShape();
+        this.number = RandomUtils.nextInt(shapeSet.length);
+        this.color = BLOCK_COLOR_TYPES[ RandomUtils.nextInt(BLOCK_COLOR_TYPES.length)];
 
     }
 
-    private int[][][] createBlockShape(){
+    private int[][][] createShape(){
         switch(RandomUtils.nextInt(BLOCK_TYPE_SIZE)){
             case 0:
                 return new int[][][]{
@@ -180,8 +180,8 @@ public class TetrisBlock {
     }
 
 
-    public Color[][] getBlockColorMap() {
-        return blockColorPosition;
+    public Color[][] getColorMap() {
+        return colorMap;
     }
 
 

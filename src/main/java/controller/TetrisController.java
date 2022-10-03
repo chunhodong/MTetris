@@ -12,26 +12,22 @@ import java.util.Timer;
 public class TetrisController {
 
     private TetrisBackground background;
-
-    private TetrisNextBlock tetrisNextBlock;
-    private TetrisCurrentBlock tetrisCurrentBlock;
+    private TetrisNextBlock nextBlock;
+    private TetrisCurrentBlock currentBlock;
     private TetrisView tetrisView;
     private TetrisTimer tetrisTimer;
     private Status status;
 
-
     public enum Status {
-        RUNNING, STOP, END
+        RUNNING, STOP
     }
-
 
     private TetrisController(TetrisControllerBuilder builder) {
         this.background = builder.background;
-        this.tetrisCurrentBlock = builder.tetrisCurrentBlock;
+        this.currentBlock = builder.currentBlock;
         this.tetrisView = builder.panel;
         this.tetrisTimer = builder.timer;
     }
-
 
     public static TetrisControllerBuilder builder() {
 
@@ -40,8 +36,8 @@ public class TetrisController {
 
     public static class TetrisControllerBuilder {
         private TetrisBackground background;
-        private TetrisCurrentBlock tetrisCurrentBlock;
-        private TetrisNextBlock tetrisNextBlock;
+        private TetrisCurrentBlock currentBlock;
+        private TetrisNextBlock nextBlock;
         private TetrisView panel;
         private TetrisTimer timer;
 
@@ -51,13 +47,13 @@ public class TetrisController {
             return this;
         }
 
-        public TetrisControllerBuilder currentBlock(TetrisCurrentBlock tetrisCurrentBlock) {
-            this.tetrisCurrentBlock = tetrisCurrentBlock;
+        public TetrisControllerBuilder currentBlock(TetrisCurrentBlock currentBlock) {
+            this.currentBlock = currentBlock;
             return this;
         }
 
-        public TetrisControllerBuilder nextBlock(TetrisNextBlock tetrisNextBlock) {
-            this.tetrisNextBlock = tetrisNextBlock;
+        public TetrisControllerBuilder nextBlock(TetrisNextBlock nextBlock) {
+            this.nextBlock = nextBlock;
             return this;
         }
 
@@ -80,51 +76,17 @@ public class TetrisController {
 
 
     /**
-     * 게임시작
-     * 게임오브젝트초기화,게임화면그리기,타이머작동
-     */
-    public void startGame() {
-
-        this.tetrisView.repaint();
-        this.status = Status.RUNNING;
-        this.tetrisTimer = new TetrisTimer();
-        this.tetrisTimer.run(this, new Timer());
-
-    }
-
-
-    /**
-     * 게임정지여부수정
-     */
-    public void turnPause() {
-
-        if (this.status == Status.RUNNING) {
-            this.tetrisTimer.stop();
-            this.status = Status.STOP;
-        }
-
-        if (this.status == Status.STOP) {
-            this.tetrisTimer.resume(this, new Timer());
-            this.status = Status.RUNNING;
-        }
-
-
-    }
-
-    /**
      * 게임판 블록좌우이동 요청
      *
      * @param direction 이동방향
      */
     public void requestMoveBlockHorizontal(TetrisCurrentBlock.Direction direction) {
-        ArrayList<Point> points = this.tetrisCurrentBlock.getMovablePosition(direction);
-        boolean isEnable = this.background.isMovable(points);
-        if (isEnable) {
-            this.tetrisCurrentBlock.moveBlock(points);
-            Color[][] blockColorMap = this.tetrisCurrentBlock.getBlockColorMap();
-            this.tetrisView.updateCurrentBlock(blockColorMap);
-            this.tetrisView.repaint();
+        ArrayList<Point> points = this.currentBlock.getMovablePoints(direction);
 
+        if (this.background.isMovable(points)) {
+            this.currentBlock.move(points);
+            this.tetrisView.updateCurrentBlock(this.currentBlock.getColorMap());
+            this.tetrisView.repaint();
         }
     }
 
@@ -132,12 +94,11 @@ public class TetrisController {
      * 게임판 블록회전 요청
      */
     public void requestMoveBlockUp() {
-        ArrayList<Point> points = this.tetrisCurrentBlock.getRotatablePosition();
-        boolean isEnable = this.background.isMovable(points);
-        if (isEnable) {
-            this.tetrisCurrentBlock.rotateBlock(points);
-            Color[][] blockColorMap = this.tetrisCurrentBlock.getBlockColorMap();
-            this.tetrisView.updateCurrentBlock(blockColorMap);
+        ArrayList<Point> points = this.currentBlock.getRotatablePoints();
+
+        if (this.background.isMovable(points)) {
+            this.currentBlock.rotate(points);
+            this.tetrisView.updateCurrentBlock(this.currentBlock.getColorMap());
             this.tetrisView.repaint();
 
         }
@@ -149,14 +110,14 @@ public class TetrisController {
      * @param direction 이동방향
      */
     public void requestMoveBlockDown(TetrisCurrentBlock.Direction direction) {
-        List<Point> movablePoints = this.tetrisCurrentBlock.getMovablePosition(direction);
+        List<Point> movablePoints = this.currentBlock.getMovablePoints(direction);
 
         if (this.background.isAddible(movablePoints)) {
             doMoveDown(movablePoints);
             return;
         }
-        List<Point> bottonPoints = this.tetrisCurrentBlock.getCurrentBlockPosition();
-        Color color = this.tetrisCurrentBlock.getCurrentBlockColor();
+        List<Point> bottonPoints = this.currentBlock.getCurrentPoints();
+        Color color = this.currentBlock.getColor();
         doMoveBotton(bottonPoints,color);
     }
 
@@ -164,9 +125,9 @@ public class TetrisController {
      * 게임판 블록바닥이동 요청
      */
     public void requestMoveBlockBottom() {
-        List<Point> currentBlockPosition = this.tetrisCurrentBlock.getCurrentBlockPosition();
+        List<Point> currentBlockPosition = this.currentBlock.getCurrentPoints();
         List<Point> bottomPoints = this.background.getBottomPoints(currentBlockPosition);
-        Color color = this.tetrisCurrentBlock.getCurrentBlockColor();
+        Color color = this.currentBlock.getColor();
         doMoveBotton(bottomPoints,color);
 
 
@@ -176,9 +137,8 @@ public class TetrisController {
 
 
     private void doMoveDown(List<Point> movablePoints) {
-        this.tetrisCurrentBlock.moveBlock(movablePoints);
-        Color[][] blockColorMap = this.tetrisCurrentBlock.getBlockColorMap();
-        this.tetrisView.updateCurrentBlock(blockColorMap);
+        this.currentBlock.move(movablePoints);
+        this.tetrisView.updateCurrentBlock(this.currentBlock.getColorMap());
         this.tetrisView.repaint();
 
 
@@ -186,39 +146,68 @@ public class TetrisController {
 
     private void doMoveBotton(List<Point> currentPoints,Color color) {
         this.background.addBlock(currentPoints, color);
-        this.tetrisCurrentBlock.requestNewBlock(this.tetrisNextBlock);
-        this.tetrisNextBlock.initBlock();
-        checkGameStatus(currentPoints);
+        this.currentBlock.change(this.nextBlock);
+        this.nextBlock.init();
+        switchStop(currentPoints);
 
-        Color[][] backgroundColorMap =  this.background.getBackgroundColor();
-        this.tetrisView.updateBackground(backgroundColorMap);
-
-        Color[][] blockColorMap = this.tetrisCurrentBlock.getBlockColorMap();
-        this.tetrisView.updateCurrentBlock(blockColorMap);
-
-        Color[][] nextBlockColorMap = this.tetrisNextBlock.getBlockColorMap();
-        this.tetrisView.updateNextBlock(nextBlockColorMap);
-
+        this.tetrisView.updateBackground(this.background.getBackgroundColor());
+        this.tetrisView.updateCurrentBlock(this.currentBlock.getColorMap());
+        this.tetrisView.updateNextBlock(this.nextBlock.getColorMap());
         this.tetrisView.repaint();
 
 
     }
 
+    private void requestCreateBlocks(){
+        this.currentBlock.init();
+        this.nextBlock.init();
+        this.background.init();
+
+        this.tetrisView.updateBackground(this.background.getBackgroundColor());
+        this.tetrisView.updateCurrentBlock(this.currentBlock.getColorMap());
+        this.tetrisView.updateNextBlock(this.nextBlock.getColorMap());
+        this.tetrisView.repaint();
+    }
+
+
+
 
     /**
-     * 게임판화면 그리기
+     * 게임시작
+     * 게임오브젝트초기화,게임화면그리기,타이머작동
      */
-/*
-    public void repaintGame() {
+    public void switchStart() {
+
+        this.tetrisView.repaint();
+        this.status = Status.RUNNING;
+        this.tetrisTimer = new TetrisTimer();
+        this.tetrisTimer.run(this, new Timer());
+
     }
-*/
 
-
-    public void checkGameStatus(List<Point> currentPoints) {
+    public void switchStop(List<Point> currentPoints) {
         if (this.background.isEnd(currentPoints)) {
             this.status = Status.STOP;
             this.tetrisTimer.stop();
         }
+
+    }
+
+    /**
+     * 게임정지여부수정
+     */
+    public void switchPause() {
+
+        if (this.status == Status.RUNNING) {
+            this.tetrisTimer.stop();
+            this.status = Status.STOP;
+        }
+
+        if (this.status == Status.STOP) {
+            this.tetrisTimer.resume(this, new Timer());
+            this.status = Status.RUNNING;
+        }
+
 
     }
 

@@ -15,7 +15,7 @@ public class TetrisBackground {
     private Color[][] backgroundColor;
 
     public TetrisBackground(){
-        init();
+
     }
 
     /**

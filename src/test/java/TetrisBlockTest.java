@@ -20,14 +20,14 @@ public class TetrisBlockTest {
     @Test
     void 블록이동성공(){
         TetrisCurrentBlock tetrisBlock = new TetrisCurrentBlock();
-        tetrisBlock.initBlock();
+        tetrisBlock.init();
         List<Point> points = new ArrayList<>();
         points.add(new Point(1,2));
         points.add(new Point(2,2));
         points.add(new Point(2,3));
         points.add(new Point(3,2));
 
-        tetrisBlock.moveBlock(points);
+        tetrisBlock.move(points);
 
         try {
             Field field = tetrisBlock.getClass().getDeclaredField("blockElementPosition");
@@ -66,7 +66,7 @@ public class TetrisBlockTest {
             field.setAccessible(true);
             field.set(tetrisBlock,blocks);
 
-            ArrayList<Point> points = tetrisBlock.getMovablePosition(TetrisCurrentBlock.Direction.RIGHT);
+            ArrayList<Point> points = tetrisBlock.getMovablePoints(TetrisCurrentBlock.Direction.RIGHT);
             Assertions.assertThat(points.size()).isEqualTo(4);
         } catch (Exception e) {
             e.printStackTrace();
@@ -89,7 +89,7 @@ public class TetrisBlockTest {
             field.setAccessible(true);
             field.set(tetrisBlock,blocks);
 
-            ArrayList<Point> points = tetrisBlock.getMovablePosition(TetrisCurrentBlock.Direction.DOWN);
+            ArrayList<Point> points = tetrisBlock.getMovablePoints(TetrisCurrentBlock.Direction.DOWN);
             Assertions.assertThat(points.size()).isEqualTo(4);
         } catch (Exception e) {
             e.printStackTrace();
@@ -111,7 +111,7 @@ public class TetrisBlockTest {
             field.setAccessible(true);
             field.set(tetrisBlock,blocks);
 
-            List<Point> points = tetrisBlock.getCurrentBlockPosition();
+            List<Point> points = tetrisBlock.getCurrentPoints();
             Assertions.assertThat(points.size()).isEqualTo(4);
             Assertions.assertThat(points.get(0).x).isEqualTo(0);
             Assertions.assertThat(points.get(0).y).isEqualTo(0);
@@ -147,9 +147,9 @@ public class TetrisBlockTest {
     void 블록회전좌표조회성공(){
 
         TetrisCurrentBlock tetrisBlock = new TetrisCurrentBlock();
-        tetrisBlock.initBlock();
+        tetrisBlock.init();
 
-        ArrayList<Point> points = tetrisBlock.getRotatablePosition();
+        ArrayList<Point> points = tetrisBlock.getRotatablePoints();
         assertThat(points.size()).isEqualTo(4);
     }
 
@@ -160,7 +160,7 @@ public class TetrisBlockTest {
         try {
 
             TetrisCurrentBlock tetrisBlock = new TetrisCurrentBlock();
-            tetrisBlock.initBlock();
+            tetrisBlock.init();
             Field field1 = tetrisBlock.getClass().getDeclaredField("blockShapeSet");
             field1.setAccessible(true);
             int [][][] blockShapeSet=new int[][][]{
@@ -184,7 +184,7 @@ public class TetrisBlockTest {
             field2.set(tetrisBlock,0);
 
             ArrayList<Point> list = new ArrayList<>();
-            tetrisBlock.rotateBlock(list);
+            tetrisBlock.rotate(list);
 
             Field field3 = tetrisBlock.getClass().getDeclaredField("initMaxX");
             field3.setAccessible(true);
