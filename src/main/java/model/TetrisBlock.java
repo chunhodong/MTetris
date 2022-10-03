@@ -3,7 +3,6 @@ package model;
 import utils.RandomUtils;
 
 import java.awt.*;
-import java.util.ArrayList;
 
 /**
  * 게임블록데이터

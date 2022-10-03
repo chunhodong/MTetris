@@ -14,7 +14,7 @@ public class TetrisCurrentBlock extends TetrisBlock{
     public enum Direction{
         LEFT(-1),RIGHT(1),DOWN(1);
 
-        Integer direction;
+        final Integer direction;
         Direction(Integer direction){
             this.direction = direction;
         }
@@ -179,7 +179,7 @@ public class TetrisCurrentBlock extends TetrisBlock{
      */
     public void move(List<Point> points){
         clear();
-        points.stream().forEach(point -> {
+        points.forEach(point -> {
             this.positionMap[(int)point.getX()][(int)point.getY()] = 1;
             this.colorMap[(int)point.getX()][(int)point.getY()] = this.color;
 
