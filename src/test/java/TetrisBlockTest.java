@@ -1,7 +1,6 @@
 import model.TetrisCurrentBlock;
 import model.TetrisOption;
 import org.assertj.core.api.Assertions;
-import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.awt.*;
@@ -11,206 +10,90 @@ import java.util.List;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
-
 public class TetrisBlockTest {
 
 
-
-    @DisplayName("블록이동성공")
     @Test
-    void 블록이동성공(){
-        TetrisCurrentBlock tetrisBlock = new TetrisCurrentBlock();
-        tetrisBlock.init();
-        List<Point> points = new ArrayList<>();
-        points.add(new Point(1,2));
-        points.add(new Point(2,2));
-        points.add(new Point(2,3));
-        points.add(new Point(3,2));
+    void move메소드는_블록의_위치를_이동() {
 
+        //given
+        TetrisCurrentBlock tetrisBlock = new TetrisCurrentBlock();
+
+        //when
+        List<Point> points = List.of(new Point(1, 2), new Point(2, 2), new Point(2, 3), new Point(3, 2));
+        tetrisBlock.init();
         tetrisBlock.move(points);
 
-        try {
-            Field field = tetrisBlock.getClass().getDeclaredField("blockElementPosition");
-
-            field.setAccessible(true);
-
-            int[][] value = (int[][])field.get(tetrisBlock);
-            Assertions.assertThat(value[1][2]).isEqualTo(1);
-            Assertions.assertThat(value[2][2]).isEqualTo(1);
-            Assertions.assertThat(value[2][3]).isEqualTo(1);
-            Assertions.assertThat(value[3][2]).isEqualTo(1);
-
-
-        } catch (NoSuchFieldException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        }
-
-
+        //then
+        List<Point> savedPoints = tetrisBlock.getCurrentPoints();
+        assertThat(savedPoints.size()).isEqualTo(4);
+        assertThat(savedPoints.get(0).x).isEqualTo(1);
+        assertThat(savedPoints.get(0).y).isEqualTo(2);
     }
 
 
     @Test
-    void 블록좌우이동가능포지션성공(){
-        try {
-            TetrisCurrentBlock tetrisBlock = new TetrisCurrentBlock();
+    void getMovablePoints메소드는_오른쪽을입력값으로주면_블록의_이동위치를_반환() {
 
-            int[][] blocks = new int[TetrisOption.BOARD_HEIGHT][TetrisOption.BOARD_WIDTH];
-            blocks[0][0] = 1;
-            blocks[1][0] = 1;
-            blocks[0][1] = 1;
-            blocks[1][1] = 1;
-
-            Field field = tetrisBlock.getClass().getDeclaredField("blockElementPosition");
-            field.setAccessible(true);
-            field.set(tetrisBlock,blocks);
-
-            ArrayList<Point> points = tetrisBlock.getMovablePoints(TetrisCurrentBlock.Direction.RIGHT);
-            Assertions.assertThat(points.size()).isEqualTo(4);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-
-    @Test
-    void 블록하단이동가능포지션성공(){
-        try {
-            TetrisCurrentBlock tetrisBlock = new TetrisCurrentBlock();
-
-            int[][] blocks = new int[TetrisOption.BOARD_HEIGHT][TetrisOption.BOARD_WIDTH];
-            blocks[0][0] = 1;
-            blocks[1][0] = 1;
-            blocks[0][1] = 1;
-            blocks[1][1] = 1;
-
-            Field field = tetrisBlock.getClass().getDeclaredField("blockElementPosition");
-            field.setAccessible(true);
-            field.set(tetrisBlock,blocks);
-
-            ArrayList<Point> points = tetrisBlock.getMovablePoints(TetrisCurrentBlock.Direction.DOWN);
-            Assertions.assertThat(points.size()).isEqualTo(4);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    @Test
-    void 현재블록위치조회성공(){
-        try {
-            TetrisCurrentBlock tetrisBlock = new TetrisCurrentBlock();
-
-            int[][] blocks = new int[TetrisOption.BOARD_HEIGHT][TetrisOption.BOARD_WIDTH];
-            blocks[0][0] = 1;
-            blocks[1][0] = 1;
-            blocks[0][1] = 1;
-            blocks[1][1] = 1;
-
-            Field field = tetrisBlock.getClass().getDeclaredField("blockElementPosition");
-            field.setAccessible(true);
-            field.set(tetrisBlock,blocks);
-
-            List<Point> points = tetrisBlock.getCurrentPoints();
-            Assertions.assertThat(points.size()).isEqualTo(4);
-            Assertions.assertThat(points.get(0).x).isEqualTo(0);
-            Assertions.assertThat(points.get(0).y).isEqualTo(0);
-
-            Assertions.assertThat(points.get(1).x).isEqualTo(0);
-            Assertions.assertThat(points.get(1).y).isEqualTo(1);
-
-            Assertions.assertThat(points.get(2).x).isEqualTo(1);
-            Assertions.assertThat(points.get(2).y).isEqualTo(0);
-
-            Assertions.assertThat(points.get(3).x).isEqualTo(1);
-            Assertions.assertThat(points.get(3).y).isEqualTo(1);
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-    }
-
-
-    @Test
-    void 게임블록방향판별여부성공(){
-        try {
-            TetrisCurrentBlock.Direction direction = TetrisCurrentBlock.Direction.LEFT;
-            Assertions.assertThat(direction.isHorizontal()).isEqualTo(true);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-    }
-
-    @Test
-    void 블록회전좌표조회성공(){
-
+        //given
         TetrisCurrentBlock tetrisBlock = new TetrisCurrentBlock();
-        tetrisBlock.init();
 
-        ArrayList<Point> points = tetrisBlock.getRotatablePoints();
-        assertThat(points.size()).isEqualTo(4);
+        //when
+        List<Point> points = List.of(new Point(1, 2), new Point(2, 2), new Point(2, 3), new Point(3, 2));
+        tetrisBlock.init();
+        tetrisBlock.move(points);
+
+        //then
+        ArrayList<Point> savedPoints = tetrisBlock.getMovablePoints(TetrisCurrentBlock.Direction.RIGHT);
+        assertThat(savedPoints.get(0).x).isEqualTo(1);
+        assertThat(savedPoints.get(0).y).isEqualTo(3);
+    }
+
+    @Test
+    void getMovablePoints메소드는_왼쪽을입력값으로주면_블록의_이동위치를_반환() {
+
+        //given
+        TetrisCurrentBlock tetrisBlock = new TetrisCurrentBlock();
+
+        //when
+        List<Point> points = List.of(new Point(1, 2), new Point(2, 2), new Point(2, 3), new Point(3, 2));
+        tetrisBlock.init();
+        tetrisBlock.move(points);
+
+        //then
+        ArrayList<Point> savedPoints = tetrisBlock.getMovablePoints(TetrisCurrentBlock.Direction.LEFT);
+        assertThat(savedPoints.get(0).x).isEqualTo(1);
+        assertThat(savedPoints.get(0).y).isEqualTo(1);
+        assertThat(savedPoints.get(1).x).isEqualTo(2);
+        assertThat(savedPoints.get(1).y).isEqualTo(1);
+
     }
 
 
     @Test
-    void 블록회전성공(){
+    void getMovablePoints메소드는_아래쪽을입력값으로주면_블록의_이동위치를_반환() {
 
-        try {
+        //given
+        TetrisCurrentBlock tetrisBlock = new TetrisCurrentBlock();
 
-            TetrisCurrentBlock tetrisBlock = new TetrisCurrentBlock();
-            tetrisBlock.init();
-            Field field1 = tetrisBlock.getClass().getDeclaredField("blockShapeSet");
-            field1.setAccessible(true);
-            int [][][] blockShapeSet=new int[][][]{
-                    {
-                            {1,1,1,1},
-                            {0,0,0,0},
-                            {0,0,0,0},
-                            {0,0,0,0}
-                    },
-                    {
-                            {0,1,0,0},
-                            {0,1,0,0},
-                            {0,1,0,0},
-                            {0,1,0,0},
-                    }
-            };
-            field1.set(tetrisBlock,blockShapeSet);
+        //when
+        List<Point> points = List.of(new Point(1, 2), new Point(2, 2), new Point(2, 3), new Point(3, 2));
+        tetrisBlock.init();
+        tetrisBlock.move(points);
 
-            Field field2 = tetrisBlock.getClass().getDeclaredField("blockNumber");
-            field2.setAccessible(true);
-            field2.set(tetrisBlock,0);
-
-            ArrayList<Point> list = new ArrayList<>();
-            tetrisBlock.rotate(list);
-
-            Field field3 = tetrisBlock.getClass().getDeclaredField("initMaxX");
-            field3.setAccessible(true);
-
-            Field field4 = tetrisBlock.getClass().getDeclaredField("initMaxY");
-            field4.setAccessible(true);
-
-            int valueX = (int)field3.get(tetrisBlock);
-            int valueY = (int)field4.get(tetrisBlock);
-            assertThat(valueX).isEqualTo(3);
-            assertThat(valueY).isEqualTo(5);
-
-
-
-        }
-        catch (NoSuchFieldException e)
-        {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        }
-
+        ArrayList<Point> savedPoints = tetrisBlock.getMovablePoints(TetrisCurrentBlock.Direction.DOWN);
+        assertThat(savedPoints.get(0).x).isEqualTo(2);
+        assertThat(savedPoints.get(0).y).isEqualTo(2);
 
     }
 
 
+
+    @Test
+    void getRotatablePoints메소드는_블록을회전시켰을때_위치반환() {
+
+
+    }
 
 
 }

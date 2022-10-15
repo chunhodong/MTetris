@@ -13,7 +13,6 @@ import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.internal.verification.VerificationModeFactory.times;
 
 
-@PrepareForTest(TetrisBackground.class)
 public class TetrisBackgroundTest {
 
     @DisplayName("게임판널검사")
