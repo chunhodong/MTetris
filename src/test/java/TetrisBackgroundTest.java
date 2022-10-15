@@ -1,16 +1,12 @@
-
 import model.TetrisBackground;
 import model.TetrisOption;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.powermock.api.mockito.PowerMockito;
-import org.powermock.core.classloader.annotations.PrepareForTest;
+
 import java.awt.*;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
-import static org.mockito.ArgumentMatchers.anyInt;
-import static org.mockito.internal.verification.VerificationModeFactory.times;
 
 
 public class TetrisBackgroundTest {

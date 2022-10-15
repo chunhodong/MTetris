@@ -202,12 +202,4 @@ public class TetrisCurrentBlock extends TetrisBlock{
     }
 
 
-    /**
-     * 현재 블록색상
-     * @return 블록생상
-     */
-    public Color getColor(){
-        return this.color;
-    }
-
 }

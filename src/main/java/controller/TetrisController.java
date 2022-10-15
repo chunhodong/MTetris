@@ -130,9 +130,6 @@ public class TetrisController {
         List<Point> bottomPoints = this.background.getBottomPoints(currentBlockPosition);
         Color color = this.currentBlock.getColor();
         doMoveBotton(bottomPoints,color);
-
-
-
     }
 
 
@@ -141,8 +138,6 @@ public class TetrisController {
         this.currentBlock.move(movablePoints);
         this.tetrisView.updateCurrentBlock(this.currentBlock.getColorMap());
         this.tetrisView.repaint();
-
-
     }
 
     private void doMoveBotton(List<Point> currentPoints,Color color) {
