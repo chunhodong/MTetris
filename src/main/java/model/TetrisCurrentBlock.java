@@ -28,16 +28,10 @@ public class TetrisCurrentBlock extends TetrisBlock{
         }
     }
 
-    /*초기X위치*/
-    private int initEdgeX;
-
-    /*초기Y위치*/
-    private int initEdgeY;
+    private Point startEdgePoint;
 
     /*처음블록배치시 게임화면에서 오른쪽으로 이동할 거리*/
     private static final int OFFSET_Y = 4;
-
-
 
     public TetrisCurrentBlock(){
     }
@@ -46,24 +40,12 @@ public class TetrisCurrentBlock extends TetrisBlock{
     @Override
     public void init() {
         super.init();
-        initColor();
         initPosition();
     }
 
-    /**
-     * 게임블록색초기화
-     */
-    private void initColor(){
-        this.colorMap = new Color[BOARD_HEIGHT][BOARD_WIDTH];
-        int[][] blockShape = this.shapeSet[this.number];
-
-        for(int i = 0; i < blockShape.length; i++){
-            for(int j = 0; j < blockShape.length; j++){
-                if(blockShape[i][j] == 1){
-                    this.colorMap[i][j + OFFSET_Y] = this.color;
-                }
-            }
-        }
+    @Override
+    protected int getOffetY() {
+        return OFFSET_Y;
     }
 
     /**
@@ -82,11 +64,9 @@ public class TetrisCurrentBlock extends TetrisBlock{
             }
         }
 
-        this.initEdgeX = getEdgeXPosition(this.positionMap);
-        this.initEdgeY = getEdgeYPosition(this.positionMap);
+        startEdgePoint = getEdgePoint(this.positionMap);
 
     }
-
 
     /**
      * 현재 블록위치값 조회
@@ -105,6 +85,24 @@ public class TetrisCurrentBlock extends TetrisBlock{
     }
 
 
+
+    public Point getEdgePoint(int[][] map){
+
+        Point point = new Point();
+        for(int i = 0; i < map.length; i++){
+            for(int j = 0; j < map[i].length; j++){
+                if(map[i][j] == 1){
+                    point.x = Math.max(point.x,i);
+                    point.y = Math.max(point.y,j);
+
+                }
+            }
+        }
+
+        return point;
+
+
+    }
     /**
      * 입력방향으로 이동한 블록위치 조회
      * @param direction 이동방향(좌,우,아래)
@@ -127,42 +125,15 @@ public class TetrisCurrentBlock extends TetrisBlock{
         return pointList;
     }
 
-    private int getEdgeXPosition(int[][] map){
-
-        int x = 0;
-        for(int i = 0; i < map.length; i++){
-            for(int j = 0; j < map[i].length; j++){
-                if(map[i][j] == 1){
-                    x = Math.max(x,i);
-                }
-            }
-        }
-        return x;
-
-
-    }
-    private int getEdgeYPosition(int[][] map){
-        int y = 0;
-        for(int i = 0; i < map.length; i++){
-            for(int j = 0; j < map[i].length; j++){
-                if(map[i][j] == 1){
-                    y = Math.max(y,j);
-                }
-            }
-        }
-        return y;
-    }
-
     /**
      * 회전시 이동좌표 구하기
      * @return 회전시 이동좌표
      */
     public ArrayList<Point> getRotatablePoints() {
         int rotateBlockNumber = ( this.number + 1 ) % this.shapeSet.length;
-        int currentEdgeX = getEdgeXPosition(this.positionMap);
-        int currentEdgeY = getEdgeYPosition(this.positionMap);
-        int distanceX = currentEdgeX - initEdgeX;
-        int distanceY = currentEdgeY - initEdgeY;
+        Point currentEdgePoint = getEdgePoint(this.positionMap);
+        int distanceX = currentEdgePoint.x - startEdgePoint.x;
+        int distanceY = currentEdgePoint.y - startEdgePoint.y;
 
         int[][] blockShape = this.shapeSet[rotateBlockNumber];
         ArrayList<Point> points  = new ArrayList<>();
@@ -176,15 +147,18 @@ public class TetrisCurrentBlock extends TetrisBlock{
         return points;
     }
 
+    /**
+     * 블록위치,컬러위치 삭제
+     */
     private void clear(){
 
         for(int i = 0; i < positionMap.length; i++){
             for(int j = 0; j < positionMap[i].length; j++){
                 this.positionMap[i][j] = 0;
                 this.colorMap[i][j] = null;
-
             }
         }
+
     }
 
     /**
@@ -209,8 +183,8 @@ public class TetrisCurrentBlock extends TetrisBlock{
         this.number = ( this.number + 1 ) % this.shapeSet.length;
 
         int[][] blockShape = this.shapeSet[this.number];
-        this.initEdgeX = getEdgeXPosition(blockShape);
-        this.initEdgeY = getEdgeYPosition(blockShape) + OFFSET_Y;
+        this.startEdgePoint = getEdgePoint(blockShape);
+        this.startEdgePoint.y += OFFSET_Y;
         move(points);
 
     }
@@ -219,12 +193,10 @@ public class TetrisCurrentBlock extends TetrisBlock{
      * 다음블록을 현재블록으로 교체
      */
     public void change(TetrisNextBlock nextBlock){
-        clear();
-        this.initEdgeY = 0;
-        this.initEdgeX = 0;
         this.shapeSet = nextBlock.shapeSet;
         this.number = nextBlock.number;
         this.color = nextBlock.color;
+        clear();
         initColor();
         initPosition();
     }

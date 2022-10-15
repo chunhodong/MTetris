@@ -7,11 +7,11 @@ import java.awt.*;
 /**
  * 게임블록데이터
  */
-public class TetrisBlock {
+abstract class TetrisBlock {
     protected int [][][] shapeSet;
 
+    /*블록컬러배열*/
     protected Color[][] colorMap;
-
 
     /*블록위치배열*/
     protected int [][] positionMap;
@@ -19,9 +19,11 @@ public class TetrisBlock {
     /*블록번호*/
     protected int number;
 
+    /*블록컬러*/
     protected Color color;
 
 
+    /*블록타입*/
     private static final int BLOCK_TYPE_SIZE = 7;
     private static final Color[] BLOCK_COLOR_TYPES = new Color[]{Color.BLUE,Color.ORANGE,Color.PINK,Color.RED,Color.ORANGE,Color.YELLOW};
 
@@ -29,7 +31,8 @@ public class TetrisBlock {
         this.shapeSet = createShape();
         this.number = RandomUtils.nextInt(shapeSet.length);
         this.color = BLOCK_COLOR_TYPES[ RandomUtils.nextInt(BLOCK_COLOR_TYPES.length)];
-
+        this.colorMap = new Color[TetrisOption.BOARD_HEIGHT][TetrisOption.BOARD_WIDTH];
+        initColor();
     }
 
     private int[][][] createShape(){
@@ -182,6 +185,22 @@ public class TetrisBlock {
     public Color[][] getColorMap() {
         return colorMap;
     }
+
+    protected void initColor(){
+
+        int[][] blockShape = this.shapeSet[this.number];
+
+        for(int i = 0; i < blockShape.length; i++){
+            for(int j = 0; j < blockShape.length; j++){
+                if(blockShape[i][j] == 1){
+                    this.colorMap[i][j + getOffetY()] = this.color;
+                }
+            }
+        }
+
+    }
+
+    abstract protected int getOffetY();
 
 
 }

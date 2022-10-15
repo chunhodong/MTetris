@@ -59,7 +59,11 @@ public class TetrisBackground {
     }
 
 
-
+    /**
+     * 게임종료여부 확인
+     * @param currentPoints 블록포지션
+     * @return 게임종료여부
+     */
     public boolean isEnd( List<Point> currentPoints ) {
         return currentPoints.stream().anyMatch(point -> this.positionMap[(int) point.getX()][(int) point.getY()] == 1);
     }
@@ -80,9 +84,14 @@ public class TetrisBackground {
     }
 
 
+    /**
+     * 게임배경컬러조회
+     * @return 게임배경컬러맵
+     */
     public Color[][] getColorMap(){
         return this.colorMap;
     }
+
     /**
      * 게임배경에서 제거할라인확인
      */
