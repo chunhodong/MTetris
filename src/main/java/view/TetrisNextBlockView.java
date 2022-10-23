@@ -17,19 +17,14 @@ public class TetrisNextBlockView extends JPanel {
 
     private static final int BLOCK_ROW_SIZE = 4;
 
-    /*게임화면 시작넓이*/
     private static final int DISPLAY_WIDTH = 100;
 
-    /*게임화면 높이*/
     private static final int DISPLAY_HEIGHT = 100;
 
-
-
-    /*게임화면 시작X좌표*/
     private static final int X_POSITION = 285;
 
-    /*게임화면 시작Y좌표*/
     private static final int Y_POSITION = 10;
+
     /**
      * 게임화면 위치/크기 초기화
      */
@@ -41,9 +36,9 @@ public class TetrisNextBlockView extends JPanel {
     }
 
 
+
     /**
      * 게임컴포넌트를 화면에 그림
-     *
      * @param g 그래픽객체
      */
     public void paintComponent(Graphics g) {
@@ -55,7 +50,6 @@ public class TetrisNextBlockView extends JPanel {
 
     /**
      * 그래픽객체가 게임화면을 그림
-     *
      * @param g 그래픽객체
      */
     private void paintBackground(Graphics g) {
@@ -72,9 +66,9 @@ public class TetrisNextBlockView extends JPanel {
     }
 
 
+
     /**
-     * 그래픽객체가 다음게임블록을 그림
-     *
+     * 그래픽객체가 블록을 그림
      * @param g 그래픽객체
      */
     private void paintBlock(Graphics g) {
@@ -84,12 +78,10 @@ public class TetrisNextBlockView extends JPanel {
         for (int i = 0; i <  BLOCK_ROW_SIZE; i++) {
             for (int j = 0; j < BLOCK_COLUMN_SIZE; j++) {
                 if(this.block[i][j] != null){
-
                     g.setColor(this.block[i][j]);
                     g.fillRect(j * TetrisOption.BOX_SIZE, i * TetrisOption.BOX_SIZE, TetrisOption.BOX_SIZE, TetrisOption.BOX_SIZE);
                     g.setColor(Color.white);
                     g.drawRect(j * TetrisOption.BOX_SIZE, i * TetrisOption.BOX_SIZE, TetrisOption.BOX_SIZE, TetrisOption.BOX_SIZE);
-
                 }
             }
         }

@@ -20,6 +20,7 @@ public class GameContainer {
         TetrisCurrentBlockView blockView = new TetrisCurrentBlockView();
         TetrisNextBlockView nextBlockView = new TetrisNextBlockView();
         TetrisManualView tetrisManualView = new TetrisManualView();
+
         TetrisController controller = TetrisController
                 .builder()
                 .background(new TetrisBackground())

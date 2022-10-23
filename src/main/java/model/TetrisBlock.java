@@ -13,20 +13,14 @@ import static model.TetrisOption.BOARD_ROW_SIZE;
 abstract class TetrisBlock {
     protected int [][][] shapeSet;
 
-    /*블록컬러배열*/
     protected Color[][] colorMap;
 
-    /*블록위치배열*/
     protected int [][] positionMap;
 
-    /*블록번호*/
     protected int number;
 
-    /*블록컬러*/
     protected Color color;
 
-
-    /*블록타입*/
     private static final int BLOCK_TYPE_SIZE = 7;
     private static final Color[] BLOCK_COLOR_TYPES = new Color[]{Color.BLUE,Color.ORANGE,Color.PINK,Color.RED,Color.ORANGE,Color.YELLOW};
 
@@ -38,6 +32,10 @@ abstract class TetrisBlock {
         initColor();
     }
 
+    /**
+     * 블록생성하기
+     * @return 블록좌표
+     */
     private int[][][] createShape(){
         switch(RandomUtils.nextInt(BLOCK_TYPE_SIZE)){
             case 0:
@@ -185,10 +183,17 @@ abstract class TetrisBlock {
     }
 
 
+    /**
+     * 블록컬러좌표조회
+     * @return 블록컬러좌표
+     */
     public Color[][] getColorMap() {
         return colorMap;
     }
 
+    /**
+     * 블록컬러값초기화
+     */
     protected void initColor(){
 
         int[][] blockShape = this.shapeSet[this.number];

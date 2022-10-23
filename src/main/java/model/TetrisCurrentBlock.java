@@ -31,7 +31,6 @@ public class TetrisCurrentBlock extends TetrisBlock{
 
     private Point startEdgePoint;
 
-    /*처음블록배치시 게임화면에서 오른쪽으로 이동할 거리*/
     private static final int OFFSET_Y = 4;
 
     public TetrisCurrentBlock(){
@@ -86,13 +85,17 @@ public class TetrisCurrentBlock extends TetrisBlock{
     }
 
 
-
-    public Point getEdgePoint(int[][] map){
+    /**
+     * 블록가장자리 좌표조회
+     * @param blockPositionMap 블록 위치값
+     * @return
+     */
+    public Point getEdgePoint(int[][] blockPositionMap){
 
         Point point = new Point();
-        for(int i = 0; i < map.length; i++){
-            for(int j = 0; j < map[i].length; j++){
-                if(map[i][j] == 1){
+        for(int i = 0; i < blockPositionMap.length; i++){
+            for(int j = 0; j < blockPositionMap[i].length; j++){
+                if(blockPositionMap[i][j] == 1){
                     point.x = Math.max(point.x,i);
                     point.y = Math.max(point.y,j);
 

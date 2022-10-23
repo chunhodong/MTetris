@@ -18,18 +18,14 @@ public class TetrisCurrentBlockView extends JPanel {
     /*게임판 넓이*/
     private static final int BLOCK_COLUMN_SIZE = 10;
 
-    /*게임판 높이*/
     private static final int BLOCK_ROW_SIZE = 20;
 
-    /*게임화면 넓이*/
     private static final int DISPLAY_WIDTH = 275;
 
-    /*게임화면 높이*/
     private static final int DISPLAY_HEIGHT = 500;
 
     private static final int X_POSITION = 10;
 
-    /*게임화면 시작Y좌표*/
     private static final int Y_POSITION = 10;
 
     /**
@@ -48,7 +44,6 @@ public class TetrisCurrentBlockView extends JPanel {
 
     /**
      * 게임컴포넌트를 화면에 그림
-     *
      * @param g 그래픽객체
      */
     public void paintComponent(Graphics g) {
@@ -59,8 +54,7 @@ public class TetrisCurrentBlockView extends JPanel {
     }
 
     /**
-     * 그래픽객체가 게임화면을 그림
-     *
+     * 그래픽객체가 배경을 그림
      * @param g 그래픽객체
      */
     private void paintBackground(Graphics g) {
@@ -78,8 +72,7 @@ public class TetrisCurrentBlockView extends JPanel {
     }
 
     /**
-     * 그래픽객체가 현재게임블록을 그림
-     *
+     * 그래픽객체가 블록을 그림
      * @param g 그래픽객체
      */
     private void paintBlock(Graphics g) {

@@ -9,17 +9,13 @@ import java.awt.*;
 public class TetrisManualView extends JPanel {
 
 
-    /*게임화면 시작넓이*/
     private static final int DISPLAY_WIDTH = 200;
 
-    /*게임화면 높이*/
     private static final int DISPLAY_HEIGHT = 100;
 
 
-    /*게임화면 시작X좌표*/
     private static final int X_POSITION = 285;
 
-    /*게임화면 시작Y좌표*/
     private static final int Y_POSITION = 150;
 
     private static final String INTRO_GAME = "-----------메뉴--------------";
@@ -43,7 +39,6 @@ public class TetrisManualView extends JPanel {
 
     /**
      * 게임컴포넌트를 화면에 그림
-     *
      * @param g 그래픽객체
      */
     public void paintComponent(Graphics g) {
@@ -54,7 +49,6 @@ public class TetrisManualView extends JPanel {
 
     /**
      * 그래픽객체가 게임화면을 그림
-     *
      * @param g 그래픽객체
      */
     private void paintBackground(Graphics g) {

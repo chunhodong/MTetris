@@ -18,7 +18,6 @@ public class TetrisController {
     private TetrisManualView manualView;
     private TetrisCurrentBlock currentBlock;
     private TetrisCurrentBlockView currentBlockView;
-
     private TetrisNextBlockView nextBlockView;
 
     private TetrisTimer tetrisTimer;
@@ -153,21 +152,27 @@ public class TetrisController {
     }
 
 
-
+    /**
+     * 블록아래로 이동시키기
+     * @param movablePoints 이동시킬 좌표목록
+     */
     private void doMoveDown(List<Point> movablePoints) {
         this.currentBlock.move(movablePoints);
         this.currentBlockView.updateCurrentBlock(this.currentBlock.getColorMap());
         this.currentBlockView.repaint();
-        //this.nextBlockView.repaint();
 
     }
 
-    private void doMoveBotton(List<Point> currentPoints,Color color) {
-        this.background.addBlock(currentPoints, color);
+    /**
+     * 블록바닥으로 이동시키기
+     * @param bottomPoints 이동시킬 바닥좌표
+     * @param color 블록컬러
+     */
+    private void doMoveBotton(List<Point> bottomPoints,Color color) {
+        this.background.addBlock(bottomPoints, color);
         this.currentBlock.change(this.nextBlock);
         this.nextBlock.init();
         switchStop(this.currentBlock.getCurrentPoints());
-
         this.currentBlockView.updateBackground(this.background.getColorMap());
         this.currentBlockView.updateCurrentBlock(this.currentBlock.getColorMap());
         this.nextBlockView.updateNextBlock(this.nextBlock.getColorMap());
@@ -177,28 +182,23 @@ public class TetrisController {
 
     }
 
+    /**
+     * 게임초기화요청
+     */
     private void requestCreateBlocks(){
         this.currentBlock.init();
         this.nextBlock.init();
         this.background.init();
-
         this.currentBlockView.updateBackground(this.background.getColorMap());
         this.currentBlockView.updateCurrentBlock(this.currentBlock.getColorMap());
         this.nextBlockView.updateNextBlock(this.nextBlock.getColorMap());
-
         this.currentBlockView.repaint();
         this.nextBlockView.repaint();
         this.manualView.repaint();
-
-
     }
-
-
-
 
     /**
      * 게임시작
-     * 게임오브젝트초기화,게임화면그리기,타이머작동
      */
     public void switchStart() {
         if(this.tetrisTimer != null)
@@ -210,6 +210,10 @@ public class TetrisController {
 
     }
 
+    /**
+     * 게임정지시키기
+     * @param currentPoints 현재블록좌표
+     */
     public void switchStop(List<Point> currentPoints) {
         if (this.background.isEnd(currentPoints)) {
             this.status = Status.STOP;
@@ -238,8 +242,7 @@ public class TetrisController {
     }
 
     /**
-     * 현재 게임상태 조회
-     *
+     * 게임상태 조회
      * @return 게임상태값
      */
     public Status getStatus() {

@@ -1,7 +1,6 @@
 plugins {
     id 'java'
     id 'jacoco'
-
 }
 
 jacoco {
@@ -15,13 +14,37 @@ tasks.withType(JavaCompile) {
 }
 
 jacocoTestReport {
-    dependsOn test // 리포트가 만들어지기 전 테스트 실행되어야 한다.
+    dependsOn test
+
     reports {
         html.enabled true
+        csv.enabled true
+        xml.enabled true
     }
 
+    afterEvaluate {
+        classDirectories.setFrom(
+                files(classDirectories.files.collect {
+                    fileTree(dir: it, excludes: [
+                            "**/model/**",
+                            "**/constant/**",
+                            "**/util/**",
+                            "**/*Controller*",
+                            "**/*Repository*",
+                            "**/*Mapper*",
+                            "**/*Config*",
+                            "**/*Utils*",
+                            "**/*Application*",
+                            "**/*Dto*",
+                            "**/*Interceptor*",
+                            "**/*Exception*",
+                            "**/*Filter*",
+                            "**/*Builder*"
 
-
+                    ])
+                })
+        )
+    }
 
 }
 
@@ -38,9 +61,7 @@ jacocoTestCoverageVerification {
 
             }
             excludes = [
-                    //'*.test.*',
                     '*.model.*',
-                    //'Q*.class'
 
             ]
         }
@@ -57,6 +78,8 @@ task testCoverage(type: Test) {
 
     tasks['jacocoTestReport'].mustRunAfter(tasks['test'])
 }
+
+
 group 'org.example'
 version '1.0-SNAPSHOT'
 

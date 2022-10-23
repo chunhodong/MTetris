@@ -8,7 +8,7 @@ public class RandomUtilsTest {
     @Test
     void 랜덤값반환테스트(){
         RandomUtils randomUtils = new RandomUtils();
-        int result = RandomUtils.nextInt(5);
+        int result = randomUtils.nextInt(5);
         assertThat(result).isLessThan(5);
     }
 }

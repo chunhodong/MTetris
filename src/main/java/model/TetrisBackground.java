@@ -18,10 +18,6 @@ public class TetrisBackground {
     private int[][] positionMap;
     private Color[][] colorMap;
 
-    public TetrisBackground(){
-
-    }
-
     /**
      * 게임배경초기화
      */

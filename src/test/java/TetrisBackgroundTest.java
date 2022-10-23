@@ -1,7 +1,5 @@
 import model.TetrisBackground;
-import model.TetrisOption;
 import org.assertj.core.api.Assertions;
-import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.awt.*;
@@ -10,8 +8,6 @@ import java.util.ArrayList;
 
 
 public class TetrisBackgroundTest {
-
-
 
     @Test
     void 게임판초기화필드값검사(){
@@ -117,8 +113,6 @@ public class TetrisBackgroundTest {
         }
 
     }
-
-
 
     @Test
     void 블록을배경에추가여부_성공(){
