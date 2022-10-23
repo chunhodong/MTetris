@@ -2,6 +2,7 @@ package controller;
 
 import model.*;
 import view.TetrisCurrentBlockView;
+import view.TetrisManualView;
 import view.TetrisNextBlockView;
 
 import java.awt.*;
@@ -14,6 +15,7 @@ public class TetrisController {
 
     private TetrisBackground background;
     private TetrisNextBlock nextBlock;
+    private TetrisManualView manualView;
     private TetrisCurrentBlock currentBlock;
     private TetrisCurrentBlockView currentBlockView;
 
@@ -32,6 +34,7 @@ public class TetrisController {
         this.nextBlock = builder.nextBlock;
         this.currentBlockView = builder.currentBlockView;
         this.nextBlockView = builder.nextBlockView;
+        this.manualView = builder.manualView;
         this.tetrisTimer = builder.timer;
     }
 
@@ -45,6 +48,8 @@ public class TetrisController {
         private TetrisCurrentBlock currentBlock;
         private TetrisNextBlock nextBlock;
         private TetrisCurrentBlockView currentBlockView;
+
+        private TetrisManualView manualView;
 
         private TetrisNextBlockView nextBlockView;
         private TetrisTimer timer;
@@ -70,6 +75,10 @@ public class TetrisController {
             return this;
         }
 
+        public TetrisControllerBuilder manualView(TetrisManualView manualView){
+            this.manualView = manualView;
+            return this;
+        }
         public TetrisControllerBuilder currentBlockView(TetrisCurrentBlockView currentBlockView) {
             this.currentBlockView = currentBlockView;
             return this;
@@ -179,6 +188,7 @@ public class TetrisController {
 
         this.currentBlockView.repaint();
         this.nextBlockView.repaint();
+        this.manualView.repaint();
 
 
     }

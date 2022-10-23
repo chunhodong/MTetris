@@ -13,23 +13,23 @@ public class TetrisNextBlockView extends JPanel {
 
     private Color[][] block;
 
-    public static final int BLOCK_COLUMN_SIZE = 4;
+    private static final int BLOCK_COLUMN_SIZE = 4;
 
-    public static final int BLOCK_ROW_SIZE = 4;
+    private static final int BLOCK_ROW_SIZE = 4;
 
     /*게임화면 시작넓이*/
-    public static final int DISPLAY_WIDTH = 100;
+    private static final int DISPLAY_WIDTH = 100;
 
     /*게임화면 높이*/
-    public static final int DISPLAY_HEIGHT = 100;
+    private static final int DISPLAY_HEIGHT = 100;
 
 
 
     /*게임화면 시작X좌표*/
-    public static final int X_POSITION = 285;
+    private static final int X_POSITION = 285;
 
     /*게임화면 시작Y좌표*/
-    public static final int Y_POSITION = 10;
+    private static final int Y_POSITION = 10;
     /**
      * 게임화면 위치/크기 초기화
      */

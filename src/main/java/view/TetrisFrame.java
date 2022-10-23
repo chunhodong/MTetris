@@ -8,9 +8,9 @@ import java.util.List;
 public class TetrisFrame extends JFrame {
 
     /*x좌표*/
-    public static final int X_POSITION = 400;
+    private static final int X_POSITION = 400;
     /*y좌표*/
-    public static final int Y_POSITION = 100;
+    private static final int Y_POSITION = 100;
     /*화면크기*/
     private static final Dimension SCREEN = Toolkit.getDefaultToolkit().getScreenSize();
     /*화면가로길이*/
