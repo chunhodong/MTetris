@@ -19,7 +19,7 @@ public class TetrisBackground {
     private Color[][] colorMap;
 
     /**
-     * 게임배경초기화
+     * 배경초기화
      */
     public void init(){
         this.positionMap = new int[BOARD_ROW_SIZE][BOARD_COLUMN_SIZE];
@@ -30,41 +30,27 @@ public class TetrisBackground {
     }
 
     /**
-     * 게임판에서 블록 좌우이동여부 확인
+     * 블록 좌우이동 가능여부 확인
      * @param blockPoints 블록위치배열
      * @return 블록좌우이동 가능여부
      */
-    public boolean isMovable(ArrayList<Point> blockPoints){
+    public boolean isMovable(List<Point> blockPoints){
         return blockPoints.stream()
-                .filter(point -> point.getY() < BOARD_COLUMN_SIZE)
-                .filter(point -> point.getY() >= 0)
+                .filter(point -> point.getX() < BOARD_ROW_SIZE && point.getX() >= 0)
+                .filter(point -> point.getY() < BOARD_COLUMN_SIZE && point.getY() >= 0)
                 .filter(point -> this.positionMap[(int)point.getX()][(int)point.getY()] == 0)
                 .count() == 4;
 
     }
 
     /**
-     * 게임판에서 블록 하단이동여부 확인
-     * @param blockPoints 블록위치배열
-     * @return 블록하단이동여부
+     * 기존블록과 겹치는지 여부확인
+     * @param blockPoints 블록위치
+     * @return 겹치는지 여부
      */
-    public boolean isAddible(List<Point> blockPoints){
+    public boolean isOverlap( List<Point> blockPoints ) {
         return blockPoints.stream()
-
-                .filter(point -> point.getX() < BOARD_ROW_SIZE)
-                .filter(point -> this.positionMap[(int)point.getX()][(int)point.getY()] == 0)
-                .count() == 4;
-
-    }
-
-
-    /**
-     * 게임종료여부 확인
-     * @param currentPoints 블록포지션
-     * @return 게임종료여부
-     */
-    public boolean isEnd( List<Point> currentPoints ) {
-        return currentPoints.stream().anyMatch(point -> this.positionMap[(int) point.getX()][(int) point.getY()] == 1);
+                .anyMatch(point -> this.positionMap[(int) point.getX()][(int) point.getY()] == 1);
     }
 
     /**
@@ -118,7 +104,7 @@ public class TetrisBackground {
      * 특정라인제거
      * @param lineIdx 라인인덱스
      */
-    public void removeLine(Integer lineIdx){
+    private void removeLine(Integer lineIdx){
 
         for(int i = lineIdx - 1; i >= 0; i--){
             for(int j = 0; j < BOARD_COLUMN_SIZE; j++){

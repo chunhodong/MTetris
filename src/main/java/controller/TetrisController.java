@@ -132,7 +132,7 @@ public class TetrisController {
     public void requestMoveBlockDown(TetrisCurrentBlock.Direction direction) {
         List<Point> movablePoints = this.currentBlock.getMovablePoints(direction);
 
-        if (this.background.isAddible(movablePoints)) {
+        if (this.background.isMovable(movablePoints)) {
             doMoveDown(movablePoints);
             return;
         }
@@ -215,7 +215,7 @@ public class TetrisController {
      * @param currentPoints 현재블록좌표
      */
     public void switchStop(List<Point> currentPoints) {
-        if (this.background.isEnd(currentPoints)) {
+        if (this.background.isOverlap(currentPoints)) {
             this.status = Status.STOP;
             this.tetrisTimer.stop();
         }

@@ -9,6 +9,9 @@ public class TetrisTimer {
 
 
     private Timer timer;
+    private static final int TIME_PERIOD = 1000;
+    private static final int RUN_DELAY = 1000;
+    private static final int RESUME_DEPLAY = 0;
 
     public void run(TetrisController tetrisController, Timer timer){
         stop();
@@ -18,7 +21,7 @@ public class TetrisTimer {
             public void run() {
                 tetrisController.requestMoveBlockDown(TetrisCurrentBlock.Direction.DOWN);
             }
-        },1000, 1000);
+        },RUN_DELAY, TIME_PERIOD);
 
     }
 
@@ -36,6 +39,6 @@ public class TetrisTimer {
             public void run() {
                 tetrisController.requestMoveBlockDown(TetrisCurrentBlock.Direction.DOWN);
             }
-        }, 0,1000);
+        }, RESUME_DEPLAY,TIME_PERIOD);
     }
 }
