@@ -10,7 +10,7 @@ import static model.TetrisOption.BOARD_ROW_SIZE;
 /**
  * 게임블록데이터
  */
-abstract class TetrisBlock {
+public abstract class TetrisBlock {
     protected int [][][] shapeSet;
 
     protected Color[][] colorMap;
