@@ -13,7 +13,7 @@
 - 테스트코드를 작성하면서 기존에 개발했던 소스를 지속적으로 리팩토링했습니다.
 
 #### 프로젝트구조
-<img width="400" alt="KakaoTalk_20221024_003601322" src="https://user-images.githubusercontent.com/13767077/197402284-c7acb02d-5314-4c1a-8ad2-d6c956cf6325.png">
+<img width="600" alt="KakaoTalk_20221024_003601322" src="https://user-images.githubusercontent.com/13767077/197402284-c7acb02d-5314-4c1a-8ad2-d6c956cf6325.png">
 
 #### 어려웠던점 및 개선점
 - 이전까지 스프링 기반의 웹 개발만 해왔기 떄문에 클래스를 나누고 역할과 책임을 분배하는게 힘들었습니다.
