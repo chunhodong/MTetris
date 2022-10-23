@@ -1,7 +1,7 @@
 package controller;
 
 import model.*;
-import view.TetrisView;
+import view.TetrisBlockView;
 
 import java.awt.*;
 import java.util.*;
@@ -14,7 +14,7 @@ public class TetrisController {
     private TetrisBackground background;
     private TetrisNextBlock nextBlock;
     private TetrisCurrentBlock currentBlock;
-    private TetrisView tetrisView;
+    private TetrisBlockView tetrisBlockView;
     private TetrisTimer tetrisTimer;
     private Status status;
 
@@ -26,7 +26,7 @@ public class TetrisController {
         this.background = builder.background;
         this.currentBlock = builder.currentBlock;
         this.nextBlock = builder.nextBlock;
-        this.tetrisView = builder.panel;
+        this.tetrisBlockView = builder.view;
         this.tetrisTimer = builder.timer;
     }
 
@@ -39,7 +39,7 @@ public class TetrisController {
         private TetrisBackground background;
         private TetrisCurrentBlock currentBlock;
         private TetrisNextBlock nextBlock;
-        private TetrisView panel;
+        private TetrisBlockView view;
         private TetrisTimer timer;
 
 
@@ -59,8 +59,8 @@ public class TetrisController {
         }
 
 
-        public TetrisControllerBuilder panel(TetrisView panel) {
-            this.panel = panel;
+        public TetrisControllerBuilder view(TetrisBlockView view) {
+            this.view = view;
             return this;
         }
 
@@ -86,8 +86,8 @@ public class TetrisController {
 
         if (this.background.isMovable(points)) {
             this.currentBlock.move(points);
-            this.tetrisView.updateCurrentBlock(this.currentBlock.getColorMap());
-            this.tetrisView.repaint();
+            this.tetrisBlockView.updateCurrentBlock(this.currentBlock.getColorMap());
+            this.tetrisBlockView.repaint();
         }
     }
 
@@ -99,8 +99,8 @@ public class TetrisController {
 
         if (this.background.isMovable(points)) {
             this.currentBlock.rotate(points);
-            this.tetrisView.updateCurrentBlock(this.currentBlock.getColorMap());
-            this.tetrisView.repaint();
+            this.tetrisBlockView.updateCurrentBlock(this.currentBlock.getColorMap());
+            this.tetrisBlockView.repaint();
 
         }
     }
@@ -136,8 +136,8 @@ public class TetrisController {
 
     private void doMoveDown(List<Point> movablePoints) {
         this.currentBlock.move(movablePoints);
-        this.tetrisView.updateCurrentBlock(this.currentBlock.getColorMap());
-        this.tetrisView.repaint();
+        this.tetrisBlockView.updateCurrentBlock(this.currentBlock.getColorMap());
+        this.tetrisBlockView.repaint();
     }
 
     private void doMoveBotton(List<Point> currentPoints,Color color) {
@@ -146,10 +146,10 @@ public class TetrisController {
         this.nextBlock.init();
         switchStop(this.currentBlock.getCurrentPoints());
 
-        this.tetrisView.updateBackground(this.background.getColorMap());
-        this.tetrisView.updateCurrentBlock(this.currentBlock.getColorMap());
-        this.tetrisView.updateNextBlock(this.nextBlock.getColorMap());
-        this.tetrisView.repaint();
+        this.tetrisBlockView.updateBackground(this.background.getColorMap());
+        this.tetrisBlockView.updateCurrentBlock(this.currentBlock.getColorMap());
+        this.tetrisBlockView.updateNextBlock(this.nextBlock.getColorMap());
+        this.tetrisBlockView.repaint();
 
 
     }
@@ -159,10 +159,10 @@ public class TetrisController {
         this.nextBlock.init();
         this.background.init();
 
-        this.tetrisView.updateBackground(this.background.getColorMap());
-        this.tetrisView.updateCurrentBlock(this.currentBlock.getColorMap());
-        this.tetrisView.updateNextBlock(this.nextBlock.getColorMap());
-        this.tetrisView.repaint();
+        this.tetrisBlockView.updateBackground(this.background.getColorMap());
+        this.tetrisBlockView.updateCurrentBlock(this.currentBlock.getColorMap());
+        this.tetrisBlockView.updateNextBlock(this.nextBlock.getColorMap());
+        this.tetrisBlockView.repaint();
     }
 
 

@@ -1,6 +1,5 @@
 package view;
 
-import model.TetrisBackground;
 import model.TetrisOption;
 
 import javax.swing.*;
@@ -9,7 +8,7 @@ import java.awt.*;
 /**
  * 게임배경,게임블록등을 그래픽객체로 그려서 화면에출력
  */
-public class TetrisView extends JPanel {
+public class TetrisBlockView extends JPanel {
 
 
     private Color[][] background;
@@ -22,7 +21,7 @@ public class TetrisView extends JPanel {
     /**
      * 게임화면 위치/크기 초기화
      */
-    public TetrisView() {
+    public TetrisBlockView() {
         setLayout(null);
         setBounds(TetrisOption.X_POSITION,
                 TetrisOption.Y_POSITION,

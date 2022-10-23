@@ -3,26 +3,27 @@ package view;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyListener;
+import java.util.List;
 
 public class TetrisFrame extends JFrame {
 
     /*x좌표*/
-    public final int xPos = 400;
+    public static final int X_POSITION = 400;
     /*y좌표*/
-    public final int yPos = 100;
+    public static final int Y_POSITION = 100;
     /*화면크기*/
-    private Dimension screen=Toolkit.getDefaultToolkit().getScreenSize();
+    private static final Dimension SCREEN = Toolkit.getDefaultToolkit().getScreenSize();
     /*화면가로길이*/
-    private int width = (int) (screen.width*0.25);
+    private static final int FRAME_WIDTH = (int) (SCREEN.width*0.25);
     /*화면세로길이*/
-    private int height = (int) (screen.height*0.57);
+    private static int FRAME_HEIGHT = (int) (SCREEN.height*0.57);
 
-    public TetrisFrame(JPanel gamePanel, KeyListener keyListener){
+    public TetrisFrame(List<JPanel> panels, KeyListener keyListener){
         setLayout(null);
-        setBounds(xPos,yPos,width,height);
+        setBounds(X_POSITION,Y_POSITION,FRAME_WIDTH,FRAME_HEIGHT);
         setResizable(false);
         setVisible(true);
-        add(gamePanel);
+        panels.forEach(panel -> add(panel));
         addKeyListener(keyListener);
 
     }
