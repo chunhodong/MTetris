@@ -13,7 +13,6 @@ public class GameContainer {
 
     public void start(){
 
-
         TetrisView view = new TetrisView();
 
         TetrisController controller = TetrisController
@@ -25,8 +24,9 @@ public class GameContainer {
                 .timer(new TetrisTimer())
                 .build();
 
-        new TetrisFrame(view,new TetrisKeyboard(controller));
+        TetrisKeyboard keyboard = new TetrisKeyboard(controller);
 
+        new TetrisFrame(view,keyboard);
 
     }
 }

@@ -93,12 +93,12 @@ public class TetrisView extends JPanel {
      */
     private void paintNextBlock(Graphics g) {
 
-        if (this.nextBlock == null) return;
 
         for (int i = 0; i < (TetrisOption.BOARD_HEIGHT / 5); i++) {
             for (int j = 0; j < (TetrisOption.BOARD_HEIGHT / 5); j++) {
-                g.setColor(this.nextBlock[i][j] == null ? Color.BLACK : this.nextBlock[i][j]);
+                g.setColor(this.nextBlock == null || this.nextBlock[i][j] == null ? Color.BLACK : this.nextBlock[i][j]);
                 g.fillRect(j * TetrisOption.BOX_SIZE + 265, i * TetrisOption.BOX_SIZE, TetrisOption.BOX_SIZE, TetrisOption.BOX_SIZE);
+                g.setColor(Color.white);
                 g.drawRect(j * TetrisOption.BOX_SIZE + 265, i * TetrisOption.BOX_SIZE, TetrisOption.BOX_SIZE, TetrisOption.BOX_SIZE);
 
             }
