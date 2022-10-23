@@ -1,5 +1,7 @@
 #### 프로젝트 소개
-- 간단한 테트리스 게임입니다
+
+<img height="300" src="C:\Users\yhms4\IdeaProjects\mtetris\src\main\resources\screenshot.png" width="200"/><br/>
+- 테트리스 게임입니다
 - 자바의 swing,awt라이브러리를 이용해서 구현한 GUI게임입니다.
 
 #### 개발환경 및 기술
@@ -9,6 +11,9 @@
 #### 프로젝트 목적
 - 테스트코드 작성을 연습하기 위해 시작했습니다.
 - 테스트코드를 작성하면서 기존에 개발했던 소스를 지속적으로 리팩토링했습니다.
+
+#### 프로젝트구조
+<img height="300" src="C:\Users\yhms4\IdeaProjects\mtetris\src\main\resources\classdiagram.png" width="500"/>
 
 #### 어려웠던점 및 개선점
 - 이전까지 스프링 기반의 웹 개발만 해왔기 떄문에 클래스를 나누고 역할과 책임을 분배하는게 힘들었습니다.
