@@ -173,7 +173,8 @@ public class TetrisController {
      * 게임오브젝트초기화,게임화면그리기,타이머작동
      */
     public void switchStart() {
-
+        if(this.tetrisTimer != null)
+            this.tetrisTimer.stop();
         requestCreateBlocks();
         this.status = Status.RUNNING;
         this.tetrisTimer = new TetrisTimer();
@@ -197,6 +198,7 @@ public class TetrisController {
         if (this.status == Status.RUNNING) {
             this.tetrisTimer.stop();
             this.status = Status.STOP;
+            return;
         }
 
         if (this.status == Status.STOP) {
