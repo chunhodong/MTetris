@@ -1,6 +1,6 @@
 #### 프로젝트 소개
 
-<img height="300" src="C:\Users\yhms4\IdeaProjects\mtetris\src\main\resources\screenshot.png" width="200"/><br/>
+![](C:\Users\yhms4\IdeaProjects\mtetris\src\main\resources\KakaoTalk_20221024_001715148.png)
 - 테트리스 게임입니다
 - 자바의 swing,awt라이브러리를 이용해서 구현한 GUI게임입니다.
 
