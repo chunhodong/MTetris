@@ -7,6 +7,9 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
+import static model.TetrisOption.BOARD_COLUMN_SIZE;
+import static model.TetrisOption.BOARD_ROW_SIZE;
+
 /**
  * 게임배경데이터
  */
@@ -23,8 +26,8 @@ public class TetrisBackground {
      * 게임배경초기화
      */
     public void init(){
-        this.positionMap = new int[TetrisOption.BOARD_HEIGHT][TetrisOption.BOARD_WIDTH];
-        this.colorMap = new Color[TetrisOption.BOARD_HEIGHT][TetrisOption.BOARD_WIDTH];
+        this.positionMap = new int[BOARD_ROW_SIZE][BOARD_COLUMN_SIZE];
+        this.colorMap = new Color[BOARD_ROW_SIZE][BOARD_COLUMN_SIZE];
         for (Color[] colors : this.colorMap) {
             Arrays.fill(colors, Color.BLACK);
         }
@@ -37,7 +40,7 @@ public class TetrisBackground {
      */
     public boolean isMovable(ArrayList<Point> blockPoints){
         return blockPoints.stream()
-                .filter(point -> point.getY() < TetrisOption.BOARD_WIDTH)
+                .filter(point -> point.getY() < BOARD_COLUMN_SIZE)
                 .filter(point -> point.getY() >= 0)
                 .filter(point -> this.positionMap[(int)point.getX()][(int)point.getY()] == 0)
                 .count() == 4;
@@ -52,7 +55,7 @@ public class TetrisBackground {
     public boolean isAddible(List<Point> blockPoints){
         return blockPoints.stream()
 
-                .filter(point -> point.getX() < TetrisOption.BOARD_HEIGHT)
+                .filter(point -> point.getX() < BOARD_ROW_SIZE)
                 .filter(point -> this.positionMap[(int)point.getX()][(int)point.getY()] == 0)
                 .count() == 4;
 
@@ -97,16 +100,16 @@ public class TetrisBackground {
      */
     private void clearLines() {
 
-        for(int i = TetrisOption.BOARD_HEIGHT - 1; i > 0; i--){
+        for(int i = BOARD_ROW_SIZE - 1; i > 0; i--){
             int checkCount = 0;
 
-            for(int j = 0; j < TetrisOption.BOARD_WIDTH; j++){
+            for(int j = 0; j < BOARD_COLUMN_SIZE; j++){
                 if(this.positionMap[i][j] == 1){
                     checkCount++;
                 }
 
             }
-            if(checkCount == TetrisOption.BOARD_WIDTH){
+            if(checkCount == BOARD_COLUMN_SIZE){
                 removeLine(i);
                 i++;
             }
@@ -122,13 +125,13 @@ public class TetrisBackground {
     public void removeLine(Integer lineIdx){
 
         for(int i = lineIdx - 1; i >= 0; i--){
-            for(int j = 0; j < TetrisOption.BOARD_WIDTH; j++){
+            for(int j = 0; j < BOARD_COLUMN_SIZE; j++){
                 this.positionMap[i + 1][j] = this.positionMap[i][j];
                 this.colorMap[i + 1][j] = this.colorMap[i][j];
             }
         }
 
-        IntStream.range(1, TetrisOption.BOARD_WIDTH)
+        IntStream.range(1, BOARD_COLUMN_SIZE)
                 .forEach(value -> {
                     this.positionMap[0][value - 1] = 0;
                     this.colorMap[0][value - 1] = Color.BLACK;
@@ -143,7 +146,7 @@ public class TetrisBackground {
      * @return 블록바닥위치
      */
     public List<Point> getBottomPoints(List<Point> points) {
-        for(int i = 1; i < TetrisOption.BOARD_HEIGHT; i++){
+        for(int i = 1; i < BOARD_ROW_SIZE; i++){
             int addX = i;
             List<Point> movePoints = points.stream()
                     .map(point -> new Point((int) (point.getX() + addX), (int) point.getY()))
@@ -151,7 +154,7 @@ public class TetrisBackground {
 
             long bottonCount = movePoints
                     .stream()
-                    .filter(point -> point.getX() == TetrisOption.BOARD_HEIGHT).count();
+                    .filter(point -> point.getX() == BOARD_ROW_SIZE).count();
 
             if(bottonCount > 0){
                 return points.stream()

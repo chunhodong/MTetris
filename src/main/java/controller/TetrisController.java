@@ -1,7 +1,8 @@
 package controller;
 
 import model.*;
-import view.TetrisBlockView;
+import view.TetrisCurrentBlockView;
+import view.TetrisNextBlockView;
 
 import java.awt.*;
 import java.util.*;
@@ -14,7 +15,10 @@ public class TetrisController {
     private TetrisBackground background;
     private TetrisNextBlock nextBlock;
     private TetrisCurrentBlock currentBlock;
-    private TetrisBlockView tetrisBlockView;
+    private TetrisCurrentBlockView currentBlockView;
+
+    private TetrisNextBlockView nextBlockView;
+
     private TetrisTimer tetrisTimer;
     private Status status;
 
@@ -26,7 +30,8 @@ public class TetrisController {
         this.background = builder.background;
         this.currentBlock = builder.currentBlock;
         this.nextBlock = builder.nextBlock;
-        this.tetrisBlockView = builder.view;
+        this.currentBlockView = builder.currentBlockView;
+        this.nextBlockView = builder.nextBlockView;
         this.tetrisTimer = builder.timer;
     }
 
@@ -39,7 +44,9 @@ public class TetrisController {
         private TetrisBackground background;
         private TetrisCurrentBlock currentBlock;
         private TetrisNextBlock nextBlock;
-        private TetrisBlockView view;
+        private TetrisCurrentBlockView currentBlockView;
+
+        private TetrisNextBlockView nextBlockView;
         private TetrisTimer timer;
 
 
@@ -58,9 +65,13 @@ public class TetrisController {
             return this;
         }
 
+        public TetrisControllerBuilder nextBlockView(TetrisNextBlockView nextBlockView){
+            this.nextBlockView = nextBlockView;
+            return this;
+        }
 
-        public TetrisControllerBuilder view(TetrisBlockView view) {
-            this.view = view;
+        public TetrisControllerBuilder currentBlockView(TetrisCurrentBlockView currentBlockView) {
+            this.currentBlockView = currentBlockView;
             return this;
         }
 
@@ -86,8 +97,8 @@ public class TetrisController {
 
         if (this.background.isMovable(points)) {
             this.currentBlock.move(points);
-            this.tetrisBlockView.updateCurrentBlock(this.currentBlock.getColorMap());
-            this.tetrisBlockView.repaint();
+            this.currentBlockView.updateCurrentBlock(this.currentBlock.getColorMap());
+            this.currentBlockView.repaint();
         }
     }
 
@@ -99,8 +110,8 @@ public class TetrisController {
 
         if (this.background.isMovable(points)) {
             this.currentBlock.rotate(points);
-            this.tetrisBlockView.updateCurrentBlock(this.currentBlock.getColorMap());
-            this.tetrisBlockView.repaint();
+            this.currentBlockView.updateCurrentBlock(this.currentBlock.getColorMap());
+            this.currentBlockView.repaint();
 
         }
     }
@@ -136,8 +147,10 @@ public class TetrisController {
 
     private void doMoveDown(List<Point> movablePoints) {
         this.currentBlock.move(movablePoints);
-        this.tetrisBlockView.updateCurrentBlock(this.currentBlock.getColorMap());
-        this.tetrisBlockView.repaint();
+        this.currentBlockView.updateCurrentBlock(this.currentBlock.getColorMap());
+        this.currentBlockView.repaint();
+        //this.nextBlockView.repaint();
+
     }
 
     private void doMoveBotton(List<Point> currentPoints,Color color) {
@@ -146,10 +159,11 @@ public class TetrisController {
         this.nextBlock.init();
         switchStop(this.currentBlock.getCurrentPoints());
 
-        this.tetrisBlockView.updateBackground(this.background.getColorMap());
-        this.tetrisBlockView.updateCurrentBlock(this.currentBlock.getColorMap());
-        this.tetrisBlockView.updateNextBlock(this.nextBlock.getColorMap());
-        this.tetrisBlockView.repaint();
+        this.currentBlockView.updateBackground(this.background.getColorMap());
+        this.currentBlockView.updateCurrentBlock(this.currentBlock.getColorMap());
+        this.nextBlockView.updateNextBlock(this.nextBlock.getColorMap());
+        this.currentBlockView.repaint();
+        this.nextBlockView.repaint();
 
 
     }
@@ -159,10 +173,14 @@ public class TetrisController {
         this.nextBlock.init();
         this.background.init();
 
-        this.tetrisBlockView.updateBackground(this.background.getColorMap());
-        this.tetrisBlockView.updateCurrentBlock(this.currentBlock.getColorMap());
-        this.tetrisBlockView.updateNextBlock(this.nextBlock.getColorMap());
-        this.tetrisBlockView.repaint();
+        this.currentBlockView.updateBackground(this.background.getColorMap());
+        this.currentBlockView.updateCurrentBlock(this.currentBlock.getColorMap());
+        this.nextBlockView.updateNextBlock(this.nextBlock.getColorMap());
+
+        this.currentBlockView.repaint();
+        this.nextBlockView.repaint();
+
+
     }
 
 

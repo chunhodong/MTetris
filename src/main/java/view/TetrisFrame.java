@@ -14,7 +14,7 @@ public class TetrisFrame extends JFrame {
     /*화면크기*/
     private static final Dimension SCREEN = Toolkit.getDefaultToolkit().getScreenSize();
     /*화면가로길이*/
-    private static final int FRAME_WIDTH = (int) (SCREEN.width*0.25);
+    private static final int FRAME_WIDTH = (int) (SCREEN.width*0.27);
     /*화면세로길이*/
     private static int FRAME_HEIGHT = (int) (SCREEN.height*0.57);
 

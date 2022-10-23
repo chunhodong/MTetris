@@ -2,6 +2,7 @@ package model;
 
 public class TetrisNextBlock extends TetrisBlock{
 
+    private static final int OFFSET_Y = 0;
 
     @Override
     public void init() {
@@ -10,7 +11,7 @@ public class TetrisNextBlock extends TetrisBlock{
 
     @Override
     protected int getOffetY() {
-        return 0;
+        return OFFSET_Y;
     }
 
 }

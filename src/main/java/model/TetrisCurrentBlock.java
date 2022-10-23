@@ -4,8 +4,9 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import static model.TetrisOption.BOARD_HEIGHT;
-import static model.TetrisOption.BOARD_WIDTH;
+import static model.TetrisOption.BOARD_COLUMN_SIZE;
+import static model.TetrisOption.BOARD_ROW_SIZE;
+
 
 public class TetrisCurrentBlock extends TetrisBlock{
 
@@ -52,7 +53,7 @@ public class TetrisCurrentBlock extends TetrisBlock{
      * 블록배열초기화
      */
     private void initPosition(){
-        this.positionMap = new int[BOARD_HEIGHT][BOARD_WIDTH];
+        this.positionMap = new int[BOARD_ROW_SIZE][BOARD_COLUMN_SIZE];
         int[][] blockShape = this.shapeSet[this.number];
 
 

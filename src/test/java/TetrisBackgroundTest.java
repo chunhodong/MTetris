@@ -11,13 +11,7 @@ import java.util.ArrayList;
 
 public class TetrisBackgroundTest {
 
-    @DisplayName("게임판널검사")
-    @Test
-    void 게임판널검사(){
-        TetrisBackground tetrisBackground = new TetrisBackground();
-        Assertions.assertThat(tetrisBackground).extracting("backgroundElement").isNotNull();
 
-    }
 
     @Test
     void 게임판초기화필드값검사(){
@@ -49,7 +43,7 @@ public class TetrisBackgroundTest {
         try {
             TetrisBackground tetrisBackground = new TetrisBackground();
 
-            int[][] blocks = new int[TetrisOption.BOARD_HEIGHT][TetrisOption.BOARD_WIDTH];
+            int[][] blocks = new int[20][10];
 
             Field field = tetrisBackground.getClass().getDeclaredField("backgroundElement");
             field.setAccessible(true);
@@ -75,7 +69,7 @@ public class TetrisBackgroundTest {
         try {
             TetrisBackground tetrisBackground = new TetrisBackground();
 
-            int[][] wall = new int[TetrisOption.BOARD_HEIGHT][TetrisOption.BOARD_WIDTH];
+            int[][] wall = new int[20][10];
             wall[4][4] = 1;
             Field field = tetrisBackground.getClass().getDeclaredField("backgroundElement");
             field.setAccessible(true);
@@ -102,7 +96,7 @@ public class TetrisBackgroundTest {
         try {
             TetrisBackground tetrisBackground = new TetrisBackground();
 
-            int[][] wall = new int[TetrisOption.BOARD_HEIGHT][TetrisOption.BOARD_WIDTH];
+            int[][] wall = new int[20][10];
             wall[4][4] = 1;
             Field field = tetrisBackground.getClass().getDeclaredField("backgroundElement");
             field.setAccessible(true);
@@ -131,7 +125,7 @@ public class TetrisBackgroundTest {
         try {
             TetrisBackground tetrisBackground = new TetrisBackground();
 
-            int[][] wall = new int[TetrisOption.BOARD_HEIGHT][TetrisOption.BOARD_WIDTH];
+            int[][] wall = new int[20][10];
 
             Field field = tetrisBackground.getClass().getDeclaredField("backgroundElement");
             field.setAccessible(true);
@@ -158,7 +152,7 @@ public class TetrisBackgroundTest {
         try {
             TetrisBackground tetrisBackground = new TetrisBackground();
 
-            int[][] wall = new int[TetrisOption.BOARD_HEIGHT][TetrisOption.BOARD_WIDTH];
+            int[][] wall = new int[20][10];
 
             Field field = tetrisBackground.getClass().getDeclaredField("backgroundElement");
             field.setAccessible(true);
@@ -185,7 +179,7 @@ public class TetrisBackgroundTest {
         try {
             TetrisBackground tetrisBackground = new TetrisBackground();
 
-            int[][] wall = new int[TetrisOption.BOARD_HEIGHT][TetrisOption.BOARD_WIDTH];
+            int[][] wall = new int[20][10];
             wall[7][4] = 1;
             Field field = tetrisBackground.getClass().getDeclaredField("backgroundElement");
             field.setAccessible(true);
@@ -254,7 +248,7 @@ public class TetrisBackgroundTest {
         try {
             TetrisBackground tetrisBackground = new TetrisBackground();
 
-            Color[][] backgroundColor = new Color[TetrisOption.BOARD_HEIGHT][TetrisOption.BOARD_WIDTH];
+            Color[][] backgroundColor = new Color[20][10];
             backgroundColor[0][0] = Color.YELLOW;
             backgroundColor[0][1] = Color.YELLOW;
 

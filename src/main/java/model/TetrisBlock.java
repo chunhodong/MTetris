@@ -4,6 +4,9 @@ import utils.RandomUtils;
 
 import java.awt.*;
 
+import static model.TetrisOption.BOARD_COLUMN_SIZE;
+import static model.TetrisOption.BOARD_ROW_SIZE;
+
 /**
  * 게임블록데이터
  */
@@ -31,7 +34,7 @@ abstract class TetrisBlock {
         this.shapeSet = createShape();
         this.number = RandomUtils.nextInt(shapeSet.length);
         this.color = BLOCK_COLOR_TYPES[ RandomUtils.nextInt(BLOCK_COLOR_TYPES.length)];
-        this.colorMap = new Color[TetrisOption.BOARD_HEIGHT][TetrisOption.BOARD_WIDTH];
+        this.colorMap = new Color[BOARD_ROW_SIZE][BOARD_COLUMN_SIZE];
         initColor();
     }
 

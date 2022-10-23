@@ -2,7 +2,8 @@ import controller.TetrisController;
 import io.TetrisKeyboard;
 import model.*;
 import view.TetrisFrame;
-import view.TetrisBlockView;
+import view.TetrisCurrentBlockView;
+import view.TetrisNextBlockView;
 
 import java.util.List;
 
@@ -15,20 +16,22 @@ public class GameContainer {
 
     public void start(){
 
-        TetrisBlockView view = new TetrisBlockView();
+        TetrisCurrentBlockView blockView = new TetrisCurrentBlockView();
+        TetrisNextBlockView nextBlockView = new TetrisNextBlockView();
 
         TetrisController controller = TetrisController
                 .builder()
                 .background(new TetrisBackground())
                 .currentBlock(new TetrisCurrentBlock())
                 .nextBlock(new TetrisNextBlock())
-                .view(view)
+                .currentBlockView(blockView)
+                .nextBlockView(nextBlockView)
                 .timer(new TetrisTimer())
                 .build();
 
         TetrisKeyboard keyboard = new TetrisKeyboard(controller);
 
-        new TetrisFrame(List.of(view),keyboard);
+        new TetrisFrame(List.of(blockView,nextBlockView),keyboard);
 
     }
 }
