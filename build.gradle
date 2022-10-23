@@ -54,16 +54,6 @@ jacocoTestCoverageVerification {
         rule {
             element = 'CLASS'
 
-            limit {
-                counter = 'BRANCH'
-                value = 'COVEREDRATIO'
-                minimum = 0.9
-
-            }
-            excludes = [
-                    '*.model.*',
-
-            ]
         }
     }
 }
@@ -77,6 +67,7 @@ task testCoverage(type: Test) {
             ':jacocoTestReport')
 
     tasks['jacocoTestReport'].mustRunAfter(tasks['test'])
+
 }
 
 

@@ -9,59 +9,51 @@ import java.util.ArrayList;
 
 public class TetrisBackgroundTest {
 
-    @Test
-    void 게임판초기화필드값검사(){
 
+
+    @Test
+    void isMovable메소드는_겹치는블록이없으면_true반환() {
+
+        //given
         TetrisBackground tetrisBackground = new TetrisBackground();
-        try {
-            Field field = tetrisBackground.getClass().getDeclaredField("backgroundElement");
-            field.setAccessible(true);
+        tetrisBackground.init();
+        ArrayList<Point> points = new ArrayList<>();
+        points.add(new Point(4, 4));
+        points.add(new Point(5, 4));
+        points.add(new Point(6, 4));
+        points.add(new Point(7, 4));
 
-            int[][] value = (int[][])field.get(tetrisBackground);
+        //when
+        boolean result = tetrisBackground.isMovable(points);
 
-            for(int i = 0; i < value.length; i++){
-                for(int j = 0; j < value[0].length; j++){
+        //then
+        Assertions.assertThat(result).isEqualTo(true);
 
-                    Assertions.assertThat(value[0][0]).isEqualTo(0);
-
-                }
-            }
-        } catch (NoSuchFieldException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        }
     }
 
     @Test
-    void 블록이동여부가능(){
+    void isMovable메소드는_겹치는블록이있으면_false반환() {
 
-        try {
-            TetrisBackground tetrisBackground = new TetrisBackground();
+        //given
+        TetrisBackground tetrisBackground = new TetrisBackground();
+        tetrisBackground.init();
+        ArrayList<Point> points = new ArrayList<>();
+        points.add(new Point(4, 4));
+        points.add(new Point(5, 4));
+        points.add(new Point(6, 4));
+        points.add(new Point(7, 4));
+        tetrisBackground.addBlock(points,Color.BLUE);
 
-            int[][] blocks = new int[20][10];
+        //when
+        boolean result = tetrisBackground.isMovable(points);
 
-            Field field = tetrisBackground.getClass().getDeclaredField("backgroundElement");
-            field.setAccessible(true);
-            field.set(tetrisBackground,blocks);
+        //then
+        Assertions.assertThat(result).isEqualTo(false);
 
-            ArrayList<Point> points = new ArrayList<>();
-            points.add(new Point(4,4));
-            points.add(new Point(5,4));
-            points.add(new Point(6,4));
-            points.add(new Point(7,4));
-
-            boolean result = tetrisBackground.isMovable(points);
-            Assertions.assertThat(result).isEqualTo(true);
-        } catch (NoSuchFieldException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        }
     }
 
     @Test
-    void 블록이동여부불가능_기존백그라운드에존재(){
+    void 블록이동여부불가능_기존백그라운드에존재() {
         try {
             TetrisBackground tetrisBackground = new TetrisBackground();
 
@@ -69,13 +61,13 @@ public class TetrisBackgroundTest {
             wall[4][4] = 1;
             Field field = tetrisBackground.getClass().getDeclaredField("backgroundElement");
             field.setAccessible(true);
-            field.set(tetrisBackground,wall);
+            field.set(tetrisBackground, wall);
 
             ArrayList<Point> points = new ArrayList<>();
-            points.add(new Point(4,4));
-            points.add(new Point(5,4));
-            points.add(new Point(6,4));
-            points.add(new Point(7,4));
+            points.add(new Point(4, 4));
+            points.add(new Point(5, 4));
+            points.add(new Point(6, 4));
+            points.add(new Point(7, 4));
 
             boolean result = tetrisBackground.isMovable(points);
             Assertions.assertThat(result).isEqualTo(false);
@@ -88,7 +80,7 @@ public class TetrisBackgroundTest {
     }
 
     @Test
-    void 블록이동여부불가능_Y값범위이탈(){
+    void 블록이동여부불가능_Y값범위이탈() {
         try {
             TetrisBackground tetrisBackground = new TetrisBackground();
 
@@ -96,13 +88,13 @@ public class TetrisBackgroundTest {
             wall[4][4] = 1;
             Field field = tetrisBackground.getClass().getDeclaredField("backgroundElement");
             field.setAccessible(true);
-            field.set(tetrisBackground,wall);
+            field.set(tetrisBackground, wall);
 
             ArrayList<Point> points = new ArrayList<>();
-            points.add(new Point(4,-4));
-            points.add(new Point(5,4));
-            points.add(new Point(6,89));
-            points.add(new Point(7,4));
+            points.add(new Point(4, -4));
+            points.add(new Point(5, 4));
+            points.add(new Point(6, 89));
+            points.add(new Point(7, 4));
 
             boolean result = tetrisBackground.isMovable(points);
             Assertions.assertThat(result).isEqualTo(false);
@@ -115,7 +107,7 @@ public class TetrisBackgroundTest {
     }
 
     @Test
-    void 블록을배경에추가여부_성공(){
+    void 블록을배경에추가여부_성공() {
         try {
             TetrisBackground tetrisBackground = new TetrisBackground();
 
@@ -123,13 +115,13 @@ public class TetrisBackgroundTest {
 
             Field field = tetrisBackground.getClass().getDeclaredField("backgroundElement");
             field.setAccessible(true);
-            field.set(tetrisBackground,wall);
+            field.set(tetrisBackground, wall);
 
             ArrayList<Point> points = new ArrayList<>();
-            points.add(new Point(4,4));
-            points.add(new Point(5,4));
-            points.add(new Point(6,4));
-            points.add(new Point(7,4));
+            points.add(new Point(4, 4));
+            points.add(new Point(5, 4));
+            points.add(new Point(6, 4));
+            points.add(new Point(7, 4));
 
             boolean result = tetrisBackground.isAddible(points);
             Assertions.assertThat(result).isEqualTo(true);
@@ -142,7 +134,7 @@ public class TetrisBackgroundTest {
     }
 
     @Test
-    void 블록을배경에추가여부_실패_X값이탈(){
+    void 블록을배경에추가여부_실패_X값이탈() {
         try {
             TetrisBackground tetrisBackground = new TetrisBackground();
 
@@ -150,13 +142,13 @@ public class TetrisBackgroundTest {
 
             Field field = tetrisBackground.getClass().getDeclaredField("backgroundElement");
             field.setAccessible(true);
-            field.set(tetrisBackground,wall);
+            field.set(tetrisBackground, wall);
 
             ArrayList<Point> points = new ArrayList<>();
-            points.add(new Point(84,4));
-            points.add(new Point(5,4));
-            points.add(new Point(6,4));
-            points.add(new Point(7,4));
+            points.add(new Point(84, 4));
+            points.add(new Point(5, 4));
+            points.add(new Point(6, 4));
+            points.add(new Point(7, 4));
 
             boolean result = tetrisBackground.isAddible(points);
             Assertions.assertThat(result).isEqualTo(false);
@@ -169,7 +161,7 @@ public class TetrisBackgroundTest {
     }
 
     @Test
-    void 블록을배경에추가여부_실패_기존배경에존재(){
+    void 블록을배경에추가여부_실패_기존배경에존재() {
         try {
             TetrisBackground tetrisBackground = new TetrisBackground();
 
@@ -177,13 +169,13 @@ public class TetrisBackgroundTest {
             wall[7][4] = 1;
             Field field = tetrisBackground.getClass().getDeclaredField("backgroundElement");
             field.setAccessible(true);
-            field.set(tetrisBackground,wall);
+            field.set(tetrisBackground, wall);
 
             ArrayList<Point> points = new ArrayList<>();
-            points.add(new Point(4,4));
-            points.add(new Point(5,4));
-            points.add(new Point(6,4));
-            points.add(new Point(7,4));
+            points.add(new Point(4, 4));
+            points.add(new Point(5, 4));
+            points.add(new Point(6, 4));
+            points.add(new Point(7, 4));
 
             boolean result = tetrisBackground.isAddible(points);
             Assertions.assertThat(result).isEqualTo(false);
@@ -196,24 +188,25 @@ public class TetrisBackgroundTest {
     }
 
     @Test
-    void 블록을배경에추가성공(){
+    void 블록을배경에추가성공() {
         try {
             TetrisBackground tetrisBackground = new TetrisBackground();
-            tetrisBackground.init();;
+            tetrisBackground.init();
+            ;
 
             ArrayList<Point> points = new ArrayList<>();
-            points.add(new Point(4,4));
-            points.add(new Point(5,4));
-            points.add(new Point(6,4));
-            points.add(new Point(7,4));
+            points.add(new Point(4, 4));
+            points.add(new Point(5, 4));
+            points.add(new Point(6, 4));
+            points.add(new Point(7, 4));
 
-            tetrisBackground.addBlock(points,Color.BLUE);
+            tetrisBackground.addBlock(points, Color.BLUE);
 
             Field field1 = tetrisBackground.getClass().getDeclaredField("backgroundElement");
 
             field1.setAccessible(true);
 
-            int[][] value = (int[][])field1.get(tetrisBackground);
+            int[][] value = (int[][]) field1.get(tetrisBackground);
             Assertions.assertThat(value[4][4]).isEqualTo(1);
             Assertions.assertThat(value[5][4]).isEqualTo(1);
             Assertions.assertThat(value[6][4]).isEqualTo(1);
@@ -223,7 +216,7 @@ public class TetrisBackgroundTest {
 
             field2.setAccessible(true);
 
-            Color[][] value2 = (Color[][])field2.get(tetrisBackground);
+            Color[][] value2 = (Color[][]) field2.get(tetrisBackground);
             Assertions.assertThat(value2[4][4]).isEqualTo(Color.BLUE);
             Assertions.assertThat(value2[5][4]).isEqualTo(Color.BLUE);
             Assertions.assertThat(value2[6][4]).isEqualTo(Color.BLUE);
@@ -238,7 +231,7 @@ public class TetrisBackgroundTest {
     }
 
     @Test
-    void 배경컬러값조회성공(){
+    void 배경컬러값조회성공() {
         try {
             TetrisBackground tetrisBackground = new TetrisBackground();
 
@@ -248,7 +241,7 @@ public class TetrisBackgroundTest {
 
             Field field = tetrisBackground.getClass().getDeclaredField("backgroundColor");
             field.setAccessible(true);
-            field.set(tetrisBackground,backgroundColor);
+            field.set(tetrisBackground, backgroundColor);
 
 
             Color color = tetrisBackground.getColorMap()[0][1];
@@ -262,16 +255,17 @@ public class TetrisBackgroundTest {
     }
 
     @Test
-    void 블록라인삭제성공(){
+    void 블록라인삭제성공() {
 
         try {
             TetrisBackground tetrisBackground = new TetrisBackground();
-            tetrisBackground.init();;
+            tetrisBackground.init();
+            ;
 
             int[][] backgroundElement = new int[20][10];
             Color[][] backgroundColor = new Color[20][10];
 
-            for(int i = 0; i < 10; i++){
+            for (int i = 0; i < 10; i++) {
                 backgroundElement[17][i] = i % 2 == 0 ? 1 : 0;
                 backgroundColor[17][i] = Color.RED;
 
@@ -283,17 +277,17 @@ public class TetrisBackgroundTest {
 
             Field field1 = tetrisBackground.getClass().getDeclaredField("backgroundElement");
             field1.setAccessible(true);
-            field1.set(tetrisBackground,backgroundElement);
+            field1.set(tetrisBackground, backgroundElement);
 
 
             Field field2 = tetrisBackground.getClass().getDeclaredField("backgroundColor");
             field2.setAccessible(true);
-            field2.set(tetrisBackground,backgroundColor);
+            field2.set(tetrisBackground, backgroundColor);
 
 
             tetrisBackground.removeLine(18);
 
-            for(int i = 0; i < 10; i++){
+            for (int i = 0; i < 10; i++) {
                 Assertions.assertThat(backgroundElement[18][i]).isEqualTo(i % 2 == 0 ? 1 : 0);
 
             }
@@ -303,7 +297,6 @@ public class TetrisBackgroundTest {
             e.printStackTrace();
         }
     }
-
 
 
 }

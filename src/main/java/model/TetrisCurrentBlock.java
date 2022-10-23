@@ -52,10 +52,9 @@ public class TetrisCurrentBlock extends TetrisBlock{
      * 블록배열초기화
      */
     private void initPosition(){
+
         this.positionMap = new int[BOARD_ROW_SIZE][BOARD_COLUMN_SIZE];
         int[][] blockShape = this.shapeSet[this.number];
-
-
         for(int i = 0; i < blockShape.length; i++){
             for(int j = 0; j < blockShape.length; j++){
                 if(blockShape[i][j] == 1){
@@ -63,7 +62,6 @@ public class TetrisCurrentBlock extends TetrisBlock{
                 }
             }
         }
-
         startEdgePoint = getEdgePoint(this.positionMap);
 
     }
@@ -73,6 +71,7 @@ public class TetrisCurrentBlock extends TetrisBlock{
      * @return 블록위치배열
      */
     public List<Point> getCurrentPoints(){
+
         List<Point> pointList = new ArrayList<>();
         for(int i = 0; i < positionMap.length; i++){
             for(int j = 0; j < positionMap[i].length; j++){
@@ -98,11 +97,9 @@ public class TetrisCurrentBlock extends TetrisBlock{
                 if(blockPositionMap[i][j] == 1){
                     point.x = Math.max(point.x,i);
                     point.y = Math.max(point.y,j);
-
                 }
             }
         }
-
         return point;
 
 
@@ -117,8 +114,6 @@ public class TetrisCurrentBlock extends TetrisBlock{
         for(int i = 0; i < positionMap.length; i++){
             for(int j = 0; j < positionMap[i].length; j++){
                 if(positionMap[i][j] == 1){
-                    System.out.println();
-
                     Point point = direction.isHorizontal()
                             ? new Point(i,j+direction.getDirectionValue())
                             : new Point(i + direction.getDirectionValue(),j);
